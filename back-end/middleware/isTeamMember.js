@@ -15,8 +15,8 @@ module.exports = async (req, res, next) => {
             if(!decoded) next(new Error("Not enough rights"));
 
             const member = await teamMember.findByUserId(decoded.id)
-            //console.log(member)
-            if (member.team_id == req.params.id || req.session.role == "ROLE_ADMIN") next()    
+            console.log(decoded)
+            if (member && member.team_id == req.params.id || decoded.role == "ROLE_ADMIN") next()    
             else {
               next(new Error("Not enough rights"));
             }

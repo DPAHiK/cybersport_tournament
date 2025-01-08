@@ -19,10 +19,12 @@ const router = express.Router();
  *   get:
  *     tags:
  *       - Teams
- *     summary: Получить список всех команд
+ *     summary: Get teams list
  *     responses:
  *       200:
- *         description: Список команд
+ *         description: A list of teams
+ *       500:
+ *         description: Server error
  */
 router.get('/', TeamController.list);
 
@@ -32,7 +34,7 @@ router.get('/', TeamController.list);
  *   post:
  *     tags:
  *       - Teams
- *     summary: Создать новую команду
+ *     summary: Create a new team
  *     parameters:
  *       - name: body
  *         in: body
@@ -45,8 +47,14 @@ router.get('/', TeamController.list);
  *             description:
  *               type: string
  *     responses:
- *       201:
- *         description: Команда создана
+ *       200:
+ *         description: A new team created
+ *       401:
+ *         description: Invalid token
+ *       403:
+ *         description: Not a player nor admin
+ *       500:
+ *         description: Server error
  */
 router.post('/', isAuth("ROLE_PLAYER"), validate(TeamScheme.create), TeamController.create);
 
@@ -56,16 +64,20 @@ router.post('/', isAuth("ROLE_PLAYER"), validate(TeamScheme.create), TeamControl
  *   get:
  *     tags:
  *       - Teams
- *     summary: Получить команду по ID
+ *     summary: get team info by id
  *     parameters:
  *       - name: id
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID команды
+ *         description: team ID
  *     responses:
  *       200:
- *         description: Информация о команде
+ *         description: Team info
+ *       401:
+ *         description: Invalid token
+ *       500:
+ *         description: Server error
  */
 router.get('/:id', isAuth(), TeamController.findById);
 
@@ -75,13 +87,13 @@ router.get('/:id', isAuth(), TeamController.findById);
  *   put:
  *     tags:
  *       - Teams
- *     summary: Обновить информацию о команде
+ *     summary: Update team info
  *     parameters:
  *       - name: id
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID команды
+ *         description: team ID
  *       - name: body
  *         in: body
  *         required: true
@@ -94,7 +106,12 @@ router.get('/:id', isAuth(), TeamController.findById);
  *               type: string
  *     responses:
  *       200:
- *         description: Команда обновлена
+ *         description: Team info updated
+ *       401:
+ *         description: Invalid token
+ *       
+ *       500:
+ *         description: Server error or not enough rights
  */
 router.put('/:id', isTeamMember, validate(TeamScheme.update), TeamController.update);
 
@@ -104,16 +121,21 @@ router.put('/:id', isTeamMember, validate(TeamScheme.update), TeamController.upd
  *   delete:
  *     tags:
  *       - Teams
- *     summary: Удалить команду по ID
+ *     summary: Delete team by ID
  *     parameters:
  *       - name: id
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID команды
+ *         description: team ID
  *     responses:
- *       204:
- *         description: Команда удалена
+ *       200:
+ *         description: Team info updated
+ *       401:
+ *         description: Invalid token
+ *       
+ *       500:
+ *         description: Server error or not enough rights
  */
 router.delete('/:id', isTeamMember, TeamController.delete);
 
@@ -123,16 +145,20 @@ router.delete('/:id', isTeamMember, TeamController.delete);
  *   get:
  *     tags:
  *       - Team Members
- *     summary: Получить список участников команды по ID команды
+ *     summary: get team members list by team id
  *     parameters:
  *       - name: teamId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID команды
+ *         description: team ID
  *     responses:
  *       200:
- *         description: Список участников команды
+ *         description: team members list
+ *       401:
+ *         description: Invalid token     
+ *       500:
+ *         description: Server error
  */
 router.get('/:teamId/member', isAuth(), TeamMemberController.findByTeamId);
 
@@ -142,13 +168,13 @@ router.get('/:teamId/member', isAuth(), TeamMemberController.findByTeamId);
  *   post:
  *     tags:
  *       - Team Members
- *     summary: Добавить участника в команду
+ *     summary: add player to team
  *     parameters:
  *       - name: teamId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID команды
+ *         description: team ID
  *       - name: body
  *         in: body
  *         required: true
@@ -158,10 +184,14 @@ router.get('/:teamId/member', isAuth(), TeamMemberController.findByTeamId);
  *             userId:
  *               type: integer
  *     responses:
- *       201:
- *         description: Участник команды добавлен
+ *       200:
+ *         description: team member added
+ *       401:
+ *         description: Invalid token     
+ *       500:
+ *         description: Server error or not enough rights
  */
-router.post('/:teamId/member', isAuth("ROLE_ADMIN"), validate(TeamMemberScheme.create), TeamMemberController.create);
+router.post('/:teamId/member', isTeamMember, validate(TeamMemberScheme.create), TeamMemberController.create);
 
 /**
  * @swagger
@@ -169,23 +199,27 @@ router.post('/:teamId/member', isAuth("ROLE_ADMIN"), validate(TeamMemberScheme.c
  *   delete:
  *     tags:
  *       - Team Members
- *     summary: Удалить участника из команды
+ *     summary: Delete member from team
  *     parameters:
  *       - name: teamId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID команды
+ *         description: team ID
  *       - name: userId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID участника
+ *         description: member ID
  *     responses:
- *       204:
- *         description: Участник команды удален
+ *       200:
+ *         description: team member deleted
+ *       401:
+ *         description: Invalid token     
+ *       500:
+ *         description: Server error or not enough rights
  */
-router.delete('/:teamId/member/:userId', isAuth("ROLE_ADMIN"), TeamMemberController.delete);
+router.delete('/:teamId/member/:userId', isTeamMember, TeamMemberController.delete);
 
 /**
  * @swagger
@@ -193,16 +227,20 @@ router.delete('/:teamId/member/:userId', isAuth("ROLE_ADMIN"), TeamMemberControl
  *   get:
  *     tags:
  *       - Engaged Teams
- *     summary: Получить список турниров, в которых участвует команда
+ *     summary: get tournaments that team was participated in
  *     parameters:
  *       - name: teamId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID команды
+ *         description: team ID
  *     responses:
  *       200:
- *         description: Список турниров
+ *         description: tournament list, specified by team ID
+ *       401:
+ *         description: Invalid token     
+ *       500:
+ *         description: Server error
  */
 router.get('/:teamId/tournament', isAuth(), EngagedTeamController.findTeamsByTeamId);
 
@@ -212,10 +250,14 @@ router.get('/:teamId/tournament', isAuth(), EngagedTeamController.findTeamsByTea
  *   get:
  *     tags:
  *       - Team Queries
- *     summary: Получить список всех запросов команды
+ *     summary: get all team's query list
  *     responses:
  *       200:
- *         description: Список запросов команды
+ *         description: query list
+ *       401:
+ *         description: Invalid token     
+ *       500:
+ *         description: Server error
  */
 router.get('/query', isAuth(), TeamQueryController.list);
 
@@ -225,16 +267,20 @@ router.get('/query', isAuth(), TeamQueryController.list);
  *   get:
  *     tags:
  *       - Team Queries
- *     summary: Получить запросы команды по ID команды
+ *     summary: get specific team's query list
  *     parameters:
  *       - name: teamId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID команды
+ *         description: team ID
  *     responses:
  *       200:
- *         description: Список запросов команды
+ *         description: query list specified by team
+ *       401:
+ *         description: Invalid token     
+ *       500:
+ *         description: Server error
  */
 router.get('/:teamId/query', isAuth(), TeamQueryController.findByTeamId);
 
@@ -244,21 +290,25 @@ router.get('/:teamId/query', isAuth(), TeamQueryController.findByTeamId);
  *   get:
  *     tags:
  *       - Team Queries
- *     summary: Получить запрос по ID
+ *     summary: get query by id
  *     parameters:
  *       - name: teamId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID команды
+ *         description: team id
  *       - name: queryId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID запроса
+ *         description: query id
  *     responses:
  *       200:
- *         description: Информация о запросе
+ *         description: query info specified by id
+ *       401:
+ *         description: Invalid token     
+ *       500:
+ *         description: Server error
  */
 router.get('/:teamId/query/:queryId', isAuth(), TeamQueryController.findById);
 
@@ -268,13 +318,13 @@ router.get('/:teamId/query/:queryId', isAuth(), TeamQueryController.findById);
  *   post:
  *     tags:
  *       - Team Queries
- *     summary: Создать новый запрос для команды
+ *     summary: create team query
  *     parameters:
  *       - name: teamId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID команды
+ *         description: team ID
  *       - name: body
  *         in: body
  *         required: true
@@ -284,8 +334,12 @@ router.get('/:teamId/query/:queryId', isAuth(), TeamQueryController.findById);
  *             content:
  *               type: string
  *     responses:
- *       201:
- *         description: Запрос создан
+ *       200:
+ *         description: query created
+ *       401:
+ *         description: Invalid token     
+ *       500:
+ *         description: Server error or not enough rights
  */
 router.post('/:teamId/query', isAuth("ROLE_PLAYER"), validate(TeamQueryScheme.create), TeamQueryController.create);
 
@@ -295,21 +349,25 @@ router.post('/:teamId/query', isAuth("ROLE_PLAYER"), validate(TeamQueryScheme.cr
  *   delete:
  *     tags:
  *       - Team Queries
- *     summary: Удалить запрос по ID
+ *     summary: delete query by id
  *     parameters:
  *       - name: teamId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID команды
+ *         description: team ID
  *       - name: queryId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID запроса
+ *         description: query ID
  *     responses:
- *       204:
- *         description: Запрос удален
+ *       200:
+ *         description: query deleted
+ *       401:
+ *         description: Invalid token     
+ *       500:
+ *         description: Server error or not enough rights
  */
 router.delete('/:teamId/query/:queryId', isAuth("ROLE_ADMIN"), TeamQueryController.delete);
 

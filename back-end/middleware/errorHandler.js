@@ -3,7 +3,7 @@ const mongoLogger = require("../helpers/mongoLogger");
 module.exports = (error, req, res, next) => {
 
     //error.route = req._parsedOriginalUrl.path;
-    console.log(error.message)
+    console.log("Error handler: " + error.message)
     //console.log(req)
     //error.route = req._parsedOriginalUrl.path;
   //console.log("popal")

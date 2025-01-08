@@ -13,17 +13,17 @@ const router = express.Router();
  *     tags:
  *       - Authentication
  *     summary: Login into system
- *     parameters:
- *       - name: body
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             name:
- *               type: string
- *             password:
- *               type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               password:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Login successful
@@ -39,21 +39,21 @@ router.post("/login", validate(UserScheme.login), AuthController.login);
  *     tags:
  *       - Authentication
  *     summary: Registration of new user
- *     parameters:
- *       - name: body
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             name:
- *               type: string
- *             password:
- *               type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               password:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Registration successful
- *       400:
+ *       500:
  *         description: Invalid data for registration
  */
 router.post("/signup", validate(UserScheme.create), AuthController.signup);
