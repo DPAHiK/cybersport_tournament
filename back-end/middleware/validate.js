@@ -8,6 +8,7 @@ module.exports = schema => {
     //console.log(isNotValid.error)
 
     if (isNotValid.error) {
+      isNotValid.error.status = 400
       next(isNotValid.error);
     }
 

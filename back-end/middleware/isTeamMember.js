@@ -1,6 +1,8 @@
 // сделать
 const teamMember = require('../repository/teamMember')
 const jwt = require('jsonwebtoken')
+const UnauthorizedError = require('../errors/UnauthorizedError')
+const ForbiddenError = require('../errors/ForbiddenError')
 
 module.exports = async (req, res, next) => {
     //console.log(req.session.user.id)
@@ -10,15 +12,15 @@ module.exports = async (req, res, next) => {
       
           const decoded = jwt.verify(token, 'secret', async (err, decoded) => {
             if (err) {
-              return res.status(401).json({ message: 'Failed to authenticate token' });
+              return next(new UnauthorizedError('Failed to authenticate token'))
             }
-            if(!decoded) next(new Error("Not enough rights"));
+            if(!decoded) return next(new ForbiddenError('Not enough rights'));
 
             const member = await teamMember.findByUserId(decoded.id)
-            console.log(decoded)
-            if (member && member.team_id == req.params.id || decoded.role == "ROLE_ADMIN") next()    
+            //console.log(decoded)
+            if (member && member.team_id == req.params.id || decoded.role == "ROLE_ADMIN") return next()    
             else {
-              next(new Error("Not enough rights"));
+              return next(new ForbiddenError('Not enough rights'));
             }
           });
 

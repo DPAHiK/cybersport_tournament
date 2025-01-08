@@ -1,5 +1,7 @@
 
 const jwt = require('jsonwebtoken')
+const UnauthorizedError = require('../errors/UnauthorizedError')
+const ForbiddenError = require('../errors/ForbiddenError')
 
 module.exports = (role) => {
   return (req, res, next) => {
@@ -9,14 +11,14 @@ module.exports = (role) => {
   
       const decoded = jwt.verify(token, 'secret', (err, decoded) => {
         if (err) {
-          return res.status(401).json({ message: 'Failed to authenticate token' });
+          return next(new UnauthorizedError('Failed to authenticate token'))
         }
         
         if(!role) return next()
 
         if(decoded.role == role || decoded.role == 'ROLE_ADMIN') return next()
 
-        return res.status(403).json({ message: 'Not enough rights' });
+        return next(new ForbiddenError('Not enough rights'));
         
         //req.user = decoded; 
         //console.log(decoded)
