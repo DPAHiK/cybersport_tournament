@@ -20,10 +20,12 @@ const router = express.Router();
  *   get:
  *     tags:
  *       - Tournament Results
- *     summary: Получить список всех результатов турниров
+ *     summary: get all tournament results
  *     responses:
  *       200:
- *         description: Список результатов турниров
+ *         description: list of tournament results
+ *       500:
+ *         description: Server error
  */
 router.get('/result', TournamentResultController.list);
 
@@ -33,16 +35,20 @@ router.get('/result', TournamentResultController.list);
  *   get:
  *     tags:
  *       - Tournament Results
- *     summary: Получить результаты турнира по ID турнира
+ *     summary: get tournament results specified by tournament ID
  *     parameters:
  *       - name: tournamentId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID турнира
+ *         description: tournament ID
  *     responses:
  *       200:
- *         description: Результаты турнира
+ *         description: list of tournament results
+ *       401:
+ *         description: Invalid token
+ *       500:
+ *         description: Server error
  */
 router.get('/:tournamentId/result', isAuth(), TournamentResultController.findByTournamentId);
 
@@ -52,13 +58,13 @@ router.get('/:tournamentId/result', isAuth(), TournamentResultController.findByT
  *   post:
  *     tags:
  *       - Tournament Results
- *     summary: Создать результат турнира
+ *     summary: create a tournament result
  *     parameters:
  *       - name: tournamentId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID турнира
+ *         description: tournament ID
  *       - name: body
  *         in: body
  *         required: true
@@ -68,8 +74,14 @@ router.get('/:tournamentId/result', isAuth(), TournamentResultController.findByT
  *             result:
  *               type: string
  *     responses:
- *       201:
- *         description: Результат турнира создан
+ *       200:
+ *         description: result created
+ *       401:
+ *         description: Invalid token
+ *       403:
+ *         description: Not a orginizer nor admin
+ *       500:
+ *         description: Server error
  */
 router.post('/:tournamentId/result', isAuth("ROLE_ORGINIZER"), validate(TournamentResultScheme.create), TournamentResultController.create);
 
@@ -79,16 +91,22 @@ router.post('/:tournamentId/result', isAuth("ROLE_ORGINIZER"), validate(Tourname
  *   delete:
  *     tags:
  *       - Tournament Results
- *     summary: Удалить результаты турнира по ID турнира
+ *     summary: delete a tournament result
  *     parameters:
  *       - name: tournamentId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID турнира
+ *         description: tournament ID
  *     responses:
- *       204:
- *         description: Результаты турнира удалены
+ *       200:
+ *         description: result deleted
+ *       401:
+ *         description: Invalid token
+ *       403:
+ *         description: Not a orginizer nor admin
+ *       500:
+ *         description: Server error
  */
 router.delete('/:tournamentId/result', isAuth("ROLE_ORGINIZER"), TournamentResultController.deleteByTournamentId);
 
@@ -98,10 +116,12 @@ router.delete('/:tournamentId/result', isAuth("ROLE_ORGINIZER"), TournamentResul
  *   get:
  *     tags:
  *       - Tournaments
- *     summary: Получить список всех турниров
+ *     summary: get all tournaments
  *     responses:
  *       200:
- *         description: Список турниров
+ *         description: tournament list
+ *       500:
+ *         description: Server error
  */
 router.get('/', TournamentController.list);
 
@@ -111,7 +131,7 @@ router.get('/', TournamentController.list);
  *   post:
  *     tags:
  *       - Tournaments
- *     summary: Создать новый турнир
+ *     summary: create a tournament
  *     parameters:
  *       - name: body
  *         in: body
@@ -122,8 +142,14 @@ router.get('/', TournamentController.list);
  *             name:
  *               type: string
  *     responses:
- *       201:
- *         description: Турнир создан
+ *       200:
+ *         description: tournament created
+ *       401:
+ *         description: Invalid token
+ *       403:
+ *         description: Not a orginizer nor admin
+ *       500:
+ *         description: Server error
  */
 router.post('/', isAuth("ROLE_ORGINIZER"), validate(TournamentScheme.create), TournamentController.create);
 
@@ -133,16 +159,20 @@ router.post('/', isAuth("ROLE_ORGINIZER"), validate(TournamentScheme.create), To
  *   get:
  *     tags:
  *       - Tournaments
- *     summary: Получить турнир по ID
+ *     summary: get tournament specified by ID
  *     parameters:
  *       - name: id
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID турнира
+ *         description: tournament ID
  *     responses:
  *       200:
- *         description: Информация о турнире
+ *         description: tournamen specified by ID
+ *       401:
+ *         description: Invalid token
+ *       500:
+ *         description: Server error
  */
 router.get('/:id', isAuth(), TournamentController.findById);
 
@@ -152,13 +182,13 @@ router.get('/:id', isAuth(), TournamentController.findById);
  *   put:
  *     tags:
  *       - Tournaments
- *     summary: Обновить информацию о турнире
+ *     summary: update tournament info
  *     parameters:
  *       - name: id
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID турнира
+ *         description: tournament ID
  *       - name: body
  *         in: body
  *         required: true
@@ -169,7 +199,13 @@ router.get('/:id', isAuth(), TournamentController.findById);
  *               type: string
  *     responses:
  *       200:
- *         description: Турнир обновлен
+ *         description: tournament updated
+ *       401:
+ *         description: Invalid token
+ *       403:
+ *         description: Not a orginizer nor admin
+ *       500:
+ *         description: Server error
  */
 router.put('/:id', isAuth("ROLE_ORGINIZER"), validate(TournamentScheme.update), TournamentController.update);
 
@@ -179,7 +215,7 @@ router.put('/:id', isAuth("ROLE_ORGINIZER"), validate(TournamentScheme.update), 
  *   delete:
  *     tags:
  *       - Tournaments
- *     summary: Удалить турнир по ID
+ *     summary: delete tournament by id
  *     parameters:
  *       - name: id
  *         in: path
@@ -187,8 +223,14 @@ router.put('/:id', isAuth("ROLE_ORGINIZER"), validate(TournamentScheme.update), 
  *         type: integer
  *         description: ID турнира
  *     responses:
- *       204:
- *         description: Турнир удален
+ *       200:
+ *         description: tournament deleted
+ *       401:
+ *         description: Invalid token
+ *       403:
+ *         description: Not a orginizer nor admin
+ *       500:
+ *         description: Server error
  */
 router.delete('/:id', isAuth("ROLE_ORGINIZER"), TournamentController.delete);
 
@@ -198,16 +240,20 @@ router.delete('/:id', isAuth("ROLE_ORGINIZER"), TournamentController.delete);
  *   get:
  *     tags:
  *       - Engaged Teams
- *     summary: Получить список команд по ID турнира
+ *     summary: get engaged teams by tournament ID
  *     parameters:
  *       - name: tournamentId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID турнира
+ *         description: tournament ID
  *     responses:
  *       200:
- *         description: Список команд
+ *         description: team list specified by tournament ID
+ *       401:
+ *         description: Invalid token
+ *       500:
+ *         description: Server error
  */
 router.get('/:tournamentId/team', isAuth(), EngagedTeamController.findTeamsByTournamentId);
 
@@ -217,40 +263,13 @@ router.get('/:tournamentId/team', isAuth(), EngagedTeamController.findTeamsByTou
  *   post:
  *     tags:
  *       - Engaged Teams
- *     summary: Создать команду для турнира
+ *     summary: engage a team into a tournament
  *     parameters:
  *       - name: tournamentId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID турнира
- *       - name: body
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             name:
- *               type: string
- *     responses:
- *       201:
- *         description: Команда создана
- */
-router.post('/:tournamentId/team', isAuth("ROLE_ORGINIZER"), validate(EngagedTeamScheme.create), EngagedTeamController.create);
-
-/**
- * @swagger
- * /tournament/{tournamentId}/team:
- *   put:
- *     tags:
- *       - Engaged Teams
- *     summary: Обновить команду для турнира
- *     parameters:
- *       - name: tournamentId
- *         in: path
- *         required: true
- *         type: integer
- *         description: ID турнира
+ *         description: tournament ID
  *       - name: body
  *         in: body
  *         required: true
@@ -261,7 +280,46 @@ router.post('/:tournamentId/team', isAuth("ROLE_ORGINIZER"), validate(EngagedTea
  *               type: string
  *     responses:
  *       200:
- *         description: Команда обновлена
+ *         description: team engaged
+ *       401:
+ *         description: Invalid token
+ *       403:
+ *         description: Not a orginizer nor admin
+ *       500:
+ *         description: Server error
+ */
+router.post('/:tournamentId/team', isAuth("ROLE_ORGINIZER"), validate(EngagedTeamScheme.create), EngagedTeamController.create);
+
+/**
+ * @swagger
+ * /tournament/{tournamentId}/team:
+ *   put:
+ *     tags:
+ *       - Engaged Teams
+ *     summary: update engaged team
+ *     parameters:
+ *       - name: tournamentId
+ *         in: path
+ *         required: true
+ *         type: integer
+ *         description: tournament ID
+ *       - name: body
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             name:
+ *               type: string
+ *     responses:
+ *       200:
+ *         description: engaged team updated
+ *       401:
+ *         description: Invalid token
+ *       403:
+ *         description: Not a orginizer nor admin
+ *       500:
+ *         description: Server error
  */
 router.put('/:tournamentId/team', isAuth("ROLE_ORGINIZER"), validate(EngagedTeamScheme.update), EngagedTeamController.update);
 
@@ -271,7 +329,7 @@ router.put('/:tournamentId/team', isAuth("ROLE_ORGINIZER"), validate(EngagedTeam
  *   delete:
  *     tags:
  *       - Engaged Teams
- *     summary: Удалить команду из турнира
+ *     summary: delete engaged team by id
  *     parameters:
  *       - name: tournamentId
  *         in: path
@@ -284,8 +342,14 @@ router.put('/:tournamentId/team', isAuth("ROLE_ORGINIZER"), validate(EngagedTeam
  *         type: integer
  *         description: ID команды
  *     responses:
- *       204:
- *         description: Команда удалена
+ *       200:
+ *         description: engaged team deleted
+ *       401:
+ *         description: Invalid token
+ *       403:
+ *         description: Not a orginizer nor admin
+ *       500:
+ *         description: Server error
  */
 router.delete('/:tournamentId/team/:teamId', isAuth("ROLE_ORGINIZER"), EngagedTeamController.delete);
 
@@ -295,16 +359,20 @@ router.delete('/:tournamentId/team/:teamId', isAuth("ROLE_ORGINIZER"), EngagedTe
  *   get:
  *     tags:
  *       - Matches
- *     summary: Получить список матчей по ID турнира
+ *     summary: get matches specified by tournament ID
  *     parameters:
  *       - name: tournamentId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID турнира
+ *         description: tournament ID
  *     responses:
  *       200:
- *         description: Список матчей
+ *         description: match list
+ *       401:
+ *         description: Invalid token
+ *       500:
+ *         description: Server error
  */
 router.get('/:tournamentId/match', isAuth(), MatchController.findByTournamentId);
 
@@ -314,21 +382,25 @@ router.get('/:tournamentId/match', isAuth(), MatchController.findByTournamentId)
  *   get:
  *     tags:
  *       - Matches
- *     summary: Получить матч по ID
+ *     summary: get matche specified by ID
  *     parameters:
  *       - name: tournamentId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID турнира
+ *         description: tournament ID
  *       - name: matchId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID матча
+ *         description: match ID
  *     responses:
  *       200:
- *         description: Информация о матче
+ *         description: match info
+ *       401:
+ *         description: Invalid token
+ *       500:
+ *         description: Server error
  */
 router.get('/:tournamentId/match/:matchId', isAuth(), MatchController.findById);
 
@@ -338,47 +410,13 @@ router.get('/:tournamentId/match/:matchId', isAuth(), MatchController.findById);
  *   post:
  *     tags:
  *       - Matches
- *     summary: Создать матч для турнира
+ *     summary: create a match
  *     parameters:
  *       - name: tournamentId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID турнира
- *       - name: body
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             teamA:
- *               type: string
- *             teamB:
- *               type: string
- *     responses:
- *       201:
- *         description: Матч создан
- */
-router.post('/:tournamentId/match', isAuth("ROLE_ORGINIZER"), validate(MacthScheme.create), MatchController.create);
-
-/**
- * @swagger
- * /tournament/{tournamentId}/match/{matchId}:
- *   put:
- *     tags:
- *       - Matches
- *     summary: Обновить матч
- *     parameters:
- *       - name: tournamentId
- *         in: path
- *         required: true
- *         type: integer
- *         description: ID турнира
- *       - name: matchId
- *         in: path
- *         required: true
- *         type: integer
- *         description: ID матча
+ *         description: tournament ID
  *       - name: body
  *         in: body
  *         required: true
@@ -391,7 +429,53 @@ router.post('/:tournamentId/match', isAuth("ROLE_ORGINIZER"), validate(MacthSche
  *               type: string
  *     responses:
  *       200:
- *         description: Матч обновлен
+ *         description: Match created
+ *       401:
+ *         description: Invalid token
+ *       403:
+ *         description: Not a orginizer nor admin
+ *       500:
+ *         description: Server error
+ */
+router.post('/:tournamentId/match', isAuth("ROLE_ORGINIZER"), validate(MacthScheme.create), MatchController.create);
+
+/**
+ * @swagger
+ * /tournament/{tournamentId}/match/{matchId}:
+ *   put:
+ *     tags:
+ *       - Matches
+ *     summary: update a match
+ *     parameters:
+ *       - name: tournamentId
+ *         in: path
+ *         required: true
+ *         type: integer
+ *         description: tournament ID
+ *       - name: matchId
+ *         in: path
+ *         required: true
+ *         type: integer
+ *         description: match ID
+ *       - name: body
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             teamA:
+ *               type: string
+ *             teamB:
+ *               type: string
+ *     responses:
+ *       200:
+ *         description: Match updated
+ *       401:
+ *         description: Invalid token
+ *       403:
+ *         description: Not a orginizer nor admin
+ *       500:
+ *         description: Server error
  */
 router.put('/:tournamentId/match/:matchId', isAuth("ROLE_ORGINIZER"), validate(MacthScheme.update), MatchController.update);
 
@@ -401,21 +485,27 @@ router.put('/:tournamentId/match/:matchId', isAuth("ROLE_ORGINIZER"), validate(M
  *   delete:
  *     tags:
  *       - Matches
- *     summary: Удалить матч
+ *     summary: Delete match
  *     parameters:
  *       - name: tournamentId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID турнира
+ *         description: Tournament ID
  *       - name: matchId
  *         in: path
  *         required: true
  *         type: integer
- *         description: ID матча
+ *         description: Match ID
  *     responses:
- *       204:
- *         description: Матч удален
+ *       200:
+ *         description: Match deleted
+ *       401:
+ *         description: Invalid token
+ *       403:
+ *         description: Not a orginizer nor admin
+ *       500:
+ *         description: Server error
  */
 router.delete('/:tournamentId/match/:matchId', isAuth("ROLE_ORGINIZER"), MatchController.delete);
 
