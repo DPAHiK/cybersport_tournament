@@ -51,9 +51,9 @@ class EngagedTeamController{
         try{
             const userData = req.body;
 
-            const userId = req.params.teamId;
+            const teamId = req.params.teamId;
 
-            res.json(await EngagedTeamService.update(userId, userData))
+            res.json(await EngagedTeamService.update(teamId, userData))
         }
         catch(err){
             console.log(err)
@@ -65,9 +65,9 @@ class EngagedTeamController{
         try{
             //console.log(userData)
             //console.log(req)
-            const userId = req.params.id;
+            const teamId = req.params.id;
 
-            res.json(await EngagedTeamService.delete(userId))
+            res.json(await EngagedTeamService.delete(teamId))
         }
         catch(err){
             console.log(err)
