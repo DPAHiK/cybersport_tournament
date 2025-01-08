@@ -5,6 +5,10 @@ class TournamentResultRepository{
         return TournamentResult.findOne({where: {tournament_id: tournamentId}});
     }
 
+    findById(id){
+        return Team.findOne({where: {id: id}});
+    }
+
     list(){
         return TournamentResult.findAll();
     }
@@ -22,8 +26,8 @@ class TournamentResultRepository{
         return tournamentResult;
     }
 
-    async update(id, teamData){
-        return TournamentResult.update(teamData, {where: {id: id}})
+    async update(id, tournamentResultData){
+        return TournamentResult.update(tournamentResultData, {where: {id: id}})
     }
 
     async delete(id){

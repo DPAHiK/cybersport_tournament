@@ -14,7 +14,7 @@ const swaggerOptions = {
       info: {
         title: 'CybersportTournament REST API', 
         version: '1.0.0', 
-        description: 'Лабы по СПБД', 
+        description: 'Проект по  WEB/СПБД', 
       },
       servers: [
         {

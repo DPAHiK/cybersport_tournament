@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('cybersport_tournament', 'postgres', 'user', {
+const sequelize = new Sequelize('cybersport_tournament', 'PblBA', 'postgres', {
 	dialect: 'postgresql',
 	define: {
 		timestamps: false

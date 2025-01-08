@@ -26,8 +26,8 @@ class MatchRepository{
         return match;
     }
 
-    async update(id, teamData){
-        return Match.update(teamData, {where: {id: id}})
+    async update(id, matchData){
+        return Match.update(matchData, {where: {id: id}})
     }
 
     async delete(id){

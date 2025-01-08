@@ -1,21 +1,20 @@
-const User = require('../models/user')
 const TeamMember = require('../models/teamMember')
-const sequelize = require('../database/sequelize');
-const { Sequelize } = require('sequelize');
 
 class TeamMemberRepository{
     findByTeamId(teamId){
-        return sequelize.query(`
-            SELECT users.id, users.name
-            FROM users, team_members
-            WHERE team_members.team_id = ` + teamId +` AND team_members.user_id = users.id
-            `,{
-                type: Sequelize.QueryTypes.SELECT
-            })
+        return TeamMember.findAll({where: {team_id: teamId}});
     }
 
     findByUserId(userId){
         return TeamMember.findOne({where: {user_id: userId}})
+    }
+
+    findById(id){
+        return Team.findOne({where: {id: id}});
+    }
+
+    list(){
+        return TeamMember.findAll();
     }
 
     async create(teamMemberData){
@@ -30,6 +29,10 @@ class TeamMemberRepository{
 
         return teamMember;
     }
+
+    async update(id, teamMemberData){
+        return await TeamMember.update(teamMemberData, {where: {id: id}})
+    } 
 
     async delete(teamMemberId){
         return await TeamMember.destroy({where: {id: teamMemberId}})

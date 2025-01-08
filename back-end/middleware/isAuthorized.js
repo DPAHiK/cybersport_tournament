@@ -14,7 +14,7 @@ module.exports = (role) => {
         
         if(!role) return next()
 
-        if(decoded.role == role || decoded.rol == 'ROLE_ADMIN') return next()
+        if(decoded.role == role || decoded.role == 'ROLE_ADMIN') return next()
 
         return res.status(403).json({ message: 'Not enough rights' });
         

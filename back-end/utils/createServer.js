@@ -7,8 +7,8 @@ module.exports = () => {
     const app = express()
     app.use(cors({
         origin: 'http://localhost:3000', 
-        methods: ['GET', 'POST', 'PUT', 'DELETE'], // Разрешенные методы
-        credentials: true // Разрешить отправку куки
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        credentials: true
       }));
     app.use(bodyParser.json())
     app.use(router)

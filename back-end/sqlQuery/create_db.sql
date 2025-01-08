@@ -1,0 +1,1 @@
+CREATE DATABASE Cybersport_tournament;
