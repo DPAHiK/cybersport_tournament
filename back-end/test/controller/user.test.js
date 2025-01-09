@@ -16,6 +16,10 @@ describe('User Controller', () => {
             status: jest.fn().mockReturnThis(),
             json: jest.fn()
         };
+        error = {
+            status: jest.fn().mockReturnThis(),
+            json: jest.fn()
+        }
         next = jest.fn();
     });
 
@@ -35,14 +39,14 @@ describe('User Controller', () => {
         expect(res.json).toHaveBeenCalledWith(user);
     });
 
-    test('user by unexisting id should return status 200 and null', async () => {
+    test('user by unexisting id should return status 404 and error msg', async () => {
         req.params = {id: 0}
 
         userService.findById.mockResolvedValue(null);
 
         await userController.findById(req, res, next);
         expect(userService.findById).toHaveBeenCalledWith(req.params.id); 
-        expect(res.json).toHaveBeenCalledWith(null);
+        expect(res.json).toHaveBeenCalledTimes(0)
     });
 
     test('user by  id should return status 200 and one user', async () => {
@@ -84,7 +88,7 @@ describe('User Controller', () => {
 
         await userController.update(req, res, next);
         expect(userService.update).toHaveBeenCalledWith(req.params.id, user); 
-        expect(res.json).toHaveBeenCalledWith([0, [user]]);
+        expect(res.json).toHaveBeenCalledTimes(0)
     });
 
     test('delete an unexisting user should return status 200 and 0', async () => {
@@ -93,7 +97,7 @@ describe('User Controller', () => {
 
         await userController.delete(req, res, next);
         expect(userService.delete).toHaveBeenCalledWith(req.params.id); 
-        expect(res.json).toHaveBeenCalledWith(0);
+        expect(res.json).toHaveBeenCalledTimes(0)
     });
 
     test('delete a user should return status 200 and 1', async () => {

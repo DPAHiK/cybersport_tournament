@@ -1,5 +1,6 @@
 const engagedTeamService = require("../../services/engagedTeam");
 const engagedTeamController = require('../../controllers/engagedTeam')
+const NotFoundError = require('../../errors/NotFoundError')
 
 jest.mock('../../services/engagedTeam'); 
 jest.mock('../../models/engagedTeam'); 
@@ -50,7 +51,7 @@ describe('EngagedTeam Controller', () => {
 
         await engagedTeamController.findTeamsByTournamentId(req, res, next);
         expect(engagedTeamService.findTeamsByTournamentId).toHaveBeenCalledWith(req.params.tournamentId); 
-        expect(res.json).toHaveBeenCalledWith(null);
+        expect(res.json).toHaveBeenCalledTimes(0)
     });
 
     test('engaged teams by team id should return status 200 and some engaged teams', async () => {
@@ -66,11 +67,11 @@ describe('EngagedTeam Controller', () => {
 
     test('engaged teams by unexisting team id should return status 200 and null', async () => {
         req.params = {teamId: 0}
-        engagedTeamService.findTeamsByTeamId.mockResolvedValue(null);
+        engagedTeamService.findTeamsByTeamId.mockResolvedValue([]);
 
         await engagedTeamController.findTeamsByTeamId(req, res, next);
         expect(engagedTeamService.findTeamsByTeamId).toHaveBeenCalledWith(req.params.teamId); 
-        expect(res.json).toHaveBeenCalledWith(null);
+        expect(next).toHaveBeenCalledWith(new NotFoundError('Teams engaged with team ID ' + 0 + ' not found'))
     });
 
     test('create an engaged team should return status 200 and created team', async () => {
@@ -102,7 +103,7 @@ describe('EngagedTeam Controller', () => {
 
         await engagedTeamController.update(req, res, next);
         expect(engagedTeamService.update).toHaveBeenCalledWith(req.params.teamId, team); 
-        expect(res.json).toHaveBeenCalledWith([0, [team]]);
+        expect(res.json).toHaveBeenCalledTimes(0)
     });
 
     test('delete an unexisting engaged team should return status 200 and 0', async () => {
@@ -111,7 +112,7 @@ describe('EngagedTeam Controller', () => {
 
         await engagedTeamController.delete(req, res, next);
         expect(engagedTeamService.delete).toHaveBeenCalledWith(req.params.id); 
-        expect(res.json).toHaveBeenCalledWith(0);
+        expect(res.json).toHaveBeenCalledTimes(0)
     });
 
     test('delete an engaged team should return status 200 and 1', async () => {

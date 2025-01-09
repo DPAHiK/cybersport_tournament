@@ -3,7 +3,6 @@ const TeamQuery = require('../models/teamQuery')
 
 class TeamQueryController{
     async list(req, res, next){
-        console.log(await TeamQuery.findAll())
         try{
             res.json(await TeamQueryService.list())
         }

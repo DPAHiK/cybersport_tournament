@@ -1,4 +1,5 @@
 const EngagedTeamService = require('../services/engagedTeam')
+const NotFoundError = require('../errors/NotFoundError')
 
 class EngagedTeamController{
     async list(req, res, next){
@@ -15,7 +16,10 @@ class EngagedTeamController{
         try{
             const tournamentId = req.params.tournamentId;
 
-            res.json(await EngagedTeamService.findTeamsByTournamentId(tournamentId))
+            const result = await EngagedTeamService.findTeamsByTournamentId(tournamentId)
+            if(result.length) return res.json(result)
+
+            return next(new NotFoundError('Teams engaged in tournament with ID ' + tournamentId + ' not found'))
         }
         catch(err){
             console.log(err)
@@ -26,8 +30,11 @@ class EngagedTeamController{
     async findTeamsByTeamId(req, res, next){
         try{
             const teamId = req.params.teamId;
+            
+            const result = await EngagedTeamService.findTeamsByTeamId(teamId)
+            if(result.length) return res.json(result)
 
-            res.json(await EngagedTeamService.findTeamsByTeamId(teamId))
+            return next(new NotFoundError('Teams engaged with team ID ' + teamId + ' not found'))
         }
         catch(err){
             console.log(err)
@@ -50,10 +57,12 @@ class EngagedTeamController{
     async update(req, res, next){
         try{
             const userData = req.body;
-
             const teamId = req.params.teamId;
 
-            res.json(await EngagedTeamService.update(teamId, userData))
+            const result = await EngagedTeamService.update(teamId, userData)
+            if(result[0]) return res.json(result)
+
+            next(new NotFoundError('Teams engaged with ID ' + teamId + ' not found'))
         }
         catch(err){
             console.log(err)
@@ -63,11 +72,12 @@ class EngagedTeamController{
 
     async delete(req, res, next){
         try{
-            //console.log(userData)
-            //console.log(req)
             const teamId = req.params.id;
 
-            res.json(await EngagedTeamService.delete(teamId))
+            const result = await EngagedTeamService.delete(teamId)
+            if(result) return res.json(result)
+
+            next(new NotFoundError('Teams engaged with ID ' + teamId + ' not found'))
         }
         catch(err){
             console.log(err)

@@ -1,4 +1,5 @@
 const MatchService = require('../services/match')
+const NotFoundError = require('../errors/NotFoundError')
 
 class MatchController{
     async list(req, res, next){
@@ -6,31 +7,34 @@ class MatchController{
             res.json(await MatchService.list())
         }
         catch(err){
-            console.log(err)
             return next(err)
         }
     }
 
     async findById(req, res, next){
         try{
-            const userId = req.params.matchId;
+            const matchId = req.params.matchId;
 
-            res.json(await MatchService.findById(userId))
+            const result = await MatchService.findById(matchId) 
+            if(result) return res.json(result)
+
+            return next(new NotFoundError('Match with ID ' + matchId + ' not found'))
         }
         catch(err){
-            console.log(err)
             return next(err)
         }
     }
 
     async findByTournamentId(req, res, next){
         try{
-            const userId = req.params.tournamentId;
+            const matchId = req.params.tournamentId;
 
-            res.json(await MatchService.findByTournamentId(userId))
+            const result = await MatchService.findByTournamentId(matchId)
+            if(result.length) return res.json(result)
+
+            return next(new NotFoundError('Matches from tournament with ID ' + matchId + ' not found'))
         }
         catch(err){
-            console.log(err)
             return next(err)
         }
     }
@@ -42,7 +46,6 @@ class MatchController{
             res.json(await MatchService.create(userData))
         }
         catch(err){
-            console.log(err)
             return next(err)
         }
     }
@@ -50,28 +53,28 @@ class MatchController{
     async update(req, res, next){
         try{
             const userData = req.body;
-            //console.log(userData)
-            //console.log(req)
-            const userId = req.params.matchId;
+            const matchId = req.params.matchId;
 
-            res.json(await MatchService.update(userId, userData))
+            const result = await MatchService.update(matchId, userData)
+            if(result[0]) return res.json(result)
+
+            return next(new NotFoundError('Matches with ID ' + matchId + ' not found'))
         }
         catch(err){
-            console.log(err)
             return next(err)
         }       
     }
 
     async delete(req, res, next){
         try{
-            //console.log(userData)
-            //console.log(req)
-            const userId = req.params.id;
+            const matchId = req.params.matchId;
 
-            res.json(await MatchService.delete(userId))
+            const result = await MatchService.delete(matchId)
+            if(result) return res.json(result)
+
+            return next(new NotFoundError('Matches with ID ' + matchId + ' not found'))
         }
         catch(err){
-            console.log(err)
             return next(err)
         }          
     }
