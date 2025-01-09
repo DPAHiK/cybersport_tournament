@@ -13,7 +13,35 @@ const TeamQueryController = require('../controllers/teamQuery')
 const router = express.Router();
 
 
-
+/**
+ * @swagger
+ * /tournament/{tournamentId}/generate:
+ *   post:
+ *     tags:
+ *       - Tournament
+ *     summary: Generates a grid of teams (creating engaged teams from team queries on this tournament)
+ *     parameters:
+ *       - name: tournamentId
+ *         in: path
+ *         required: true
+ *         type: integer
+ *         description: tournament ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: result created
+ *       401:
+ *         description: Invalid token
+ *       403:
+ *         description: Not a orginizer nor admin
+ *       500:
+ *         description: Server error
+ */
 router.post('/:tournamentId/generate', isAuth("ROLE_ORGINIZER"), TournamentController.generateGrid)
 
 /**
