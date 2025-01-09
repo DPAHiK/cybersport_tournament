@@ -30,40 +30,41 @@ describe('Auth Controller', () => {
         const user = { id: id, name: "BobrKurwa", password: "polska_strong", role: "ROLE_PLAYER" , validatePassword: jest.fn().mockReturnValue(false)};
         req.body = {name: "BobrKurwa", password: "ya_perdole"}
 
-        userService.findOne.mockResolvedValue(user);
+        userService.findByName.mockResolvedValue(user);
 
         await authController.login(req, res, next);
 
         //console.log(res)
 
-        expect(userService.findOne).toHaveBeenCalledWith({where: {name: user.name}}); 
-        expect(res.status).toHaveBeenCalledWith(400);
-        expect(res.json).toHaveBeenCalledWith({ message: "incorrect login or password" });
+        expect(userService.findByName).toHaveBeenCalledWith(user.name);
+        expect(res.json).toHaveBeenCalledTimes(0)
     });
 
     test('login with valid data should return 200 and token', async() => {
         const id = 1;
         const user = { id: id, name: "BobrKurwa", password: "polska_strong", role: "ROLE_PLAYER" , validatePassword: jest.fn().mockReturnValue(true)};
         req.body = {name: "BobrKurwa", password: "polska_strong"}
-        userService.findOne.mockResolvedValue(user);
+        userService.findByName.mockResolvedValue(user);
 
         jwt.sign.mockReturnValue('mockAccessToken'); 
 
         await authController.login(req, res, next);
 
-        expect(userService.findOne).toHaveBeenCalledWith({where: {name: user.name}}); 
+        expect(userService.findByName).toHaveBeenCalledWith(user.name); 
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith({ message: "User logged in", accessToken: 'mockAccessToken' });
     })
 
-    test('signup with user, should return 200 and msg', async () => {
+     test('signup with user, should return 200 and msg', async () => {
         const id = 1;
         const user = { id: id, name: "BobrKurwa", password: "polska_strong", role: "ROLE_PLAYER" , validatePassword: jest.fn().mockReturnValue(true)};
         req.body = {name: "BobrKurwa", password: "polska_strong"}
+        userService.findByName.mockResolvedValue(null);
         authService.signUp.mockResolvedValue(user);
 
         await authController.signup(req, res, next);
 
+        expect(userService.findByName).toHaveBeenCalledWith(user.name); 
         expect(authService.signUp).toHaveBeenCalledWith({name: "BobrKurwa", password: "polska_strong"}); 
         expect(res.status).toHaveBeenCalledWith(200);
         expect(res.json).toHaveBeenCalledWith({ message: "Registration successful"});

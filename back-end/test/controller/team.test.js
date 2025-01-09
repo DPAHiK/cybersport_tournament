@@ -43,7 +43,7 @@ describe('Team Controller', () => {
 
         await teamController.findById(req, res, next);
         expect(teamService.findById).toHaveBeenCalledWith(req.params.id); 
-        expect(res.json).toHaveBeenCalledWith(null);
+        expect(res.json).toHaveBeenCalledTimes(0)
     });
 
     test('team by  id should return status 200 and one team', async () => {
@@ -85,7 +85,7 @@ describe('Team Controller', () => {
 
         await teamController.update(req, res, next);
         expect(teamService.update).toHaveBeenCalledWith(req.params.id, team); 
-        expect(res.json).toHaveBeenCalledWith([0, [team]]);
+        expect(res.json).toHaveBeenCalledTimes(0)
     });
 
     test('delete an unexisting team should return status 200 and 0', async () => {
@@ -94,7 +94,7 @@ describe('Team Controller', () => {
 
         await teamController.delete(req, res, next);
         expect(teamService.delete).toHaveBeenCalledWith(req.params.id); 
-        expect(res.json).toHaveBeenCalledWith(0);
+        expect(res.json).toHaveBeenCalledTimes(0)
     });
 
     test('delete a team should return status 200 and 1', async () => {

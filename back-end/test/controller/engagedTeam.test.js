@@ -107,20 +107,20 @@ describe('EngagedTeam Controller', () => {
     });
 
     test('delete an unexisting engaged team should return status 200 and 0', async () => {
-        req.params = {id: 1}
+        req.params = {teamId: 1}
         engagedTeamService.delete.mockResolvedValue(0);
 
         await engagedTeamController.delete(req, res, next);
-        expect(engagedTeamService.delete).toHaveBeenCalledWith(req.params.id); 
+        expect(engagedTeamService.delete).toHaveBeenCalledWith(req.params.teamId); 
         expect(res.json).toHaveBeenCalledTimes(0)
     });
 
     test('delete an engaged team should return status 200 and 1', async () => {
-        req.params = {id: 1}
+        req.params = {teamId: 1}
         engagedTeamService.delete.mockResolvedValue(1);
 
         await engagedTeamController.delete(req, res, next);
-        expect(engagedTeamService.delete).toHaveBeenCalledWith(req.params.id); 
+        expect(engagedTeamService.delete).toHaveBeenCalledWith(req.params.teamId); 
         expect(res.json).toHaveBeenCalledWith(1);
     });
 });

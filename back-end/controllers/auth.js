@@ -3,7 +3,7 @@ const authService = require("../services/auth");
 const userService = require('../services/user')
 const jwt = require('jsonwebtoken')
 const mongoLogger = require("../helpers/mongoLogger");
-const UnauthorizedError = require('../errors/UnauthorizedError')
+const BadRequestError = require('../errors/BadRequestError')
 const ConflictError = require('../errors/ConflictError')
 
 class LoginController {
@@ -12,14 +12,11 @@ class LoginController {
       const userExists = await userService.findByName(req.body.name)
 
       if (!userExists){
-        mongoLogger.storeError(new UnauthorizedError("incorrect login or password"));
-        return res.status(400).json({ message: "incorrect login or password" });
+        return next(new BadRequestError("incorrect login or password"))
       }
         
-  
       if (!userExists.validatePassword(req.body.password)){
-        mongoLogger.storeError(new UnauthorizedError("incorrect login or password"));
-        return res.status(400).json({ message: "incorrect login or password" });
+        return next(new BadRequestError("incorrect login or password"))
       }
 
       const accessToken = jwt
