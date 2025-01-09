@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
 
             if (user && user.validatePassword(req.body.oldPassword)) return next()    
             else {
-              return next(new ForbiddenError('This is not your user data'));
+              return next(new ForbiddenError('Invalid user data'));
             }
           });
 
