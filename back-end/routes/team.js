@@ -35,17 +35,15 @@ router.get('/', TeamController.list);
  *     tags:
  *       - Teams
  *     summary: Create a new team
- *     parameters:
- *       - name: body
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             name:
- *               type: string
- *             description:
- *               type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
  *     responses:
  *       200:
  *         description: A new team created
@@ -94,16 +92,15 @@ router.get('/:id', isAuth(), TeamController.findById);
  *         required: true
  *         type: integer
  *         description: team ID
- *       - name: body
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             name:
- *               type: string
- *             description:
- *               type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Team info updated
@@ -175,14 +172,17 @@ router.get('/:teamId/member', isAuth(), TeamMemberController.findByTeamId);
  *         required: true
  *         type: integer
  *         description: team ID
- *       - name: body
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             userId:
- *               type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                  type: integer
+ *               teamId:
+ *                  type: integer
  *     responses:
  *       200:
  *         description: team member added
@@ -325,14 +325,21 @@ router.get('/:teamId/query/:queryId', isAuth(), TeamQueryController.findById);
  *         required: true
  *         type: integer
  *         description: team ID
- *       - name: body
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             content:
- *               type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               teamId:
+ *                  type: integer
+ *               sendingDate:
+ *                  type: date
+ *               description:
+ *                  type: string
+ *               status:
+ *                  type: boolean
  *     responses:
  *       200:
  *         description: query created

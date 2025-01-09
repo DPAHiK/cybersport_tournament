@@ -32,18 +32,20 @@ class MongoLogger {
 
     async storeEvent(req, res, next) {
 
+        let exit = false;
         const token = req.headers['authorization'];
         let id;
         const decoded = jwt.verify(token, 'secret', (err, decoded) => {
                 if (err) {
                   console.log("Unable to decode token")
+                  exit = true;
                   return
                 }
                 //console.log(decoded)
                 id = decoded.id;
             })
 
-            
+            if(exit) next()
 
         try{
 

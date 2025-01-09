@@ -65,14 +65,19 @@ router.get('/:tournamentId/result', isAuth(), TournamentResultController.findByT
  *         required: true
  *         type: integer
  *         description: tournament ID
- *       - name: body
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             result:
- *               type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               teamId:
+ *                  type: integer
+ *               tournamentId:
+ *                  type: integer
+ *               place:
+ *                  type: integer
  *     responses:
  *       200:
  *         description: result created
@@ -133,14 +138,23 @@ router.get('/', TournamentController.list);
  *       - Tournaments
  *     summary: create a tournament
  *     parameters:
- *       - name: body
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             name:
- *               type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                  type: string
+ *               startDate:
+ *                  type: date
+ *               endDate:
+ *                  type: date
+ *               queryId:
+ *                  type: integer
+ *               orginizerId:
+ *                  type: integer
  *     responses:
  *       200:
  *         description: tournament created
@@ -189,14 +203,23 @@ router.get('/:id', isAuth(), TournamentController.findById);
  *         required: true
  *         type: integer
  *         description: tournament ID
- *       - name: body
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             name:
- *               type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                  type: string
+ *               startDate:
+ *                  type: date
+ *               endDate:
+ *                  type: date
+ *               queryId:
+ *                  type: integer
+ *               orginizerId:
+ *                  type: integer
  *     responses:
  *       200:
  *         description: tournament updated
@@ -270,14 +293,19 @@ router.get('/:tournamentId/team', isAuth(), EngagedTeamController.findTeamsByTou
  *         required: true
  *         type: integer
  *         description: tournament ID
- *       - name: body
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             name:
- *               type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               tournamentId:
+ *                  type: integer
+ *               teamId:
+ *                  type: integer
+ *               teamGridStatus:
+ *                  type: string
  *     responses:
  *       200:
  *         description: team engaged
@@ -303,14 +331,19 @@ router.post('/:tournamentId/team', isAuth("ROLE_ORGINIZER"), validate(EngagedTea
  *         required: true
  *         type: integer
  *         description: tournament ID
- *       - name: body
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             name:
- *               type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               tournamentId:
+ *                  type: integer
+ *               teamId:
+ *                  type: integer
+ *               teamGridStatus:
+ *                  type: string
  *     responses:
  *       200:
  *         description: engaged team updated

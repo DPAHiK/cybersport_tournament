@@ -1,13 +1,11 @@
 const mongoLogger = require("../helpers/mongoLogger");
 
 module.exports = (error, req, res, next) => {
+  console.log("adasdas")
 
-    //error.route = req._parsedOriginalUrl.path;
     console.log("Error handler: " + error.message)
-    //console.log(req)
-    //error.route = req._parsedOriginalUrl.path;
-  //console.log("popal")
-    //mongoLogger.storeError(error);
+
+    mongoLogger.storeError(error);
   
     res.status(error.status || 500).json({error: error.message});
   

@@ -9,7 +9,7 @@ const mongoLogger = require("../helpers/mongoLogger");
 
 const router = express.Router()
 
-//router.use(mongoLogger.storeEvent);
+router.use(mongoLogger.storeEvent);
 router.use("/user", userRouter)
 router.use("/team", teamRouter)
 router.use("/tournament", tournamentRouter)

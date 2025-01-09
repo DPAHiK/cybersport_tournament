@@ -2,6 +2,8 @@
 const authService = require("../services/auth");
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
+const mongoLogger = require("../helpers/mongoLogger");
+const UnauthorizedError = require('../errors/UnauthorizedError')
 
 class LoginController {
   async login(req, res, next) {
@@ -9,12 +11,17 @@ class LoginController {
       //check if user exists
       const userExists = await User.findOne({where: {name: req.body.name}});
       //console.log(userExists.name)
-      if (!userExists)
+      if (!userExists){
+        mongoLogger.storeError(new UnauthorizedError("incorrect login or password"));
         return res.status(400).json({ message: "incorrect login or password" });
+      }
+        
   
-      if (!userExists.validatePassword(req.body.password))
+      if (!userExists.validatePassword(req.body.password)){
+        mongoLogger.storeError(new UnauthorizedError("incorrect login or password"));
         return res.status(400).json({ message: "incorrect login or password" });
-  
+      }
+
       const accessToken = jwt
         .sign(
           {

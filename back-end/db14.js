@@ -51,7 +51,7 @@ const swaggerOptions = {
 async function start(){
     await DataBase.connect()
 
-    //await mongoose.connect(`mongodb://localhost:27017/cybersport_tournament_logs`);
+    await mongoose.connect(`mongodb://localhost:27017/cybersport_tournament_logs`);
     
     app.listen(5000, function(){
         console.log('App listening on port 5000...');

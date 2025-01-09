@@ -1,5 +1,6 @@
 const Joi = require("joi");
-
+const BadRequestError = require('../errors/BadRequestError')
+const mongoLogger = require("../helpers/mongoLogger");
 
 module.exports = schema => {
   return (req, res, next) => {
@@ -8,8 +9,13 @@ module.exports = schema => {
     //console.log(isNotValid.error)
 
     if (isNotValid.error) {
-      isNotValid.error.status = 400
-      next(isNotValid.error);
+          const error = new BadRequestError(isNotValid.error.message) 
+          console.log("Error handler: " + error.message)
+      
+          mongoLogger.storeError(error);
+        
+          res.status(400).json({error: error.message});
+          return
     }
 
     next();
