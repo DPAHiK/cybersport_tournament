@@ -1,5 +1,6 @@
 const TeamService = require('../services/team')
 const ConflictError = require('../errors/ConflictError')
+const NotFoundError = require('../errors/NotFoundError')
 
 class TeamController{
     async list(req, res, next){
@@ -14,11 +15,14 @@ class TeamController{
 
     async findById(req, res, next){
         try{
-            const userId = req.params.id;
+            const teamId = req.params.id;
 
-            if(userId != 'query') return res.json(await TeamService.findById(userId))
-            
-            return next()
+            if(teamId == 'query') return next()
+
+            const result = await TeamService.findById(teamId)
+            if(result) return res.json(result)
+
+            return next(new NotFoundError('Team with ID ' + teamId + ' not found'))
         }
         catch(err){
             console.log(err)
@@ -29,6 +33,7 @@ class TeamController{
     async create(req, res, next){
         const teamExists = await TeamService.findByName(req.body.name)
         if(teamExists) return next(new ConflictError('Team with name ' + req.body.name + ' already exists'))
+
         try{
             const userData = req.body;
 
@@ -45,7 +50,10 @@ class TeamController{
             const teamData = req.body;
             const teamId = req.params.id;
 
-            res.json(await TeamService.update(teamId, teamData))
+            const result = await TeamService.update(teamId, teamData)
+            if(result[0]) return res.json(result)
+
+            return next(new NotFoundError('Team with ID ' + teamId + ' not found'))
         }
         catch(err){
             console.log(err)
@@ -55,11 +63,12 @@ class TeamController{
 
     async delete(req, res, next){
         try{
-            //console.log(userData)
-            //console.log(req)
-            const userId = req.params.id;
+            const teamId = req.params.id;
 
-            res.json(await TeamService.delete(userId))
+            const result = await TeamService.delete(teamId)
+            if(result) return res.json(result)
+
+            return next(new NotFoundError('Team with ID ' + teamId + ' not found'))
         }
         catch(err){
             console.log(err)
