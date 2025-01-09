@@ -1,5 +1,5 @@
 const TeamQueryService = require('../services/teamQuery')
-const TeamQuery = require('../models/teamQuery')
+const NotFoundError = require('../errors/NotFoundError')
 
 class TeamQueryController{
     async list(req, res, next){
@@ -15,7 +15,10 @@ class TeamQueryController{
         try{
             const queryId = req.params.queryId;
 
-            res.json(await TeamQueryService.findById(queryId))
+            const result = await TeamQueryService.findById(queryId)
+            if(result) return res.json(result)
+
+            return next(new NotFoundError('Team queries with ID ' + queryId + ' not found'))
         }
         catch(err){
             return next(err)
@@ -26,10 +29,12 @@ class TeamQueryController{
         try{
             const teamId = req.params.teamId;
 
-            res.json(await TeamQueryService.findByTeamId(teamId))
+            const result = await TeamQueryService.findByTeamId(teamId)
+            if(result.length) return res.json(result)
+
+            return next(new NotFoundError('Team queries from team with ID ' + teamId + ' not found'))
         }
         catch(err){
-            console.log(err)
             return next(err)
         }
     }
@@ -41,21 +46,35 @@ class TeamQueryController{
             res.json(await TeamQueryService.create(userData))
         }
         catch(err){
-            console.log(err)
             return next(err)
         }
     }
 
-    async delete(req, res, next){
+    async update(req, res, next){
         try{
-            //console.log(userData)
-            //console.log(req)
-            const userId = req.params.id;
+            const teamQueryData = req.body;
+            const teamQueryId = req.params.queryId;
 
-            res.json(await TeamQueryService.delete(userId))
+            const result = await TeamQueryService.update(teamQueryId, teamQueryData)
+            if(result[0]) return res.json(result)
+
+            return next(new NotFoundError('Team query with ID ' + teamQueryId + ' not found'))
         }
         catch(err){
-            console.log(err)
+            return next(err)
+        }       
+    }
+
+    async delete(req, res, next){
+        try{
+            const queryId = req.params.queryId;
+
+            const result = await TeamQueryService.delete(queryId)
+            if(result) return res.json(result)
+
+            return next(new NotFoundError('Team query with ID ' + queryId + ' not found'))
+        }
+        catch(err){
             return next(err)
         }          
     }

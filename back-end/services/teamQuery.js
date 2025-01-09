@@ -17,6 +17,10 @@ class TeamQueryService{
         return TeamQueryRepository.create(userData);
     }
 
+    async update(id, teamData){
+        return TeamQueryRepository.update(id, teamData);
+    }
+
     async delete(id){
         return TeamQueryRepository.delete(id);
     }

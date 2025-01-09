@@ -263,6 +263,23 @@ router.get('/query', isAuth(), TeamQueryController.list);
 
 /**
  * @swagger
+ * /team/query/{queryId}:
+ *   get:
+ *     tags:
+ *       - Team Queries
+ *     summary: get team query specefied by id
+ *     responses:
+ *       200:
+ *         description: one query specified by id
+ *       401:
+ *         description: Invalid token     
+ *       500:
+ *         description: Server error
+ */
+router.get('/query/:queryId', isAuth(), TeamQueryController.findById);
+
+/**
+ * @swagger
  * /team/{teamId}/query:
  *   get:
  *     tags:
@@ -349,6 +366,50 @@ router.get('/:teamId/query/:queryId', isAuth(), TeamQueryController.findById);
  *         description: Server error or not enough rights
  */
 router.post('/:teamId/query', isAuth("ROLE_PLAYER"), validate(TeamQueryScheme.create), TeamQueryController.create);
+
+/**
+ * @swagger
+ * /team/{teamId}/query:
+ *   post:
+ *     tags:
+ *       - Team Queries
+ *     summary: create team query
+ *     parameters:
+ *       - name: teamId
+ *         in: path
+ *         required: true
+ *         type: integer
+ *         description: team ID
+ *       - name: queryId
+ *         in: path
+ *         required: true
+ *         type: integer
+ *         description: query ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               teamId:
+ *                  type: integer
+ *               sendingDate:
+ *                  type: date
+ *               description:
+ *                  type: string
+ *               status:
+ *                  type: boolean
+ *     responses:
+ *       200:
+ *         description: query updated
+ *       401:
+ *         description: Invalid token     
+ *       500:
+ *         description: Server error or not enough rights
+ */
+router.put('/:teamId/query/:queryId', isAuth("ROLE_PLAYER"), validate(TeamQueryScheme.update), TeamQueryController.update);
+
 
 /**
  * @swagger
