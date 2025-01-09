@@ -13,7 +13,7 @@ router.use(mongoLogger.storeEvent);
 router.use("/user", userRouter)
 router.use("/team", teamRouter)
 router.use("/tournament", tournamentRouter)
-router.use(errorHandler)
 router.use(authRouter)
+router.use(errorHandler)
 
 module.exports = router

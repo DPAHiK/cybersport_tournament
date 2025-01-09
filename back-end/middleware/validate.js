@@ -9,15 +9,9 @@ module.exports = schema => {
     //console.log(isNotValid.error)
 
     if (isNotValid.error) {
-          const error = new BadRequestError(isNotValid.error.message) 
-          console.log("Error handler: " + error.message)
-      
-          mongoLogger.storeError(error);
-        
-          res.status(400).json({error: error.message});
-          return
+          return next(new BadRequestError(isNotValid.error.message))
     }
 
-    next();
+    return next();
   };
 };

@@ -1,7 +1,6 @@
 const mongoLogger = require("../helpers/mongoLogger");
 
 module.exports = (error, req, res, next) => {
-  console.log("adasdas")
 
     console.log("Error handler: " + error.message)
 

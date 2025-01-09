@@ -11,7 +11,7 @@ module.exports = (role) => {
   
       const decoded = jwt.verify(token, 'secret', (err, decoded) => {
         if (err) {
-          return next(new UnauthorizedError('Failed to authenticate token'))
+          return next(new UnauthorizedError('Invalid token'))
         }
         
         if(!role) return next()

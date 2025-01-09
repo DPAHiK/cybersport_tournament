@@ -12,7 +12,7 @@ module.exports = async (req, res, next) => {
       
           const decoded = jwt.verify(token, 'secret', async (err, decoded) => {
             if (err) {
-              return next(new UnauthorizedError('Failed to authenticate token'))
+              return next(new UnauthorizedError('Invalid token'))
             }
             if(!decoded) return next(new ForbiddenError('Not enough rights'));
 

@@ -8,9 +8,8 @@ const UnauthorizedError = require('../errors/UnauthorizedError')
 class LoginController {
   async login(req, res, next) {
     try {
-      //check if user exists
       const userExists = await User.findOne({where: {name: req.body.name}});
-      //console.log(userExists.name)
+
       if (!userExists){
         mongoLogger.storeError(new UnauthorizedError("incorrect login or password"));
         return res.status(400).json({ message: "incorrect login or password" });
