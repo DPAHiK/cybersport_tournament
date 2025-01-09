@@ -5,6 +5,10 @@ class UserService{
         return UserRepository.findById(id);
     }
 
+    async findByName(name){
+        return UserRepository.findByName(name);
+    }
+
     async list(){
         return UserRepository.list();
     }

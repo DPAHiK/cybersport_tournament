@@ -19,10 +19,7 @@ module.exports = (role) => {
         if(decoded.role == role || decoded.role == 'ROLE_ADMIN') return next()
 
         return next(new ForbiddenError('Not enough rights'));
-        
-        //req.user = decoded; 
-        //console.log(decoded)
-        //next();
+      
       });
 
   };

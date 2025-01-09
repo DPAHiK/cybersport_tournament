@@ -1,4 +1,5 @@
 const TeamService = require('../services/team')
+const ConflictError = require('../errors/ConflictError')
 
 class TeamController{
     async list(req, res, next){
@@ -25,6 +26,8 @@ class TeamController{
     }
 
     async create(req, res, next){
+        const teamExists = await TeamService.findByName(req.body.name)
+        if(teamExists) return next(new ConflictError('Team with name ' + req.body.name + ' already exists'))
         try{
             const userData = req.body;
 

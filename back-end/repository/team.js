@@ -5,6 +5,10 @@ class TeamRepository{
         return Team.findOne({where: {id: id}});
     }
 
+    findByName(name){
+        return Team.findOne({where: {name: name}});
+    }    
+
     list(){
         return Team.findAll();
     }

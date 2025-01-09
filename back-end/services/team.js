@@ -5,6 +5,10 @@ class TeamService{
         return TeamRepository.findById(id);
     }
 
+    async findByName(name){
+        return TeamRepository.findByName(name);
+    }
+
     async list(){
         return TeamRepository.list();
     }

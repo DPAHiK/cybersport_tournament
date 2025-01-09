@@ -1,4 +1,5 @@
 const UserService = require('../services/user')
+const ConflictError = require('../errors/ConflictError')
 
 class UserController{
     async list(req, res, next){
@@ -25,6 +26,8 @@ class UserController{
     }
 
     async create(req, res, next){
+        const userExists = await UserService.findByName(req.body.name)
+        if(userExists) return next(new ConflictError('User with name ' + req.body.name + ' already exists'))
         try{
             const userData = req.body;
 
