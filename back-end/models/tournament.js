@@ -18,11 +18,6 @@ end_date:{
     type: Sequelize.DATE
 },
 
-query_id:{
-    type: Sequelize.BIGINT,
-    allowNull: false
-},
-
 organizer_id:{
     type: Sequelize.BIGINT,
     allowNull: false

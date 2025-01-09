@@ -6,6 +6,10 @@ class TeamQueryRepository{
         return TeamQuery.findAll({where: {team_id: teamId}});
     }
 
+    findByTournamentId(tournamentId){
+        return TeamQuery.findAll({where: {tournament_id: tournamentId}});
+    }
+
     list(){
         return TeamQuery.findAll();
     }

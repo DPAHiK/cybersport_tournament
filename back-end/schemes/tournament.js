@@ -12,11 +12,6 @@ const TournamentScheme = {
 
         end_date: Joi.date(),        
 
-        query_id: Joi.number()
-        .integer()
-        .min(1)
-        .required(),
-
         organizer_id: Joi.number()
         .integer()
         .min(1)
@@ -32,10 +27,6 @@ const TournamentScheme = {
         start_date: Joi.date(),
 
         end_date: Joi.date(),        
-
-        query_id: Joi.number()
-        .integer()
-        .min(1),
 
         organizer_id: Joi.number()
         .integer()

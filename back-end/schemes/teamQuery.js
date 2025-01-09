@@ -7,6 +7,11 @@ const TeamQueryScheme = {
         .min(1)
         .required(),
 
+        tournament_id: Joi.number()
+        .integer()
+        .min(1)
+        .required(),
+
         sending_date: Joi.date()
         .required(),
 
@@ -21,6 +26,10 @@ const TeamQueryScheme = {
 
     update: Joi.object().keys({
         team_id: Joi.number()
+        .integer()
+        .min(1),
+
+        tournament_id: Joi.number()
         .integer()
         .min(1),
 

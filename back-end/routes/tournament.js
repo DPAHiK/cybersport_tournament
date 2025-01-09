@@ -6,9 +6,9 @@ const MatchController = require('../controllers/match');
 const isAuth = require('../middleware/isAuthorized');
 const validate = require('../middleware/validate');
 const EngagedTeamScheme = require('../schemes/engagedTeam');
-const MacthScheme = require('../schemes/match');
 const TournamentScheme = require('../schemes/tournament');
 const TournamentResultScheme = require('../schemes/tournamentResult');
+const TeamQueryController = require('../controllers/teamQuery')
 
 const router = express.Router();
 
@@ -198,6 +198,7 @@ router.delete('/:tournamentId/result', isAuth("ROLE_ORGINIZER"), TournamentResul
  */
 router.delete('/:tournamentId/result/:resultId', isAuth("ROLE_ORGINIZER"), TournamentResultController.delete);
 
+router.get('/:tournamentId/query', isAuth(), TeamQueryController.findByTournamentId)
 
 /**
  * @swagger

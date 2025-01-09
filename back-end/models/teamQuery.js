@@ -8,6 +8,11 @@ const TeamQuery = sequelize.define('team_queries', {
             type: Sequelize.BIGINT,
             allowNull: false
         },
+
+        tournament_id:{
+            type: Sequelize.BIGINT,
+            allowNull: false
+        },
         
         sending_date:{
             type: Sequelize.DATE

@@ -37,20 +37,23 @@ INSERT INTO public."team_members"(
 	(2, 9),
 	(2, 10);
 	
-INSERT INTO public."team_queries"(
-	team_id, sending_date, description, status)
-	VALUES
-	(1, '10.10.2024', 'Doka2', true),
-	(2, '20.10.2024', 'StariyCraft2', false),
-	(2, '22.10.2024', 'CounterBonk2', true),
-	(1, '13.11.2024', 'BABG', true);
-	
 INSERT INTO public."tournaments"(
-	title, start_date, end_date, query_id, organizer_id)
+	title, start_date, end_date, organizer_id)
 	VALUES
-	('Doka2 t.1', '12.10.2024', '14.10.2024', 1, 11 ),
-	('CounterBonk2 t.1', '24.10.2024', '26.10.2024', 3, 11 ),
-	('BABG t.1', '15.11.2024', '17.11.2024', 4, 11 );
+	('Doka2 t.1', '12.10.2024', '14.10.2024', 11 ),
+	('CounterBonk2 t.1', '24.10.2024', '26.10.2024', 11 ),
+	('BABG t.1', '15.11.2024', '17.11.2024', 11 );
+
+INSERT INTO public."team_queries"(
+	team_id, tournament_id, sending_date, description, status)
+	VALUES
+	(1, 1, '10.10.2024', 'Doka2', true),
+	(2, 1, '10.10.2024', 'Doka2', true),
+	(2, 2, '20.10.2024', 'StariyCraft2', false),
+	(2, 2, '22.10.2024', 'CounterBonk2', true),
+	(1, 2, '22.10.2024', 'CounterBonk2', true),
+	(1, 3, '13.11.2024', 'BABG', true),
+	(2, 3, '13.11.2024', 'BABG', true);
 
 INSERT INTO public."engaged_teams"(
 	tournament_id, team_id, team_grid_status)
