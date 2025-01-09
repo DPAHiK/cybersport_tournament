@@ -1,12 +1,13 @@
 const TeamQueryService = require('../services/teamQuery')
+const TeamQuery = require('../models/teamQuery')
 
 class TeamQueryController{
     async list(req, res, next){
+        console.log(await TeamQuery.findAll())
         try{
             res.json(await TeamQueryService.list())
         }
         catch(err){
-            console.log(err)
             return next(err)
         }
     }
@@ -18,7 +19,6 @@ class TeamQueryController{
             res.json(await TeamQueryService.findById(queryId))
         }
         catch(err){
-            console.log(err)
             return next(err)
         }
     }

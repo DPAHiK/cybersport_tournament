@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS "engaged_teams"(
 
 );
 
-CREATE TABLE IF NOT EXISTS "team_query" (
+CREATE TABLE IF NOT EXISTS "team_queries" (
 	"id" serial NOT NULL UNIQUE,
 	"team_id" bigint,
 	"sending_date" date NOT NULL,
@@ -73,9 +73,9 @@ ALTER TABLE "tournaments" ADD CONSTRAINT "tournament_fk4" FOREIGN KEY ("organize
 
 ALTER TABLE "engaged_teams" ADD CONSTRAINT "engaged_team_fk5" FOREIGN KEY ("tournament_id") REFERENCES "tournaments"("id") ON DELETE CASCADE;
 ALTER TABLE "engaged_teams" ADD CONSTRAINT "engaged_team_fk6" FOREIGN KEY ("team_id") REFERENCES "teams"("id") ON DELETE CASCADE;
-ALTER TABLE "team_query" ADD CONSTRAINT "team_query_fk1" FOREIGN KEY ("team_id") REFERENCES "teams"("id") ON DELETE set null;
+ALTER TABLE "team_queries" ADD CONSTRAINT "team_query_fk1" FOREIGN KEY ("team_id") REFERENCES "teams"("id") ON DELETE set null;
 
-ALTER TABLE "tournaments" ADD CONSTRAINT "tournament_fk6" FOREIGN KEY ("query_id") REFERENCES "team_query"("id") ON DELETE SET NULL;
+ALTER TABLE "tournaments" ADD CONSTRAINT "tournament_fk6" FOREIGN KEY ("query_id") REFERENCES "team_queries"("id") ON DELETE SET NULL;
 ALTER TABLE "tournament_results" ADD CONSTRAINT "tournament_result_fk1" FOREIGN KEY ("tournament_id") REFERENCES "tournaments"("id") ON DELETE CASCADE;
 
 ALTER TABLE "tournament_results" ADD CONSTRAINT "tournament_Result_fk2" FOREIGN KEY ("team_id") REFERENCES "teams"("id") ON DELETE CASCADE;

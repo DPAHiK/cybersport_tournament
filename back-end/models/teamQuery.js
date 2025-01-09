@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../database/sequelize');
 
-const TeamQuery = sequelize.define('team_query', {
+const TeamQuery = sequelize.define('team_queries', {
     
         
         team_id:{
@@ -23,5 +23,6 @@ const TeamQuery = sequelize.define('team_query', {
         }
             
         });
+
 
 module.exports = TeamQuery;

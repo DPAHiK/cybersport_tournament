@@ -16,8 +16,9 @@ class TeamController{
         try{
             const userId = req.params.id;
 
-            if(userId != 'query')res.json(await TeamService.findById(userId))
-                else next()
+            if(userId != 'query') return res.json(await TeamService.findById(userId))
+            
+            return next()
         }
         catch(err){
             console.log(err)
@@ -41,12 +42,10 @@ class TeamController{
 
     async update(req, res, next){
         try{
-            const userData = req.body;
-            //console.log(userData)
-            //console.log(req)
-            const userId = req.params.id;
+            const teamData = req.body;
+            const teamId = req.params.id;
 
-            res.json(await TeamService.update(userId, userData))
+            res.json(await TeamService.update(teamId, teamData))
         }
         catch(err){
             console.log(err)

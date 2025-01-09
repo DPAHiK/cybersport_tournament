@@ -37,7 +37,7 @@ INSERT INTO public."team_members"(
 	(2, 9),
 	(2, 10);
 	
-INSERT INTO public."team_query"(
+INSERT INTO public."team_queries"(
 	team_id, sending_date, description, status)
 	VALUES
 	(1, '10.10.2024', 'Doka2', true),
