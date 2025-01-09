@@ -2,6 +2,7 @@ const express = require('express');
 const AuthController = require('../controllers/auth');
 const validate = require('../middleware/validate');
 const UserScheme = require('../schemes/user');
+const isMe = require('../middleware/isMyPassword')
 
 const router = express.Router();
 
@@ -57,5 +58,36 @@ router.post("/login", validate(UserScheme.login), AuthController.login);
  *         description: Invalid data for registration
  */
 router.post("/signup", validate(UserScheme.create), AuthController.signup);
+
+/**
+ * @swagger
+ * /{id}/changePassword:
+ *   post:
+ *     tags:
+ *       - Authentication
+ *     summary: change password of current user (user which token is used at the moment)
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: The ID of the user
+ *         schema:
+ *           type: integer  
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Registration successful
+ *       500:
+ *         description: Invalid data for registration
+ */
+router.put("/auth/changePassword", validate(UserScheme.changePassword), isMe,  AuthController.changePassword)
 
 module.exports = router;

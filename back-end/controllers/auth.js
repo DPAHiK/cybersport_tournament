@@ -2,9 +2,9 @@
 const authService = require("../services/auth");
 const userService = require('../services/user')
 const jwt = require('jsonwebtoken')
-const mongoLogger = require("../helpers/mongoLogger");
 const BadRequestError = require('../errors/BadRequestError')
 const ConflictError = require('../errors/ConflictError')
+const UnauthorizedError = require('../errors/UnauthorizedError')
 
 class LoginController {
   async login(req, res, next) {
@@ -49,7 +49,26 @@ class LoginController {
       await authService.signUp(userData);
       res.status(200).json({ message:"Registration successful"});
     } catch (err) {
-      //console.log(err);
+      return next(err);
+    }
+  }
+
+  async changePassword(req, res, next) {
+    try {
+    const token = req.headers['authorization'];
+
+    jwt.verify(token, 'secret', async (err, decoded) => {
+      if (err) {
+        return next(new UnauthorizedError('Invalid token'))
+      }
+
+      //console.log(decoded)
+      
+      const userData = req.body;
+      await userService.update(decoded.id, {password: userData.newPassword});
+      res.status(200).json({ message:"Password changed"});
+    });
+    } catch (err) {
       return next(err);
     }
   }

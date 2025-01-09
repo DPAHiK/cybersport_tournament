@@ -2,7 +2,7 @@
   "name": "db_node",
   "version": "1.0.0",
   "description": "laba",
-  "main": "db14.js",
+  "main": "index.js",
   "scripts": {
     "test": "jest"
   },
