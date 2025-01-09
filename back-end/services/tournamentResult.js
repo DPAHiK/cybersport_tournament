@@ -5,6 +5,9 @@ class TournamentResultService{
         return TournamentResultRepository.findByTournamentId(id);
     }
 
+    async findById(id){
+        return TournamentResultRepository.findById(id);
+    }
 
     async list(){
         return TournamentResultRepository.list();

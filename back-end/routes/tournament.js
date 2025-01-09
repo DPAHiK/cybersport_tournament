@@ -31,6 +31,21 @@ router.get('/result', TournamentResultController.list);
 
 /**
  * @swagger
+ * /tournament/result:
+ *   get:
+ *     tags:
+ *       - Tournament Results
+ *     summary: get tournament result specified by id
+ *     responses:
+ *       200:
+ *         description: tournament result by id
+ *       500:
+ *         description: Server error
+ */
+router.get('/result/:resultId', isAuth(), TournamentResultController.findById);
+
+/**
+ * @swagger
  * /tournament/{tournamentId}/result:
  *   get:
  *     tags:
@@ -92,6 +107,44 @@ router.post('/:tournamentId/result', isAuth("ROLE_ORGINIZER"), validate(Tourname
 
 /**
  * @swagger
+ * /tournament/result/{resultId}:
+ *   post:
+ *     tags:
+ *       - Tournament Results
+ *     summary: update a tournament result
+ *     parameters:
+ *       - name: resultId
+ *         in: path
+ *         required: true
+ *         type: integer
+ *         description: result ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               teamId:
+ *                  type: integer
+ *               tournamentId:
+ *                  type: integer
+ *               place:
+ *                  type: integer
+ *     responses:
+ *       200:
+ *         description: result updated
+ *       401:
+ *         description: Invalid token
+ *       403:
+ *         description: Not a orginizer nor admin
+ *       500:
+ *         description: Server error
+ */
+router.put('/result/:resultId', isAuth("ROLE_ORGINIZER"), validate(TournamentResultScheme.update), TournamentResultController.update);
+
+/**
+ * @swagger
  * /tournament/{tournamentId}/result:
  *   delete:
  *     tags:
@@ -114,6 +167,37 @@ router.post('/:tournamentId/result', isAuth("ROLE_ORGINIZER"), validate(Tourname
  *         description: Server error
  */
 router.delete('/:tournamentId/result', isAuth("ROLE_ORGINIZER"), TournamentResultController.deleteByTournamentId);
+
+/**
+ * @swagger
+ * /tournament/{tournamentId}/result/{resultId}:
+ *   delete:
+ *     tags:
+ *       - Tournament Results
+ *     summary: delete a tournament result specified by id
+ *     parameters:
+ *       - name: tournamentId
+ *         in: path
+ *         required: true
+ *         type: integer
+ *         description: tournament ID
+  *       - name: resultId
+ *         in: path
+ *         required: true
+ *         type: integer
+ *         description: result ID
+ *     responses:
+ *       200:
+ *         description: result deleted
+ *       401:
+ *         description: Invalid token
+ *       403:
+ *         description: Not a orginizer nor admin
+ *       500:
+ *         description: Server error
+ */
+router.delete('/:tournamentId/result/:resultId', isAuth("ROLE_ORGINIZER"), TournamentResultController.delete);
+
 
 /**
  * @swagger
