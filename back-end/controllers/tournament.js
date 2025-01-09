@@ -1,7 +1,31 @@
 const TournamentService = require('../services/tournament')
+const TeamQueryService = require('../services/teamQuery')
+const EngagedTeamService = require('../services/engagedTeam')
 const NotFoundError = require('../errors/NotFoundError')
 
 class TournamentController{
+
+    async generateGrid(req, res, next){
+        try{
+            const tournamentId = req.params.tournamentId;
+
+            const check = await TournamentService.findById(tournamentId)
+            if(!check) return next(new NotFoundError('Tournament with ID ' + tournamentId + ' not found'))
+
+            const acceptedQuereis = await TeamQueryService.findAcceptedByTournamentId(tournamentId)
+
+            acceptedQuereis.forEach((item) => {EngagedTeamService.create
+                ({tournament_id: tournamentId, team_id: item.team_id, team_grid_status: "HIGH_GRID"})})
+
+            console.log(acceptedQuereis)
+
+            return res.json({message: "Grid generated"})
+        }
+        catch(err){
+            return next(err)
+        }        
+    }
+    
     async list(req, res, next){
         try{
             res.json(await TournamentService.list())

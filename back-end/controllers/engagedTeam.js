@@ -72,7 +72,7 @@ class EngagedTeamController{
 
     async delete(req, res, next){
         try{
-            const teamId = req.params.id;
+            const teamId = req.params.teamId;
 
             const result = await EngagedTeamService.delete(teamId)
             if(result) return res.json(result)

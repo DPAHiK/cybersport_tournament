@@ -14,6 +14,8 @@ const router = express.Router();
 
 
 
+router.post('/:tournamentId/generate', isAuth("ROLE_ORGINIZER"), TournamentController.generateGrid)
+
 /**
  * @swagger
  * /tournament/result:
@@ -439,7 +441,7 @@ router.post('/:tournamentId/team', isAuth("ROLE_ORGINIZER"), validate(EngagedTea
  *       500:
  *         description: Server error
  */
-router.put('/:tournamentId/team', isAuth("ROLE_ORGINIZER"), validate(EngagedTeamScheme.update), EngagedTeamController.update);
+router.put('/:tournamentId/team/:teamId', isAuth("ROLE_ORGINIZER"), validate(EngagedTeamScheme.update), EngagedTeamController.update);
 
 /**
  * @swagger

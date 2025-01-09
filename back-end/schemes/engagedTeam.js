@@ -15,9 +15,7 @@ const EngagedTeamScheme = {
         team_grid_status: Joi.string()
         .max(20)
     }),
-
-    update:{
-        create: Joi.object().keys({
+        update: Joi.object().keys({
             tournament_id: Joi.number()
             .integer()
             .min(1),
@@ -29,7 +27,6 @@ const EngagedTeamScheme = {
             team_grid_status: Joi.string()
             .max(20)
         })
-    }
 }
 
 module.exports = EngagedTeamScheme;

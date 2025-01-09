@@ -13,6 +13,10 @@ class TeamQueryService{
         return TeamQueryRepository.findByTournamentId(tournamentId);
     }
 
+    async findAcceptedByTournamentId(tournamentId){
+        return TeamQueryRepository.findAcceptedByTournamentId(tournamentId);
+    }
+
     async list(){
         return TeamQueryRepository.list();
     }
