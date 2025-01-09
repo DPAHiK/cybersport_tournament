@@ -1,4 +1,5 @@
 const TournamentService = require('../services/tournament')
+const NotFoundError = require('../errors/NotFoundError')
 
 class TournamentController{
     async list(req, res, next){
@@ -6,22 +7,23 @@ class TournamentController{
             res.json(await TournamentService.list())
         }
         catch(err){
-            console.log(err)
             return next(err)
         }
     }
 
     async findById(req, res, next){
         try{
-            const userId = req.params.id;
+            const tournamentId = req.params.id;
 
-            
+            if(tournamentId == 'query' || tournamentId == 'result') return next();
 
-            if(userId != 'query' && userId != 'result') res.json(await TournamentService.findById(userId))
-                else next()
+            const result = await TournamentService.findById(tournamentId)
+            if(result) return res.json(result)
+
+            return next(new NotFoundError('Tournament with ID ' + tournamentId + ' not found'))
+                
         }
         catch(err){
-            console.log(err)
             return next(err)
         }
     }
@@ -33,19 +35,19 @@ class TournamentController{
             res.json(await TournamentService.create(userData))
         }
         catch(err){
-            console.log(err)
             return next(err)
         }
     }
 
     async update(req, res, next){
         try{
-            const userData = req.body;
-            //console.log(userData)
-            //console.log(req)
-            const userId = req.params.id;
+            const tournamentData = req.body;
+            const tournamentId = req.params.id;
 
-            res.json(await TournamentService.update(userId, userData))
+            const result = await TournamentService.update(tournamentId, tournamentData)
+            if(result[0]) return res.json(result)
+
+            return next(new NotFoundError('Tournament with ID ' + tournamentId + ' not found'))
         }
         catch(err){
             console.log(err)
@@ -55,11 +57,12 @@ class TournamentController{
 
     async delete(req, res, next){
         try{
-            //console.log(userData)
-            //console.log(req)
-            const userId = req.params.id;
+            const tournamentId = req.params.id;
 
-            res.json(await TournamentService.delete(userId))
+            const result = await TournamentService.delete(tournamentId)
+            if(result) return res.json(result)
+
+            return next(new NotFoundError('Tournament with ID ' + tournamentId + ' not found'))
         }
         catch(err){
             console.log(err)
