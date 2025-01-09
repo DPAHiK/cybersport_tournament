@@ -1,4 +1,5 @@
 const TeamMemberService = require('../services/teamMember')
+const NotFoundError = require('../errors/NotFoundError')
 
 class TeamMemberController{
 
@@ -6,7 +7,10 @@ class TeamMemberController{
         try{
             const teamId = req.params.teamId;
 
-            res.json(await TeamMemberService.findByTeamId(teamId))
+            const result = await TeamMemberService.findByTeamId(teamId)
+            if(result.length) return res.json(result)
+
+            return next(new NotFoundError('Team members from team with ID ' + teamId + ' not found'))
         }
         catch(err){
             console.log(err)
@@ -30,11 +34,12 @@ class TeamMemberController{
 
     async delete(req, res, next){
         try{
-            //console.log(userData)
-            //console.log(req)
             const userId = req.params.userId;
 
-            res.json(await TeamMemberService.delete(userId))
+            const result = await TeamMemberService.deleteByUserId(userId)
+            if(result) return res.json(result)
+
+            return next(new NotFoundError('Team member with user ID ' + userId + ' not found'))
         }
         catch(err){
             console.log(err)

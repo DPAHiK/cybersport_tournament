@@ -9,6 +9,10 @@ class TeamMemberService{
         return TeamMemberRepository.create(userData);
     }
 
+    async deleteByUserId(id){
+        return TeamMemberRepository.deleteByUserId(id);
+    }
+
     async delete(id){
         return TeamMemberRepository.delete(id);
     }

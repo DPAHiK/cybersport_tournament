@@ -34,6 +34,10 @@ class TeamMemberRepository{
         return await TeamMember.update(teamMemberData, {where: {id: id}})
     } 
 
+    async deleteByUserId(userId){
+        return await TeamMember.destroy({where: {user_id: userId}})
+    }
+
     async delete(teamMemberId){
         return await TeamMember.destroy({where: {id: teamMemberId}})
     }
