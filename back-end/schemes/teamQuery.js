@@ -18,9 +18,7 @@ const TeamQueryScheme = {
         description: Joi.string()
         .min(1)
         .max(255)
-        .required(),
-
-        status: Joi.boolean()
+        .required()
 
     }),
 

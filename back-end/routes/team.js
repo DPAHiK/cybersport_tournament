@@ -408,7 +408,7 @@ router.post('/:teamId/query', isAuth("ROLE_PLAYER"), validate(TeamQueryScheme.cr
  *       500:
  *         description: Server error or not enough rights
  */
-router.put('/:teamId/query/:queryId', isAuth("ROLE_PLAYER"), validate(TeamQueryScheme.update), TeamQueryController.update);
+router.put('/:teamId/query/:queryId', isAuth("ROLE_ORGINIZER"), validate(TeamQueryScheme.update), TeamQueryController.update);
 
 
 /**

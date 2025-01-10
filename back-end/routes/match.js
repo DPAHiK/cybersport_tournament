@@ -25,17 +25,12 @@ router.get('/match', MatchController.list);
 
 /**
  * @swagger
- * /tournament/{tournamentId}/match/{matchId}:
+ * /match/{matchId}:
  *   get:
  *     tags:
  *       - Matches
  *     summary: get match specified by ID
  *     parameters:
- *       - name: tournamentId
- *         in: path
- *         required: true
- *         type: integer
- *         description: tournament ID
  *       - name: matchId
  *         in: path
  *         required: true
@@ -58,22 +53,25 @@ router.get('/match/:matchId', isAuth(), MatchController.findById);
  *     tags:
  *       - Matches
  *     summary: create a match
- *     parameters:
- *       - name: tournamentId
- *         in: path
- *         required: true
- *         type: integer
- *         description: tournament ID
- *       - name: body
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             teamA:
- *               type: string
- *             teamB:
- *               type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               tournamentId:
+ *                  type: integer
+ *               is_team1_winner:
+ *                  type: boolean
+ *               start_date:
+ *                  type: date
+ *               end_date:
+ *                  type: date
+ *               team1_id:
+ *                  type: integer
+ *               team2_id:
+ *                  type: integer
  *     responses:
  *       200:
  *         description: Match created
@@ -88,32 +86,36 @@ router.post('/match', isAuth("ROLE_ORGINIZER"), validate(MacthScheme.create), Ma
 
 /**
  * @swagger
- * /tournament/{tournamentId}/match/{matchId}:
+ * /match/{matchId}:
  *   put:
  *     tags:
  *       - Matches
  *     summary: update a match
  *     parameters:
- *       - name: tournamentId
- *         in: path
- *         required: true
- *         type: integer
- *         description: tournament ID
  *       - name: matchId
  *         in: path
  *         required: true
  *         type: integer
  *         description: match ID
- *       - name: body
- *         in: body
- *         required: true
- *         schema:
- *           type: object
- *           properties:
- *             teamA:
- *               type: string
- *             teamB:
- *               type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               tournamentId:
+ *                  type: integer
+ *               is_team1_winner:
+ *                  type: boolean
+ *               start_date:
+ *                  type: date
+ *               end_date:
+ *                  type: date
+ *               team1_id:
+ *                  type: integer
+ *               team2_id:
+ *                  type: integer
  *     responses:
  *       200:
  *         description: Match updated
@@ -128,7 +130,7 @@ router.put('/match/:matchId', isAuth("ROLE_ORGINIZER"), validate(MacthScheme.upd
 
 /**
  * @swagger
- * /tournament/{tournamentId}/match/{matchId}:
+ * /match/{matchId}:
  *   delete:
  *     tags:
  *       - Matches

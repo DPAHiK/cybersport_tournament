@@ -7,8 +7,6 @@ const MacthScheme = {
         .min(1)
         .required(),
 
-        is_team1_winner: Joi.boolean(),
-
         start_date: Joi.date()
         .required(),
 
