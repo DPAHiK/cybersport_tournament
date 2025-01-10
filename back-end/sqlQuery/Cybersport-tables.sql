@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS "matches" (
 	"start_date" date NOT NULL,
 	"end_date" date,
 	"team1_id" bigint NOT NULL,
-	"team2_id" bigint NOT NULL,
+	"team2_id" bigint,
 	PRIMARY KEY ("id")
 );
 

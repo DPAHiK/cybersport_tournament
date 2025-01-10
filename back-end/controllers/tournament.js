@@ -1,6 +1,7 @@
 const TournamentService = require('../services/tournament')
 const TeamQueryService = require('../services/teamQuery')
 const EngagedTeamService = require('../services/engagedTeam')
+const MatchService = require('../services/match')
 const NotFoundError = require('../errors/NotFoundError')
 
 class TournamentController{
@@ -16,6 +17,13 @@ class TournamentController{
 
             acceptedQuereis.forEach((item) => {EngagedTeamService.create
                 ({tournament_id: tournamentId, team_id: item.team_id, team_grid_status: "HIGH_GRID"})})
+            
+            for (let i = 0; i < acceptedQuereis.length; i += 2){
+                let match = {tournament_id: tournamentId, start_date: check.start_date, team1_id: acceptedQuereis[i].team_id, team2_id: null}
+                if(i + 1 < acceptedQuereis.length) match.team2_id = acceptedQuereis[i + 1].team_id
+
+                MatchService.create(match)
+            }
 
             console.log(acceptedQuereis)
 
