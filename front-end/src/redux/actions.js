@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:5000/team';
+const API_URL = 'http://localhost:5000/';
+
+export const setLoginToken = (token) => ({
+  type: 'LOGIN',
+  payload: token,
+});
 
 export const setTeams = (teams) => ({
   type: 'SET_TEAMS',
@@ -22,37 +27,55 @@ export const updateTeam = (team) => ({
   payload: team,
 });
 
+export const setError = (error) => ({
+  type: "SET_ERROR",
+  payload: error
+})
+
+export const login = (loginData) => {
+  return async (dispatch) => {
+    const response = await axios.post(API_URL + 'login', loginData);
+    sessionStorage.setItem('token', response.data.accessToken);
+    dispatch(setLoginToken(response.data.accessToken));
+  };
+};
+
 export const fetchTeams = () => {
   return async (dispatch) => {
-    const response = await axios.get(API_URL);
+    const response = await axios.get(API_URL + 'team');
     dispatch(setTeams(response.data));
   };
 };
 
-
-
 export const createTeam = (team) => {
   return async (dispatch) => {
-    const response = await axios.post(API_URL, team);
+    const response = await axios.post(API_URL + 'team', team);
     dispatch(addTeam(response.data));
   };
 };
 
 export const removeTeam = (id) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
-      await axios.delete(`${API_URL}/${id}`);
+      const state = getState()
+      const token = state.token 
+      await axios.delete(`${API_URL + 'team'}/${id}`, {
+        headers: {
+            'Authorization': token
+        }
+      });
       dispatch(deleteTeam(id));
     }
     catch(err){
-      console.log(err);
+      console.log(err.response);
+      dispatch(setError(err.response))
     }
   };
 };
 
 export const editTeam = (team) => {
   return async (dispatch) => {
-    const response = await axios.put(`${API_URL}/${team.id}`, team);
+    const response = await axios.put(`${API_URL + 'team'}/${team.id}`, team);
     dispatch(updateTeam(response.data));
   };
 };

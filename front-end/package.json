@@ -26,12 +26,12 @@
   "devDependencies": {
     "@babel/cli": "7.17.0",
     "@babel/core": "7.17.0",
+    "@babel/plugin-proposal-private-property-in-object": "",
     "@babel/preset-react": "7.16.0",
     "babel-loader": "8.2.0",
     "webpack": "^5.97.1",
     "webpack-cli": "4.10.0",
-    "webpack-dev-server": "^4.15.2",
-    "@babel/plugin-proposal-private-property-in-object": ""
+    "webpack-dev-server": "^4.15.2"
   },
   "browserslist": {
     "production": [

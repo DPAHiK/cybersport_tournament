@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createTeam, editTeam } from '../redux/actions.js';
+import { login } from '../redux/actions.js';
 
-const Login = ({ team }) => {
-  const [name, setName] = useState(team ? team.name : '');
+const Login = () => {
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (team) {
-      dispatch(editTeam({ ...team, name }));
-    } else {
-      dispatch(createTeam({ name }));
-    }
+    const loginData = {name: name, password: password}
+    dispatch(login(loginData))
     setName('');
+    setPassword('')
   };
 
   return (
@@ -22,10 +21,17 @@ const Login = ({ team }) => {
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        placeholder="Название команды"
+        placeholder="Name"
         required
       />
-      <button type="submit">{team ? 'Изменить' : 'Создать'}</button>
+            <input
+        type="text"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+        required
+      />
+      <button type="submit">Login</button>
     </form>
   );
 };
