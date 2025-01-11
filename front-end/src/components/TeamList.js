@@ -20,6 +20,17 @@ const TeamList = () => {
       <div>
         {error.data.error}
       </div>
+
+      <div>
+      <h2>Команды</h2>
+      <ul>
+        {teams.map(team => (
+          <li key={team.id}>
+            {team.name} <button onClick={() => handleDelete(team.id)}>Удалить</button>
+          </li>
+        ))}
+      </ul>
+    </div>
     </div>
   )
   return (

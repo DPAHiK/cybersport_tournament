@@ -7,6 +7,10 @@ export const setLoginToken = (token) => ({
   payload: token,
 });
 
+export const deleteLoginToken = () => ({
+  type: 'LOGOUT'
+});
+
 export const setTeams = (teams) => ({
   type: 'SET_TEAMS',
   payload: teams,
@@ -34,9 +38,28 @@ export const setError = (error) => ({
 
 export const login = (loginData) => {
   return async (dispatch) => {
-    const response = await axios.post(API_URL + 'login', loginData);
-    sessionStorage.setItem('token', response.data.accessToken);
-    dispatch(setLoginToken(response.data.accessToken));
+    try{
+      const response = await axios.post(API_URL + 'login', loginData);
+      sessionStorage.setItem('token', response.data.accessToken);
+      dispatch(setLoginToken(response.data.accessToken));
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+    }
+  };
+};
+
+export const logout = () => {
+  return async (dispatch) => {
+    try{
+      sessionStorage.removeItem('token');
+      dispatch(deleteLoginToken());
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+    }
   };
 };
 

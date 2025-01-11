@@ -23,7 +23,10 @@ const initialState = {
         return{...state, error: action.payload}
 
       case 'LOGIN':
-        return { ...state, token: action.payload };
+        
+        return { ...state, token: action.payload, error: null };
+      case 'LOGOUT':
+        return { ...state, token: '', error: null };
       case 'SIGNUP':
         return state;
       default:
