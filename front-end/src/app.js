@@ -3,7 +3,7 @@ import TeamList from './components/TeamList.js';
 import TeamForm from './components/TeamForm.js';
 import Login from './components/Login.js';
 import {  useDispatch, useSelector } from 'react-redux';
-import { logout } from './redux/actions.js';
+import { logout } from './redux/actions/authActions.js';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Signup from './components/Signup.js';
 import TournamentList from './components/TournamentList.js';

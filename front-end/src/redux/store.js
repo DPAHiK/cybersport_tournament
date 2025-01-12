@@ -1,9 +1,9 @@
 import { createStore, applyMiddleware, combineReducers  } from 'redux';
 import thunk from 'redux-thunk';
-import teamReducer from './teamReducer.js';
-import authReducer from './authReducers.js';
-import errorReducer from './errorReducer.js';
-import tournamentReducer from './tournamentReducer.js'
+import teamReducer from './reducers/teamReducer.js';
+import authReducer from './reducers/authReducers.js';
+import errorReducer from './reducers/errorReducer.js';
+import tournamentReducer from './reducers/tournamentReducer.js'
 
 const rootReducer = combineReducers({
     team: teamReducer,

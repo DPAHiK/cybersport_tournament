@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTournaments, removeTeam } from '../redux/actions.js';
+import { fetchTournaments } from '../redux/actions/tournamentActions.js';
 import Error from './Error.js'
 
 const TournamentList = () => {

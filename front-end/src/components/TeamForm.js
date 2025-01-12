@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createTeam } from '../redux/actions.js';
+import { createTeam } from '../redux/actions/teamActions.js';
 import Error from './Error.js'
 
 const TeamForm = () => {
@@ -24,10 +24,10 @@ const TeamForm = () => {
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        placeholder="Название команды"
+        placeholder="Team name"
         required
       />
-      <button type="submit">Создать</button>
+      <button type="submit">Create</button>
     </form>
     </div>
 
