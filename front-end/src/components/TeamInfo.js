@@ -6,15 +6,14 @@ import { Link, useParams } from 'react-router-dom';
 
 const TeamInfo = () => {
 
-  async function fetch(){
-    await useEffect(() => {
-        dispatch(fetchTeamById(params.id));
-      }, [dispatch]);
-  }
+
 
   const params = useParams()
   const dispatch = useDispatch();
-  fetch()
+  useEffect(() => {
+    dispatch(fetchTeamById(params.id));
+  }, [dispatch]);
+  
   const team = useSelector(state => state.team.teamUnique)
   const error = useSelector(state => state.error.body);
 
