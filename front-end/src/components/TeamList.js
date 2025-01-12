@@ -26,7 +26,9 @@ const TeamList = () => {
       <ul>
         {teams.map(team => (
           <li key={team.id}>
-            {team.name} <button onClick={() => handleDelete(team.id)}>Delete</button>
+            {team.name}
+            <Link to={"/team/" + team.id}>Info</Link> 
+            <button onClick={() => handleDelete(team.id)}>Delete</button>
           </li>
         ))}
       </ul>

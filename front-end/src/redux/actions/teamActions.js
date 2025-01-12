@@ -40,7 +40,6 @@ export const createTeam = (team) => {
     try{
       const state = getState()
       const token = state.auth.token 
-      console.log(token)
       const response = await axios.post(API_URL, team, {
         headers: {
             'Authorization': token

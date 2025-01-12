@@ -7,6 +7,7 @@ import { logout } from './redux/actions/authActions.js';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Signup from './components/Signup.js';
 import TournamentList from './components/TournamentList.js';
+import TeamInfo from './components/TeamInfo.js';
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
       <Route path="/team" >
         <Route index element={<TeamList/>} />
         <Route path="create" element={<TeamForm/>} />
+        <Route path=":id" element={<TeamInfo/>} />
       </Route>
       <Route path="/" >
         <Route index element={<TournamentList/>} />
