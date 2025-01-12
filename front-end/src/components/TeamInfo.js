@@ -1,23 +1,27 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTeams, removeTeam } from '../redux/actions/teamActions.js';
+import { fetchTeamById,  } from '../redux/actions/teamActions.js';
 import Error from './Error.js'
 import { Link, useParams } from 'react-router-dom';
 
 const TeamInfo = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchTeams());
-  }, [dispatch]);
+
+  async function fetch(){
+    await useEffect(() => {
+        dispatch(fetchTeamById(params.id));
+      }, [dispatch]);
+  }
 
   const params = useParams()
-  const team = useSelector(state => state.team.teams).filter(team => team.id == params.id)[0];
+  const dispatch = useDispatch();
+  fetch()
+  const team = useSelector(state => state.team.teamUnique)
   const error = useSelector(state => state.error.body);
 
-//   console.log(params.id)
-//   console.log(team)
+//    console.log(params.id)
+//    console.log(team)
 
-  return (
+  if(team) return (
     <div>
       <Error body={error}/>
 

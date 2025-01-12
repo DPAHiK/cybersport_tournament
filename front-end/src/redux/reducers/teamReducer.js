@@ -1,11 +1,14 @@
 const initialState = {
-    teams: []
+    teams: [],
+    teamUnique: null
   };
   
   const teamsReducer = (state = initialState, action) => {
     switch (action.type) {
       case 'SET_TEAMS':
         return { ...state, teams: action.payload };
+      case 'SET_TEAM_UNIQUE':
+        return { ...state, teamUnique: action.payload };
       case 'ADD_TEAM':
         return { ...state, teams: [...state.teams, action.payload] };
       case 'DELETE_TEAM':

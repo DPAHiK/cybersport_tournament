@@ -6,6 +6,11 @@ export const setTeams = (teams) => ({
   type: 'SET_TEAMS',
   payload: teams,
 });
+export const setTeamUnique = (team) => ({
+  type: 'SET_TEAM_UNIQUE',
+  payload: team,
+});
+
 
 export const addTeam = (team) => ({
   type: 'ADD_TEAM',
@@ -31,6 +36,20 @@ export const fetchTeams = () => {
   return async (dispatch) => {
     const response = await axios.get(API_URL);
     dispatch(setTeams(response.data));
+    dispatch(setError(null))
+  };
+};
+
+export const fetchTeamById = (id) => {
+  return async (dispatch, getState) => {
+    const state = getState()
+    const token = state.auth.token 
+    const response = await axios.get(`${API_URL}/${id}`, {
+      headers: {
+          'Authorization': token
+      }
+    });
+    dispatch(setTeamUnique(response.data));
     dispatch(setError(null))
   };
 };
