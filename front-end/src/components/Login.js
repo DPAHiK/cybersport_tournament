@@ -9,7 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   let error
-  const errorBody = useSelector(state => state.error);
+  const errorBody = useSelector(state => state.error.body);
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {

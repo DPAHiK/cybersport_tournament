@@ -42,6 +42,7 @@ export const login = (loginData) => {
       const response = await axios.post(API_URL + 'login', loginData);
       sessionStorage.setItem('token', response.data.accessToken);
       dispatch(setLoginToken(response.data.accessToken));
+      dispatch(setError(null))
       
     } catch (err) {
       console.log(err.response);
@@ -54,7 +55,7 @@ export const login = (loginData) => {
 export const signup = (signupData) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(API_URL + 'signup', signupData);
+      await axios.post(API_URL + 'signup', signupData);
       dispatch(setError(null))
     } catch (err) {
       console.log(err.response);
@@ -69,6 +70,7 @@ export const logout = () => {
     try{
       sessionStorage.removeItem('token');
       dispatch(deleteLoginToken());
+      dispatch(setError(null))
     }
     catch(err){
       console.log(err.response);
@@ -85,9 +87,16 @@ export const fetchTeams = () => {
 };
 
 export const createTeam = (team) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try{
-      const response = await axios.post(API_URL + 'team', team);
+      const state = getState()
+      const token = state.auth.token 
+      console.log(token)
+      const response = await axios.post(API_URL + 'team', team, {
+        headers: {
+            'Authorization': token
+        }
+      });
       dispatch(addTeam(response.data));
     }
     catch(err){
@@ -102,7 +111,7 @@ export const removeTeam = (id) => {
   return async (dispatch, getState) => {
     try {
       const state = getState()
-      const token = state.token 
+      const token = state.auth.token 
       await axios.delete(`${API_URL + 'team'}/${id}`, {
         headers: {
             'Authorization': token

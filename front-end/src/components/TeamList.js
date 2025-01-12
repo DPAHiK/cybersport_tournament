@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTeams, removeTeam } from '../redux/actions.js';
 import Error from './Error.js'
+import { Link } from 'react-router-dom';
 
 const TeamList = () => {
   const dispatch = useDispatch();
-  const teams = useSelector(state => state.teams);
-  const error = useSelector(state => state.error);
+  const teams = useSelector(state => state.team.teams);
+  const error = useSelector(state => state.error.body);
 
   useEffect(() => {
     dispatch(fetchTeams());
@@ -21,6 +22,7 @@ const TeamList = () => {
 
       <div>
       <h2>Teams</h2>
+      <Link to='/team/create' >Create a team</Link>
       <ul>
         {teams.map(team => (
           <li key={team.id}>

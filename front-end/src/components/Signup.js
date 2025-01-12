@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { signup } from '../redux/actions.js';
+import { setError, signup } from '../redux/actions.js';
 import { useNavigate } from 'react-router-dom';
 import Error from './Error.js'
 
@@ -10,13 +10,16 @@ const Signup = () => {
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const dispatch = useDispatch();
   let error
-  const errorBody = useSelector(state => state.error);
+  const errorBody = useSelector(state => state.error.body);
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(password != passwordConfirm) return
+    if(password != passwordConfirm) {
+        dispatch(setError({data: {error: "Passwords are not same"}})); 
+        return
+    }
 
     const signupData = { name, password };
   

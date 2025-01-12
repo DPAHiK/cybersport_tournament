@@ -6,7 +6,7 @@ import Error from './Error.js'
 const TeamForm = () => {
   const [name, setName] = useState('');
   const dispatch = useDispatch();
-  const error = useSelector(state => state.error);
+  const error = useSelector(state => state.error.body);
 
   const handleSubmit = (e) => {
     e.preventDefault();

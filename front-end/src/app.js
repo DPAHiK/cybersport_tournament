@@ -14,11 +14,11 @@ const App = () => {
     <NavPanel/>
 
     <Routes>
-      <Route path="/" element={<TeamForm/>} />
+      <Route path="/" element={<h1>Welcome</h1>} />
       <Route path="/login" element={<Login/>} />
       <Route path="/team" >
         <Route index element={<TeamList/>} />
-       
+        <Route path="create" element={<TeamForm/>} />
       </Route>
       <Route path="/signup" element={<Signup/>} />
     </Routes>
@@ -27,7 +27,7 @@ const App = () => {
 };
 
 const NavPanel = () => {
-  const token = useSelector(state => state.token);
+  const token = useSelector(state => state.auth.token);
   //console.log(token)
   const dispatch = useDispatch();
 
