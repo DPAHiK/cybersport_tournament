@@ -17,9 +17,6 @@ const initialState = {
           teams: state.teams.map(team => (team.id === action.payload.id ? action.payload : team)),
         };
 
-      case 'SET_ERROR':
-        return{...state, error: action.payload}
-
 
       default:
         return state;

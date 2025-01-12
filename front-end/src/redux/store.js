@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import teamReducer from './teamReducer.js';
 import authReducer from './authReducers.js';
 import errorReducer from './errorReducer.js';
+import tournamentReducer from './tournamentReducer.js'
 
 const rootReducer = combineReducers({
     team: teamReducer,
     auth: authReducer,
-    error: errorReducer
+    error: errorReducer,
+    tournament: tournamentReducer
 });
 
 const getTokenFromSessionStorage = () => {
@@ -26,6 +28,10 @@ const initialState = {
 
     error:{
         body: null
+    },
+
+    tournament:{
+        tournaments: []
     }
 
 };

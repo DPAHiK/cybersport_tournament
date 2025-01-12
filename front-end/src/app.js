@@ -6,6 +6,7 @@ import {  useDispatch, useSelector } from 'react-redux';
 import { logout } from './redux/actions.js';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Signup from './components/Signup.js';
+import TournamentList from './components/TournamentList.js';
 
 
 const App = () => {
@@ -14,13 +15,16 @@ const App = () => {
     <NavPanel/>
 
     <Routes>
-      <Route path="/" element={<h1>Welcome</h1>} />
       <Route path="/login" element={<Login/>} />
+      <Route path="/signup" element={<Signup/>} />
       <Route path="/team" >
         <Route index element={<TeamList/>} />
         <Route path="create" element={<TeamForm/>} />
       </Route>
-      <Route path="/signup" element={<Signup/>} />
+      <Route path="/" >
+        <Route index element={<TournamentList/>} />
+      </Route>
+
     </Routes>
   </Router> 
   );

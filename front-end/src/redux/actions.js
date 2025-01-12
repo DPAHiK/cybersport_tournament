@@ -11,6 +11,11 @@ export const deleteLoginToken = () => ({
   type: 'LOGOUT'
 });
 
+export const setTournaments = (tournaments) => ({
+  type: 'SET_TOURNAMENTS',
+  payload: tournaments,
+});
+
 export const setTeams = (teams) => ({
   type: 'SET_TEAMS',
   payload: teams,
@@ -83,6 +88,13 @@ export const fetchTeams = () => {
   return async (dispatch) => {
     const response = await axios.get(API_URL + 'team');
     dispatch(setTeams(response.data));
+  };
+};
+
+export const fetchTournaments = () => {
+  return async (dispatch) => {
+    const response = await axios.get(API_URL + 'tournament');
+    dispatch(setTournaments(response.data));
   };
 };
 
