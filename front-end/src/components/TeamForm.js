@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createTeam } from '../redux/actions/teamActions.js';
+import { useNavigate } from 'react-router-dom';
 import Error from './Error.js'
 
 const TeamForm = () => {
   const [name, setName] = useState('');
   const dispatch = useDispatch();
-  const error = useSelector(state => state.error.body);
+  const errorBody = useSelector(state => state.error.body);
+  let response
+  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(createTeam({ name }));
-    
+    response = await dispatch(createTeam({ name }));
+    console.log(response)
     setName('');
+
+    if (!response.error) { 
+      navigate('/team/' + response.id); 
+    }
   };
 
   return (
     <div>
-      <Error body={error}/>
+      <Error body={errorBody}/>
 
       <form onSubmit={handleSubmit}>
       <input
