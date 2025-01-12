@@ -28,7 +28,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className='container'>
       <Error body={errorBody}/>
 
       <form onSubmit={handleSubmit}>
@@ -37,6 +37,7 @@ const Login = () => {
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Name"
+        className='form-control'
         required
       />
             <input
@@ -44,9 +45,10 @@ const Login = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
+        className='form-control'
         required
       />
-      <button type="submit">Login</button>
+      <button type="submit" className='btn btn-success'>Login</button>
     </form>
     </div>
   )

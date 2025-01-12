@@ -36,15 +36,16 @@ const Signup = () => {
   };
 
   return (
-    <div>
+    <div className='container'>
       <Error body={errorBody}/>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} >
     <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Name"
+        className='form-control'
         required
       />
     <input
@@ -52,6 +53,7 @@ const Signup = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
+        className='form-control'
         required
       />
 
@@ -60,9 +62,10 @@ const Signup = () => {
         value={passwordConfirm}
         onChange={(e) => setPasswordConfirm(e.target.value)}
         placeholder="Confirm password"
+        className='form-control'
         required
       />
-      <button type="submit">Signup</button>
+      <button type="submit" className='btn btn-success'>Signup</button>
     </form>
     </div>
   )
