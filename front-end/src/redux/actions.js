@@ -38,14 +38,14 @@ export const setError = (error) => ({
 
 export const login = (loginData) => {
   return async (dispatch) => {
-    try{
+    try {
       const response = await axios.post(API_URL + 'login', loginData);
       sessionStorage.setItem('token', response.data.accessToken);
       dispatch(setLoginToken(response.data.accessToken));
-    }
-    catch(err){
+      
+    } catch (err) {
       console.log(err.response);
-      dispatch(setError(err.response))
+      return true;
     }
   };
 };

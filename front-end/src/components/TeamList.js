@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTeams, removeTeam } from '../redux/actions.js';
+import Error from './Error.js'
 
 const TeamList = () => {
   const dispatch = useDispatch();
@@ -14,37 +15,22 @@ const TeamList = () => {
   const handleDelete = (id) => {
     dispatch(removeTeam(id));
   };
-  if(error) return (
+  return (
     <div>
-      <h2>Error</h2>
-      <div>
-        {error.data.error}
-      </div>
+      <Error body={error}/>
 
       <div>
-      <h2>Команды</h2>
+      <h2>Teams</h2>
       <ul>
         {teams.map(team => (
           <li key={team.id}>
-            {team.name} <button onClick={() => handleDelete(team.id)}>Удалить</button>
+            {team.name} <button onClick={() => handleDelete(team.id)}>Delete</button>
           </li>
         ))}
       </ul>
     </div>
     </div>
   )
-  return (
-    <div>
-      <h2>Команды</h2>
-      <ul>
-        {teams.map(team => (
-          <li key={team.id}>
-            {team.name} <button onClick={() => handleDelete(team.id)}>Удалить</button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
 };
 
 export default TeamList;

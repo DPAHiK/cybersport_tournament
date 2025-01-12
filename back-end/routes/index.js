@@ -6,11 +6,9 @@ const tournamentRouter = require('./tournament')
 const errorHandler = require('../middleware/errorHandler')
 const authRouter = require('./auth')
 const matchRouter = require('./match')
-const mongoLogger = require("../helpers/mongoLogger");
 
 const router = express.Router()
 
-router.use(mongoLogger.storeEvent);
 router.use("/user", userRouter)
 router.use("/team", teamRouter)
 router.use("/tournament", tournamentRouter)
