@@ -1,6 +1,10 @@
 const TeamService = require('../services/team')
+const TeamMemberService = require('../services/teamMember')
 const ConflictError = require('../errors/ConflictError')
 const NotFoundError = require('../errors/NotFoundError')
+const jwt = require('jsonwebtoken')
+const UnauthorizedError = require('../errors/UnauthorizedError')
+const ForbiddenError = require('../errors/ForbiddenError')
 
 class TeamController{
     async list(req, res, next){
@@ -35,12 +39,26 @@ class TeamController{
         if(teamExists) return next(new ConflictError('Team with name ' + req.body.name + ' already exists'))
 
         try{
-            const userData = req.body;
+            const teamData = req.body;
+            
+            const result = await TeamService.create(teamData)
 
-            res.json(await TeamService.create(userData))
+            const token = req.headers['authorization']; 
+            jwt.verify(token, 'secret', async (err, decoded) => {
+                if (err) {
+                  return next(new UnauthorizedError('Invalid token'))
+                }
+                if(!decoded) return next(new ForbiddenError('Not enough rights'));
+                
+                const newTeam = await TeamService.findByName(teamData.name)
+                await TeamMemberService.create({team_id: newTeam.id, user_id: decoded.id})
+
+              });
+
+              res.json(result)
+            
         }
         catch(err){
-            console.log(err)
             return next(err)
         }
     }

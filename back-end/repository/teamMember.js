@@ -24,6 +24,7 @@ class TeamMemberRepository{
             teamMember = await TeamMember.create(teamMemberData);
         }
         catch(err){
+            console.log(err)
             throw new Error('Failed to create TeamMember');
         }
 
