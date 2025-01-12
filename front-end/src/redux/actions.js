@@ -45,6 +45,7 @@ export const login = (loginData) => {
       
     } catch (err) {
       console.log(err.response);
+      dispatch(setError(err.response))
       return true;
     }
   };

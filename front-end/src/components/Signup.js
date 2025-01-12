@@ -4,12 +4,11 @@ import { login } from '../redux/actions.js';
 import { useNavigate } from 'react-router-dom';
 import Error from './Error.js'
 
-const Login = () => {
+const Signup = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   let error
-  const errorBody = useSelector(state => state.error);
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -29,7 +28,7 @@ const Login = () => {
 
   return (
     <div>
-      <Error body={errorBody}/>
+      <Error body={error}/>
 
       <form onSubmit={handleSubmit}>
       <input
@@ -53,4 +52,4 @@ const Login = () => {
 
 };
 
-export default Login;
+export default Signup;
