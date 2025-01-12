@@ -51,6 +51,19 @@ export const login = (loginData) => {
   };
 };
 
+export const signup = (signupData) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.post(API_URL + 'signup', signupData);
+      dispatch(setError(null))
+    } catch (err) {
+      console.log(err.response);
+      dispatch(setError(err.response))
+      return true;
+    }
+  };
+};
+
 export const logout = () => {
   return async (dispatch) => {
     try{
@@ -73,8 +86,15 @@ export const fetchTeams = () => {
 
 export const createTeam = (team) => {
   return async (dispatch) => {
-    const response = await axios.post(API_URL + 'team', team);
-    dispatch(addTeam(response.data));
+    try{
+      const response = await axios.post(API_URL + 'team', team);
+      dispatch(addTeam(response.data));
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+    }
+
   };
 };
 

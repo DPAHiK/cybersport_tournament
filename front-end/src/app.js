@@ -5,6 +5,7 @@ import Login from './components/Login.js';
 import {  useDispatch, useSelector } from 'react-redux';
 import { logout } from './redux/actions.js';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import Signup from './components/Signup.js';
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
         <Route index element={<TeamList/>} />
        
       </Route>
+      <Route path="/signup" element={<Signup/>} />
     </Routes>
   </Router> 
   );
@@ -49,6 +51,7 @@ const NavPanel = () => {
         <li><Link to="/">Main</Link></li>
         <li><Link to="/team">Teams</Link></li>
         <li><Link to="/login">Login</Link></li>
+        <li><Link to="/signup">Signup</Link></li>
       </ul>
     </nav>
     )

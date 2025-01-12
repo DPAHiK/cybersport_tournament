@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { createTeam, editTeam } from '../redux/actions.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { createTeam } from '../redux/actions.js';
+import Error from './Error.js'
 
-const TeamForm = ({ team }) => {
-  const [name, setName] = useState(team ? team.name : '');
+const TeamForm = () => {
+  const [name, setName] = useState('');
   const dispatch = useDispatch();
+  const error = useSelector(state => state.error);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (team) {
-      dispatch(editTeam({ ...team, name }));
-    } else {
-      dispatch(createTeam({ name }));
-    }
+    dispatch(createTeam({ name }));
+    
     setName('');
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
+      <Error body={error}/>
+
+      <form onSubmit={handleSubmit}>
       <input
         type="text"
         value={name}
@@ -25,8 +27,10 @@ const TeamForm = ({ team }) => {
         placeholder="Название команды"
         required
       />
-      <button type="submit">{team ? 'Изменить' : 'Создать'}</button>
+      <button type="submit">Создать</button>
     </form>
+    </div>
+
   );
 };
 
