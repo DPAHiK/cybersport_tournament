@@ -157,7 +157,7 @@ router.delete('/:id', isTeamMember, TeamController.delete);
  *       500:
  *         description: Server error
  */
-router.get('/:teamId/member', isAuth(), TeamMemberController.findByTeamId);
+router.get('/:teamId/member', TeamMemberController.findByTeamId);
 
 /**
  * @swagger

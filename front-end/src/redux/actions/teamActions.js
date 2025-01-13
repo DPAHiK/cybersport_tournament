@@ -53,15 +53,9 @@ export const fetchTeams = () => {
 };
 
 export const fetchTeamById = (id) => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     try{
-      const state = getState()
-      const token = state.auth.token 
-      const response = await axios.get(`${API_URL}/${id}`, {
-        headers: {
-            'Authorization': token
-        }
-      });
+      const response = await axios.get(`${API_URL}/${id}`);
       dispatch(setTeamUnique(response.data));
       dispatch(setError(null))
     }
@@ -75,13 +69,7 @@ export const fetchTeamById = (id) => {
 export const fetchTeamMembers = (id) => {
   return async (dispatch, getState) => {
     try{
-      const state = getState()
-      const token = state.auth.token 
-      const response = await axios.get(`${API_URL}/${id}/member`, {
-        headers: {
-            'Authorization': token
-        }
-      });
+      const response = await axios.get(`${API_URL}/${id}/member`);
       dispatch(setTeamMembers(response.data));
       dispatch(setError(null))
     }

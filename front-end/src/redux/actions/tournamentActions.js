@@ -42,16 +42,10 @@ export const fetchTournaments = () => {
 };
 
 export const fetchTournamentById = (id) => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     try{
-      const state = getState()
-      const token = state.auth.token 
   
-      const response = await axios.get(`${API_URL}/${id}`, {
-        headers: {
-            'Authorization': token
-        }
-      });
+      const response = await axios.get(`${API_URL}/${id}`);
       dispatch(setTournamentUnique(response.data));
       dispatch(setError(null))
   
