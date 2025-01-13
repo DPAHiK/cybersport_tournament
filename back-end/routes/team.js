@@ -77,7 +77,7 @@ router.post('/', isAuth("ROLE_PLAYER"), validate(TeamScheme.create), TeamControl
  *       500:
  *         description: Server error
  */
-router.get('/:id', isAuth(), TeamController.findById);
+router.get('/:id', TeamController.findById);
 
 /**
  * @swagger

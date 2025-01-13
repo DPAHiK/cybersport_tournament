@@ -9,6 +9,7 @@ import Signup from './components/Signup.js';
 import TournamentList from './components/TournamentList.js';
 import TeamInfo from './components/TeamInfo.js';
 import TournamentForm from './components/TournamentForm.js';
+import TournamentInfo from './components/TournamentInfo.js';
 
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
       </Route>
       <Route path="/tournament" >
       <Route path="create" element={<TournamentForm/>} />
+      <Route path=":id" element={<TournamentInfo/>} />
       </Route>
     
     </Routes>

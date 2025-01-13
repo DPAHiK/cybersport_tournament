@@ -28,6 +28,7 @@ const TournamentList = () => {
         {tournaments.map(tournament => (
           <li key={tournament.id}>
             {tournament.title}
+            <Link to={"/tournament/" + tournament.id}>Info</Link>
             <button onClick={() => handleDelete(tournament.id)}>Delete</button>
           </li>
         ))}

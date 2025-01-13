@@ -18,8 +18,8 @@ const getTokenFromSessionStorage = () => {
 
 const initialState = {
     team:{
-        
-        teams: []
+        teams: [],
+        teamUnique: null,
     },
 
     auth: {
@@ -31,7 +31,8 @@ const initialState = {
     },
 
     tournament:{
-        tournaments: []
+        tournaments: [],
+        tournamentUnique: null,
     }
 
 };

@@ -303,7 +303,7 @@ router.post('/', isAuth("ROLE_ORGINIZER"), validate(TournamentScheme.create), To
  *       500:
  *         description: Server error
  */
-router.get('/:id', isAuth(), TournamentController.findById);
+router.get('/:id', TournamentController.findById);
 
 /**
  * @swagger

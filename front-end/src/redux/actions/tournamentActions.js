@@ -7,6 +7,11 @@ export const setTournaments = (tournaments) => ({
   payload: tournaments,
 });
 
+export const setTournamentUnique = (tournament) => ({
+  type: 'SET_TOURNAMENT_UNIQUE',
+  payload: tournament,
+});
+
 export const addTournament = (tournament) => ({
   type: 'ADD_TOURNAMENT',
   payload: tournament,
@@ -24,9 +29,37 @@ export const setError = (error) => ({
 
 export const fetchTournaments = () => {
   return async (dispatch) => {
-    const response = await axios.get(API_URL);
-    dispatch(setTournaments(response.data));
-    dispatch(setError(null))
+    try{
+      const response = await axios.get(API_URL);
+      dispatch(setTournaments(response.data));
+      dispatch(setError(null))
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+    }
+  };
+};
+
+export const fetchTournamentById = (id) => {
+  return async (dispatch, getState) => {
+    try{
+      const state = getState()
+      const token = state.auth.token 
+  
+      const response = await axios.get(`${API_URL}/${id}`, {
+        headers: {
+            'Authorization': token
+        }
+      });
+      dispatch(setTournamentUnique(response.data));
+      dispatch(setError(null))
+  
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+    }
   };
 };
 

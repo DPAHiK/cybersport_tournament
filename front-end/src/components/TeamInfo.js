@@ -23,7 +23,7 @@ const TeamInfo = () => {
   const error = useSelector(state => state.error.body);
 
 //    console.log(params.id)
-//    console.log(team)
+    //console.log(teamMembers)
 
   if(team) return (
     <div>
@@ -32,7 +32,7 @@ const TeamInfo = () => {
       <div>
       <h2>{team.name}</h2>
       <ul>
-        {teamMembers.map(member => (
+        {teamMembers && teamMembers.map(member => (
           <li key={member.id}>
             {member.user_id}
           </li>
