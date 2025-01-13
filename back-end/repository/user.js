@@ -1,5 +1,5 @@
 const User = require('../models/user')
-
+const sequelize = require('../database/sequelize')
 
 class UserRepository{
     findById(id){
@@ -8,6 +8,14 @@ class UserRepository{
 
     findByName(name){
         return User.findOne({where: {name: name}})
+    }
+
+    async findProfilesByTeamId(teamId){
+        const [results, metadata] = await sequelize.query(
+            "SELECT users.name FROM users, team_members WHERE team_members.team_id = " + teamId + " and team_members.user_id = users.id"
+          )
+
+        return results
     }
 
     list(){

@@ -1,10 +1,15 @@
 const TeamMemberRepository = require('../repository/teamMember')
+const UserRepository = require('../repository/user')
 
 class TeamMemberService{
     async findByTeamId(id){
         return TeamMemberRepository.findByTeamId(id);
     }
 
+    async findProfilesByTeamId(teamId){
+        return UserRepository.findProfilesByTeamId(teamId);
+    }
+    
     async create(userData){
         return TeamMemberRepository.create(userData);
     }

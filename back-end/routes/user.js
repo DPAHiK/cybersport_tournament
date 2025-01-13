@@ -128,6 +128,8 @@ router.post('/', isAuth("ROLE_ADMIN"), validate(UserScheme.create), UserControll
  */
 router.get('/:id', isAuth("ROLE_ADMIN"), UserController.findById)
 
+router.get('/:id/profile', UserController.getProfileData)
+
 /**
  * @swagger
  * /user/{id}:

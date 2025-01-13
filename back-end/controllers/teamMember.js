@@ -17,6 +17,21 @@ class TeamMemberController{
             return next(err)
         }
     }
+    
+    async findProfilesByTeamId(req, res, next){
+        try{
+            const teamId = req.params.teamId;
+
+            const result = await TeamMemberService.findProfilesByTeamId(teamId)
+            if(result.length) return res.json(result)
+
+            return next(new NotFoundError('Team members from team with ID ' + teamId + ' not found'))
+        }
+        catch(err){
+            console.log(err)
+            return next(err)
+        }
+    }
 
     async create(req, res, next){
         try{

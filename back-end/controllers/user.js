@@ -29,6 +29,21 @@ class UserController{
         }
     }
 
+    async getProfileData(req, res, next){
+        try{
+            const userId = req.params.id;
+            
+            const result = await UserService.findById(userId) 
+            if(result) return res.json({name: result.name})
+
+            next(new NotFoundError('User with ID ' + userId + ' not found'))
+        }
+        catch(err){
+            console.log(err)
+            return next(err)
+        }
+    }
+
     async create(req, res, next){
         const userExists = await UserService.findByName(req.body.name)
         if(userExists) return next(new ConflictError('User with name ' + req.body.name + ' already exists'))

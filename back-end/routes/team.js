@@ -159,6 +159,8 @@ router.delete('/:id', isTeamMember, TeamController.delete);
  */
 router.get('/:teamId/member', TeamMemberController.findByTeamId);
 
+router.get('/:teamId/member/profile', TeamMemberController.findProfilesByTeamId);
+
 /**
  * @swagger
  * /team/{teamId}/member:
