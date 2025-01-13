@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Signup from './components/Signup.js';
 import TournamentList from './components/TournamentList.js';
 import TeamInfo from './components/TeamInfo.js';
+import TournamentForm from './components/TournamentForm.js';
 
 
 const App = () => {
@@ -26,7 +27,10 @@ const App = () => {
       <Route path="/" >
         <Route index element={<TournamentList/>} />
       </Route>
-
+      <Route path="/tournament" >
+      <Route path="create" element={<TournamentForm/>} />
+      </Route>
+    
     </Routes>
   </Router> 
   );

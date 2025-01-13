@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTournaments } from '../redux/actions/tournamentActions.js';
+import { fetchTournaments, removeTournament } from '../redux/actions/tournamentActions.js';
 import Error from './Error.js'
+import { Link } from 'react-router-dom';
 
 const TournamentList = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,9 @@ const TournamentList = () => {
     dispatch(fetchTournaments());
   }, [dispatch]);
 
+  const handleDelete = (id) => {
+    dispatch(removeTournament(id));
+  };
 
   return (
     <div>
@@ -19,11 +23,12 @@ const TournamentList = () => {
 
       <div>
       <h2>Tournaments</h2>
-      
+      <Link to='/tournament/create' >Create a tournament</Link>
       <ul>
         {tournaments.map(tournament => (
           <li key={tournament.id}>
             {tournament.title}
+            <button onClick={() => handleDelete(tournament.id)}>Delete</button>
           </li>
         ))}
       </ul>

@@ -4,7 +4,7 @@ const Error = (props) => {
   //console.log(props)
   if(props.body)
     return (
-    <div>
+    <div className="alert alert-danger" role="alert">
       {props.body.data.error}
     </div>
   );

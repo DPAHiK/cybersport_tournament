@@ -14,7 +14,7 @@ const TeamForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     response = await dispatch(createTeam({ name }));
-    console.log(response)
+    //console.log(response)
     setName('');
 
     if (!response.error) { 

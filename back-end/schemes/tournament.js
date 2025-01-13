@@ -15,7 +15,6 @@ const TournamentScheme = {
         organizer_id: Joi.number()
         .integer()
         .min(1)
-        .required()
 
     }),
     

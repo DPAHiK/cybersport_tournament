@@ -3,6 +3,9 @@ const TeamQueryService = require('../services/teamQuery')
 const EngagedTeamService = require('../services/engagedTeam')
 const MatchService = require('../services/match')
 const NotFoundError = require('../errors/NotFoundError')
+const jwt = require('jsonwebtoken')
+const UnauthorizedError = require('../errors/UnauthorizedError')
+const ForbiddenError = require('../errors/ForbiddenError')
 
 class TournamentController{
 
@@ -63,6 +66,17 @@ class TournamentController{
     async create(req, res, next){
         try{
             const userData = req.body;
+
+            const token = req.headers['authorization']; 
+            jwt.verify(token, 'secret', async (err, decoded) => {
+                if (err) {
+                  return next(new UnauthorizedError('Invalid token'))
+                }
+                if(!decoded) return next(new ForbiddenError('Not enough rights'));
+                
+                userData.organizer_id = decoded.id
+
+              });
 
             res.json(await TournamentService.create(userData))
         }
