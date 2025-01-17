@@ -60,7 +60,7 @@ class MatchController{
             if(!result[0]) return next(new NotFoundError('Match with ID ' + matchId + ' not found')) 
 
             const match = await MatchService.findById(matchId)
-            console.log(match)
+
             if(matchData.is_team1_winner || matchData.is_team1_winner === false){
                 if(matchData.is_team1_winner === true){
                     const team2 = await EngagedTeamService.findByTournamentAndTeamId(match.tournament_id, match.team2_id)
@@ -75,20 +75,63 @@ class MatchController{
             }
 
             
-            // 
-            // const tournamentMatches = MatchService.findByTournamentId(match.tournament_id)
-
-            // for(let i = 0; i < tournamentMatches.length; i++){
-            //     if(!tournamentMatches[i].is_team1_winner) return res.json(result)
-            // }
+            const tournamentMatches = await MatchService.findByTournamentId(match.tournament_id)
             
-            // const highGridMatches = 
+
+            for(let i = 0; i < tournamentMatches.length; i++){
+                if(!tournamentMatches[i].is_team1_winner && tournamentMatches[i].is_team1_winner !== false) return res.json(result)
+            }
+            
+            const tournamentTeams = await EngagedTeamService.findTeamsByTournamentId(match.tournament_id)
+            const highGridTeams = tournamentTeams.filter(team => team.team_grid_status == 2)
+            const lowGridTeams = tournamentTeams.filter(team => team.team_grid_status == 1)
+
+            //console.log(tournamentTeams)
+
+            // console.log(highGridTeams)
+            
+            // console.log(lowGridTeams)
+
+            if (highGridTeams.length + lowGridTeams.length > 2){
+                for (let i = 0; i < highGridTeams.length; i += 2){
+                    let newMatch = {
+                        tournament_id: match.tournament_id, 
+                        start_date: match.start_date,    // ну тут бы дату менять
+                        end_date: match.end_date, 
+                        team1_id: highGridTeams[i] ? highGridTeams[i].team_id : null, 
+                        team2_id: highGridTeams[i + 1] ? highGridTeams[i + 1].team_id : null}
+                    
+                    MatchService.create(newMatch)
+                }
+
+                for (let i = 0; i < lowGridTeams.length; i += 2){
+                    let newMatch = {
+                        tournament_id: match.tournament_id, 
+                        start_date: match.start_date,    // ну тут бы дату менять
+                        end_date: match.end_date, 
+                        team1_id: lowGridTeams[i] ? lowGridTeams[i].team_id : null, 
+                        team2_id: lowGridTeams[i + 1] ? lowGridTeams[i + 1].team_id : null}
+
+                    MatchService.create(newMatch)
+                }
+            }
+            else {
+                MatchService.create({
+                    tournament_id: match.tournament_id, 
+                    start_date: match.start_date,  // ну тут бы дату менять
+                    end_date: match.end_date, 
+                    team1_id: highGridTeams[0] ? highGridTeams[0].team_id : null, 
+                    team2_id: lowGridTeams[0] ? lowGridTeams[0].team_id : null
+                })
+            }
+
             // for (let i = 0; i < tournamentMatches.length; i++){
-            //     let newMatch = {tournament_id: match.tournament_id, start_date: match.start_date, end_date: match.end_date, team1_id: acceptedQuereis[i].team_id, team2_id: null}
+            //     
             //     if(i + 1 < acceptedQuereis.length) match.team2_id = acceptedQuereis[i + 1].team_id
 
             //     MatchService.create(match)                
             // }
+
 
             return res.json(result)
         }

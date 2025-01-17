@@ -22,7 +22,12 @@ class TournamentController{
                 ({tournament_id: tournamentId, team_id: item.team_id, team_grid_status: "HIGH_GRID"})})
             
             for (let i = 0; i < acceptedQuereis.length; i += 2){
-                let match = {tournament_id: tournamentId, start_date: check.start_date, team1_id: acceptedQuereis[i].team_id, team2_id: null}
+                let match = {
+                    tournament_id: tournamentId, 
+                    start_date: check.start_date, 
+                    team1_id: acceptedQuereis[i].team_id, 
+                    team2_id: null
+                }
                 if(i + 1 < acceptedQuereis.length) match.team2_id = acceptedQuereis[i + 1].team_id
 
                 MatchService.create(match)

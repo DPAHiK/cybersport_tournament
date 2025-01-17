@@ -22,8 +22,7 @@ const Match= sequelize.define('matches', {
 	},
 
 	team1_id:{
-		type: Sequelize.BIGINT,
-		allowNull: false	
+		type: Sequelize.BIGINT
 	},
 
 	team2_id:{

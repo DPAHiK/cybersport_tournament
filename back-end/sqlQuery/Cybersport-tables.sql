@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS "matches" (
 	"is_team1_winner" boolean,
 	"start_date" date NOT NULL,
 	"end_date" date,
-	"team1_id" bigint NOT NULL,
+	"team1_id" bigint,
 	"team2_id" bigint,
 	PRIMARY KEY ("id")
 );
@@ -80,5 +80,5 @@ ALTER TABLE "tournament_results" ADD CONSTRAINT "tournament_result_fk1" FOREIGN 
 ALTER TABLE "tournament_results" ADD CONSTRAINT "tournament_Result_fk2" FOREIGN KEY ("team_id") REFERENCES "teams"("id") ON DELETE CASCADE;
 
 ALTER TABLE "matches" ADD CONSTRAINT "match_fk1" FOREIGN KEY ("tournament_id") REFERENCES "tournaments"("id") ON DELETE CASCADE;
-ALTER TABLE "matches" ADD CONSTRAINT "match_fk5" FOREIGN KEY ("team1_id") REFERENCES "teams"("id") ON DELETE CASCADE;
-ALTER TABLE "matches" ADD CONSTRAINT "match_fk6" FOREIGN KEY ("team2_id") REFERENCES "teams"("id") ON DELETE CASCADE;
+ALTER TABLE "matches" ADD CONSTRAINT "match_fk5" FOREIGN KEY ("team1_id") REFERENCES "teams"("id") ON DELETE set null;
+ALTER TABLE "matches" ADD CONSTRAINT "match_fk6" FOREIGN KEY ("team2_id") REFERENCES "teams"("id") ON DELETE set null;
