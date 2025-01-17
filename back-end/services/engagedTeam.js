@@ -9,6 +9,10 @@ class EngagedTeamService{
         return EngagedTeamRepository.findTeamsByTeamId(teamId);
     }
 
+    async findByTournamentAndTeamId(tournamentId, teamId){
+        return EngagedTeamRepository.findByTeamAndTournamentId(tournamentId, teamId);
+    }
+
     async list(){
         return EngagedTeamRepository.list();
     }

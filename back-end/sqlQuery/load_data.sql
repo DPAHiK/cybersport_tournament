@@ -58,12 +58,12 @@ INSERT INTO public."team_queries"(
 INSERT INTO public."engaged_teams"(
 	tournament_id, team_id, team_grid_status)
 	VALUES
-	(1, 1, 'HIGH_GRID'),
-	(1, 2, 'OUT'),
-	(2, 1, 'OUT'),
-	(2, 2, 'HIGH_GRID'),
-	(3, 1, 'HIGH_GRID'),
-	(3, 2, 'LOW_GRID');
+	(1, 1, 2),
+	(1, 2, 0),
+	(2, 1, 0),
+	(2, 2, 2),
+	(3, 1, 2),
+	(3, 2, 1);
 	
 INSERT INTO public."matches"(
 	tournament_id, is_team1_winner, start_date, end_date, team1_id, team2_id)

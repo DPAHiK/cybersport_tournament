@@ -12,8 +12,11 @@ const EngagedTeamScheme = {
         .min(1)
         .required(),
 
-        team_grid_status: Joi.string()
-        .max(20)
+        team_grid_status: Joi.number()
+        .integer()
+        .min(0)
+        .max(2)
+        .required()
     }),
         update: Joi.object().keys({
             tournament_id: Joi.number()
@@ -24,8 +27,10 @@ const EngagedTeamScheme = {
             .integer()
             .min(1),
 
-            team_grid_status: Joi.string()
-            .max(20)
+            team_grid_status: Joi.number()
+            .integer()
+            .min(0)
+            .max(2)
         })
 }
 

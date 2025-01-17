@@ -1,4 +1,5 @@
 const MatchService = require('../services/match')
+const EngagedTeamService = require('../services/engagedTeam')
 const NotFoundError = require('../errors/NotFoundError')
 
 class MatchController{
@@ -52,13 +53,37 @@ class MatchController{
 
     async update(req, res, next){
         try{
-            const userData = req.body;
+            const matchData = req.body;
             const matchId = req.params.matchId;
 
-            const result = await MatchService.update(matchId, userData)
-            if(result[0]) return res.json(result)
+            const result = await MatchService.update(matchId, matchData)
+            if(!result[0]) return next(new NotFoundError('Match with ID ' + matchId + ' not found')) 
 
-            return next(new NotFoundError('Matches with ID ' + matchId + ' not found'))
+            const match = await MatchService.findById(matchId)
+            console.log(match)
+            if(matchData.is_team1_winner){
+                const team2 = await EngagedTeamService.findByTournamentAndTeamId(match.tournament_id, match.team2_id)
+
+                await EngagedTeamService.update(team2.id, {tournament_id: team2.tournament_id, team_id: team2.team_id, team_grid_status: team2.team_grid_status - 1})
+            }
+
+            
+            // 
+            // const tournamentMatches = MatchService.findByTournamentId(match.tournament_id)
+
+            // for(let i = 0; i < tournamentMatches.length; i++){
+            //     if(!tournamentMatches[i].is_team1_winner) return res.json(result)
+            // }
+            
+            // const highGridMatches = 
+            // for (let i = 0; i < tournamentMatches.length; i++){
+            //     let newMatch = {tournament_id: match.tournament_id, start_date: match.start_date, end_date: match.end_date, team1_id: acceptedQuereis[i].team_id, team2_id: null}
+            //     if(i + 1 < acceptedQuereis.length) match.team2_id = acceptedQuereis[i + 1].team_id
+
+            //     MatchService.create(match)                
+            // }
+
+            return res.json(result)
         }
         catch(err){
             return next(err)

@@ -28,7 +28,7 @@ class TournamentController{
                 MatchService.create(match)
             }
 
-            console.log(acceptedQuereis)
+            //console.log(acceptedQuereis)
 
             return res.json({message: "Grid generated"})
         }

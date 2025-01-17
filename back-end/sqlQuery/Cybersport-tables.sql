@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS "engaged_teams"(
 	"id" serial NOT NULL UNIQUE,
 	"tournament_id" bigint NOT NULL,
 	"team_id" bigint NOT NULL,
-	"team_grid_status" varchar(255) NOT NULL,
+	"team_grid_status" int NOT NULL,
 	PRIMARY KEY ("id")
 
 );
