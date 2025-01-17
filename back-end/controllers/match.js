@@ -61,10 +61,17 @@ class MatchController{
 
             const match = await MatchService.findById(matchId)
             console.log(match)
-            if(matchData.is_team1_winner){
-                const team2 = await EngagedTeamService.findByTournamentAndTeamId(match.tournament_id, match.team2_id)
+            if(matchData.is_team1_winner || matchData.is_team1_winner === false){
+                if(matchData.is_team1_winner === true){
+                    const team2 = await EngagedTeamService.findByTournamentAndTeamId(match.tournament_id, match.team2_id)
 
-                await EngagedTeamService.update(team2.id, {tournament_id: team2.tournament_id, team_id: team2.team_id, team_grid_status: team2.team_grid_status - 1})
+                    await EngagedTeamService.update(team2.id, {tournament_id: team2.tournament_id, team_id: team2.team_id, team_grid_status: team2.team_grid_status - 1})
+                }
+                else {
+                    const team1 = await EngagedTeamService.findByTournamentAndTeamId(match.tournament_id, match.team1_id)
+
+                    await EngagedTeamService.update(team1.id, {tournament_id: team1.tournament_id, team_id: team1.team_id, team_grid_status: team1.team_grid_status - 1})
+                }
             }
 
             
