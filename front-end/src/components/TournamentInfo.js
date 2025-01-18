@@ -46,16 +46,29 @@ const TournamentInfo = () => {
           </li>
         ))}    
         <h2>Matches</h2>
-        {matches && matches.map(match => (
-          <li key={match.id}>
-            {engagedTeams.find(team => team.team_id == match.team1_id) &&
-            engagedTeams.find(team => team.team_id == match.team1_id).name}
-            {" vs "}
-            {engagedTeams.find(team => team.team_id == match.team2_id) &&
-            engagedTeams.find(team => team.team_id == match.team2_id).name}
-            {" " + match.start_date} 
-          </li>
-        ))} 
+        <div className='container mt-5'>
+          <div className='row'>
+            {matches && matches.map(match => (
+            <div className='col col-lg-2 border border-secondary mx-5' key={match.id}>
+              <h4 className="mb-0 text-center">
+              {engagedTeams.find(team => team.team_id == match.team1_id) &&
+              engagedTeams.find(team => team.team_id == match.team1_id).name}
+              </h4>
+
+              <h6 className="my-2 text-center">vs</h6>
+
+              <h4 className="mb-0 text-center">
+              {engagedTeams.find(team => team.team_id == match.team2_id) &&
+              engagedTeams.find(team => team.team_id == match.team2_id).name}
+              </h4>
+
+              <p className="mt-3 text-center">{match.start_date}</p>
+            
+            </div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </div>
   )
