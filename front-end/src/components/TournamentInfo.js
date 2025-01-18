@@ -24,10 +24,14 @@ const TournamentInfo = () => {
   const matches = useSelector(state => state.tournament.matches)
   const error = useSelector(state => state.error.body);
 
+  matches.sort((a, b) => {
+    const aDate = new Date(a.start_date)
+    const bDate = new Date(b.start_date)
+    //console.log(aDate.getTime() - bDate.getTime())
+    return aDate.getTime() - bDate.getTime()})
 //    console.log(params.id)
     // console.log(engagedTeams)
     // console.log(matches)
-    console.log(engagedTeams.filter(team => team.team_id == 1))
 
   if(tournament) return (
     <div>
@@ -48,7 +52,8 @@ const TournamentInfo = () => {
             engagedTeams.find(team => team.team_id == match.team1_id).name}
             {" vs "}
             {engagedTeams.find(team => team.team_id == match.team2_id) &&
-            engagedTeams.find(team => team.team_id == match.team2_id).name} 
+            engagedTeams.find(team => team.team_id == match.team2_id).name}
+            {" " + match.start_date} 
           </li>
         ))} 
       </div>
