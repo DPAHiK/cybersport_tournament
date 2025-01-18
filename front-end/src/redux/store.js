@@ -33,6 +33,7 @@ const initialState = {
     tournament:{
         tournaments: [],
         tournamentUnique: null,
+        engagedTeams: []
     }
 
 };

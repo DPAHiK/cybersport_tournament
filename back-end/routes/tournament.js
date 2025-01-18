@@ -393,9 +393,9 @@ router.delete('/:id', isAuth("ROLE_ORGINIZER"), TournamentController.delete);
  *       500:
  *         description: Server error
  */
-router.get('/:tournamentId/team', isAuth(), EngagedTeamController.findTeamsByTournamentId);
+router.get('/:tournamentId/team',  EngagedTeamController.findTeamsByTournamentId);
 
-router.get('/:tournamentId/team/profile', isAuth(), EngagedTeamController.getProfilesByTournamentId);
+router.get('/:tournamentId/team/profile',  EngagedTeamController.getProfilesByTournamentId);
 
 /**
  * @swagger

@@ -12,6 +12,12 @@ export const setTournamentUnique = (tournament) => ({
   payload: tournament,
 });
 
+export const setEngagedTeams = (engagedTeams) => ({
+  type: 'SET_ENGAGED_TEAMS',
+  payload: engagedTeams,
+});
+
+
 export const addTournament = (tournament) => ({
   type: 'ADD_TOURNAMENT',
   payload: tournament,
@@ -49,6 +55,24 @@ export const fetchTournamentById = (id) => {
       dispatch(setTournamentUnique(response.data));
       dispatch(setError(null))
   
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+    }
+  };
+};
+
+export const fetchEngagedTeams = (id) => {
+  return async (dispatch) => {
+    try{
+      let responseIds = await axios.get(`${API_URL}${id}/team`);
+      const responseProfile = await axios.get(`${API_URL}${id}/team/profile`);
+      
+      for (let i = 0; i < responseIds.data.length; i++) responseIds.data[i].name = responseProfile.data[i].name
+      
+      dispatch(setEngagedTeams(responseIds.data));
+      dispatch(setError(null))
     }
     catch(err){
       console.log(err.response);

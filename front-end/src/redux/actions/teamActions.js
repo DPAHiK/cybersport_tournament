@@ -55,7 +55,7 @@ export const fetchTeams = () => {
 export const fetchTeamById = (id) => {
   return async (dispatch) => {
     try{
-      const response = await axios.get(`${API_URL}/${id}`);
+      const response = await axios.get(`${API_URL}${id}`);
       dispatch(setTeamUnique(response.data));
       dispatch(setError(null))
     }
@@ -69,8 +69,8 @@ export const fetchTeamById = (id) => {
 export const fetchTeamMembers = (id) => {
   return async (dispatch) => {
     try{
-      let responseIds = await axios.get(`${API_URL}/${id}/member`);
-      const responseProfile = await axios.get(`${API_URL}/${id}/member/profile`);
+      let responseIds = await axios.get(`${API_URL}${id}/member`);
+      const responseProfile = await axios.get(`${API_URL}${id}/member/profile`);
       
       for (let i = 0; i < responseIds.data.length; i++) responseIds.data[i].name = responseProfile.data[i].name
       
