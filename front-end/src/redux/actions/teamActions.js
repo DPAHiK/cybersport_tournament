@@ -67,7 +67,7 @@ export const fetchTeamById = (id) => {
 };
 
 export const fetchTeamMembers = (id) => {
-  return async (dispatch, getState) => {
+  return async (dispatch) => {
     try{
       let responseIds = await axios.get(`${API_URL}/${id}/member`);
       const responseProfile = await axios.get(`${API_URL}/${id}/member/profile`);

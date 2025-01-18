@@ -27,6 +27,21 @@ class EngagedTeamController{
         }
     }
 
+    async getProfilesByTournamentId(req, res, next){
+        try{
+            const tournamentId = req.params.tournamentId;
+
+            const result = await EngagedTeamService.findProfilesByTournamentId(tournamentId)
+            if(result.length) return res.json(result)
+
+            return next(new NotFoundError('Teams engaged in tournament with ID ' + tournamentId + ' not found'))
+        }
+        catch(err){
+            console.log(err)
+            return next(err)
+        }
+    }
+
     async findTeamsByTeamId(req, res, next){
         try{
             const teamId = req.params.teamId;

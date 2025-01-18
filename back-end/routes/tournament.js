@@ -395,6 +395,8 @@ router.delete('/:id', isAuth("ROLE_ORGINIZER"), TournamentController.delete);
  */
 router.get('/:tournamentId/team', isAuth(), EngagedTeamController.findTeamsByTournamentId);
 
+router.get('/:tournamentId/team/profile', isAuth(), EngagedTeamController.getProfilesByTournamentId);
+
 /**
  * @swagger
  * /tournament/{tournamentId}/team:

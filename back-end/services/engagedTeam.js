@@ -1,9 +1,14 @@
 const EngagedTeamRepository = require('../repository/engagedTeam')
+const TeamRepository = require('../repository/team')
 
 class EngagedTeamService{
     async findTeamsByTournamentId(tournamentId){
         return EngagedTeamRepository.findTeamsByTournamentId(tournamentId);
     }
+
+    async findProfilesByTournamentId(tournamentId){
+        return TeamRepository.findProfilesByTournamentId(tournamentId);
+    }    
 
     async findTeamsByTeamId(teamId){
         return EngagedTeamRepository.findTeamsByTeamId(teamId);
