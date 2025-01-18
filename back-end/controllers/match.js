@@ -78,6 +78,7 @@ class MatchController{
             const tournamentMatches = await MatchService.findByTournamentId(match.tournament_id)
             
 
+
             for(let i = 0; i < tournamentMatches.length; i++){
                 if(!tournamentMatches[i].is_team1_winner && tournamentMatches[i].is_team1_winner !== false) return res.json(result)
             }
@@ -91,13 +92,18 @@ class MatchController{
             // console.log(highGridTeams)
             
             // console.log(lowGridTeams)
+            const newStartDate = new Date(match.start_date)
+            const newEndDate = new Date(match.start_date)
+            newStartDate.setDate(newStartDate.getDate() + 1)
+            newEndDate.setDate(newEndDate.getDate() + 2)
+            console.log(newStartDate)
 
             if (highGridTeams.length + lowGridTeams.length > 2){
                 for (let i = 0; i < highGridTeams.length; i += 2){
                     let newMatch = {
                         tournament_id: match.tournament_id, 
-                        start_date: match.start_date,    // ну тут бы дату менять
-                        end_date: match.end_date, 
+                        start_date: newStartDate,    
+                        end_date: newEndDate, 
                         team1_id: highGridTeams[i] ? highGridTeams[i].team_id : null, 
                         team2_id: highGridTeams[i + 1] ? highGridTeams[i + 1].team_id : null}
                     
@@ -107,8 +113,8 @@ class MatchController{
                 for (let i = 0; i < lowGridTeams.length; i += 2){
                     let newMatch = {
                         tournament_id: match.tournament_id, 
-                        start_date: match.start_date,    // ну тут бы дату менять
-                        end_date: match.end_date, 
+                        start_date: newStartDate,   
+                        end_date: newEndDate, 
                         team1_id: lowGridTeams[i] ? lowGridTeams[i].team_id : null, 
                         team2_id: lowGridTeams[i + 1] ? lowGridTeams[i + 1].team_id : null}
 
@@ -118,19 +124,12 @@ class MatchController{
             else {
                 MatchService.create({
                     tournament_id: match.tournament_id, 
-                    start_date: match.start_date,  // ну тут бы дату менять
-                    end_date: match.end_date, 
+                    start_date: newStartDate,  
+                    end_date: newEndDate, 
                     team1_id: highGridTeams[0] ? highGridTeams[0].team_id : null, 
                     team2_id: lowGridTeams[0] ? lowGridTeams[0].team_id : null
                 })
             }
-
-            // for (let i = 0; i < tournamentMatches.length; i++){
-            //     
-            //     if(i + 1 < acceptedQuereis.length) match.team2_id = acceptedQuereis[i + 1].team_id
-
-            //     MatchService.create(match)                
-            // }
 
 
             return res.json(result)
