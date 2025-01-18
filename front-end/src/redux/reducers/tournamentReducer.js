@@ -1,7 +1,8 @@
 const initialState = {
     tournaments: [],
     tournamentUnique: null,
-    engagedTeams: []
+    engagedTeams: [],
+    matches: []
   };
   
   const tournamentsReducer = (state = initialState, action) => {
@@ -16,6 +17,8 @@ const initialState = {
         return { ...state, tournaments: state.tournaments.filter(tournament => tournament.id !== action.payload) };
       case "SET_ENGAGED_TEAMS":
         return { ...state, engagedTeams: action.payload };
+      case "SET_MATCHES":
+        return { ...state, matches: action.payload };
       default:
         return state;
     }

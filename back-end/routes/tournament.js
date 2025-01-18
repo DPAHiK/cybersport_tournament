@@ -524,7 +524,7 @@ router.delete('/:tournamentId/team/:teamId', isAuth("ROLE_ORGINIZER"), EngagedTe
  *       500:
  *         description: Server error
  */
-router.get('/:tournamentId/match', isAuth(), MatchController.findByTournamentId);
+router.get('/:tournamentId/match', MatchController.findByTournamentId);
 
 
 module.exports = router;

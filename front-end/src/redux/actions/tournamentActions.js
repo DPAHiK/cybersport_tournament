@@ -17,6 +17,10 @@ export const setEngagedTeams = (engagedTeams) => ({
   payload: engagedTeams,
 });
 
+export const setMatches = (matches) => ({
+  type: 'SET_MATCHES',
+  payload: matches,
+});
 
 export const addTournament = (tournament) => ({
   type: 'ADD_TOURNAMENT',
@@ -72,6 +76,21 @@ export const fetchEngagedTeams = (id) => {
       for (let i = 0; i < responseIds.data.length; i++) responseIds.data[i].name = responseProfile.data[i].name
       
       dispatch(setEngagedTeams(responseIds.data));
+      dispatch(setError(null))
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+    }
+  };
+};
+
+export const fetchMatches = (id) => {
+  return async (dispatch) => {
+    try{
+      const response = await axios.get(`${API_URL}${id}/match`);
+      
+      dispatch(setMatches(response.data));
       dispatch(setError(null))
     }
     catch(err){
