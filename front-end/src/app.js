@@ -48,23 +48,51 @@ const NavPanel = () => {
   }
 
   if(token) return (    
-  <nav>
-    <ul>
-      <li><Link to="/">Main</Link></li>
-      <li><Link to="/team">Teams</Link></li>
-      <li><Link onClick={logoutHandle} to="/login">Logout</Link></li>
-    </ul>
-  </nav>
+    <nav className="p-3 bg-dark text-white">
+
+    <div className="container">
+      <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+        <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><Link to="/" className="nav-link px-2 text-secondary">Main</Link></li>
+          <li><Link to="/team" className="nav-link px-2 text-white">Teams</Link></li>
+        </ul>
+
+
+        <div className="text-end">
+          <button type="button" className="btn btn-primary me-2">
+            <Link to="/login" onClick={logoutHandle} className="nav-link px-2 text-white">Logout</Link>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    </nav>
   )
 
   return (    
-    <nav>
-      <ul>
-        <li><Link to="/">Main</Link></li>
-        <li><Link to="/team">Teams</Link></li>
-        <li><Link to="/login">Login</Link></li>
-        <li><Link to="/signup">Signup</Link></li>
-      </ul>
+    <nav className="p-3 bg-dark text-white">
+
+    <div className="container">
+      <div className="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+        <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><Link to="/" className="nav-link px-2 text-secondary">Main</Link></li>
+          <li><Link to="/team" className="nav-link px-2 text-white">Teams</Link></li>
+        </ul>
+
+
+        <div className="text-end">
+          <button type="button" className="btn  me-2">
+            <Link to="/login" className="nav-link px-2 text-white">Login</Link>
+          </button>
+          <button type="button" className="btn btn-primary me-2">
+            <Link to="/signup" className="nav-link px-2 text-white">Signup</Link>
+          </button>
+        </div>
+      </div>
+    </div>
+
     </nav>
     )
 }
