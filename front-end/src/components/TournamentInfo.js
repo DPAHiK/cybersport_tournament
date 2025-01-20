@@ -24,6 +24,10 @@ const TournamentInfo = () => {
   const matches = useSelector(state => state.tournament.matches)
   const error = useSelector(state => state.error.body);
 
+  const highGridMatches = matches.filter(match => match.grid_level == 2)
+  const lowGridMatches = matches.filter(match => match.grid_level == 1)
+  const lastMatches = matches.filter(match => match.grid_level == 0)
+
   matches.sort((a, b) => {
     const aDate = new Date(a.start_date)
     const bDate = new Date(b.start_date)
