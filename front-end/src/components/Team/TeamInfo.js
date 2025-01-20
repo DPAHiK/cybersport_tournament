@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTeamById, fetchTeamMembers } from '../redux/actions/teamActions.js';
-import Error from './Error.js'
+import { fetchTeamById, fetchTeamMembers } from '../../redux/actions/teamActions.js';
+import Error from '../Error.js'
 import { Link, useParams } from 'react-router-dom';
 
 const TeamInfo = () => {
@@ -23,7 +23,7 @@ const TeamInfo = () => {
   const error = useSelector(state => state.error.body);
 
 //    console.log(params.id)
-    console.log(teamMembers)
+ //   console.log(teamMembers)
 
   if(team) return (
     <div>
@@ -31,6 +31,7 @@ const TeamInfo = () => {
 
       <div>
       <h2>{team.name}</h2>
+      <Link to={`/team/${params.id}/apply`} className='mx-2'>Apply a query</Link>
       <ul>
         {teamMembers && teamMembers.map(member => (
           <li key={member.id}>

@@ -19,11 +19,6 @@ const TeamQueryScheme = {
         sending_date: Joi.date()
         .required(),
 
-        description: Joi.string()
-        .min(1)
-        .max(255)
-        .required()
-
     }),
 
     update: Joi.object().keys({
@@ -40,10 +35,6 @@ const TeamQueryScheme = {
         .min(1),
 
         sending_date: Joi.date(),
-
-        description: Joi.string()
-        .min(1)
-        .max(255),
 
         status: Joi.boolean()
 

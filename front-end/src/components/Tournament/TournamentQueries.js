@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { editQuery, fetchQueries, fetchQueryTeams,   } from '../redux/actions/queryActions.js';
-import Error from './Error.js'
+import { editQuery, fetchQueries, fetchQueryTeams,   } from '../../redux/actions/queryActions.js';
+import Error from '../Error.js'
 import { Link, useParams } from 'react-router-dom';
 
 const TournamentQueries = () => {
@@ -32,7 +32,7 @@ const TournamentQueries = () => {
         {queries[0] && queryTeams[0] && queries.map(query => (
           <li key={query.id}>
             {queryTeams.find(team => team.id == query.team_id).name}
-            {" " + query.description + " " + query.status}
+            {" " + query.status}
             <button onClick={() => handleUpdateQuery(query.id, {...query, status: true})}>Accept</button>
             <button onClick={() => handleUpdateQuery(query.id, {...query, status: false})}>Deny</button>
           </li>

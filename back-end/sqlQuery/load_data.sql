@@ -45,15 +45,15 @@ INSERT INTO public."tournaments"(
 	('BABG t.1', '15.11.2024', '17.11.2024', 11 );
 
 INSERT INTO public."team_queries"(
-	team_id, tournament_id, sending_date, description, status)
+	team_id, tournament_id, sending_date, status)
 	VALUES
-	(1, 1, '10.10.2024', 'Doka2', true),
-	(2, 1, '10.10.2024', 'Doka2', true),
-	(2, 2, '20.10.2024', 'StariyCraft2', false),
-	(2, 2, '22.10.2024', 'CounterBonk2', true),
-	(1, 2, '22.10.2024', 'CounterBonk2', true),
-	(1, 3, '13.11.2024', 'BABG', true),
-	(2, 3, '13.11.2024', 'BABG', true);
+	(1, 1, '10.10.2024',  true),
+	(2, 1, '10.10.2024',  true),
+	(2, 2, '20.10.2024',  false),
+	(2, 2, '22.10.2024',  true),
+	(1, 2, '22.10.2024',  true),
+	(1, 3, '13.11.2024',  true),
+	(2, 3, '13.11.2024',  true);
 
 INSERT INTO public."engaged_teams"(
 	tournament_id, team_id, team_grid_status)

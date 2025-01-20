@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createTournament } from '../redux/actions/tournamentActions.js';
+import { createTournament } from '../../redux/actions/tournamentActions.js';
 import { useNavigate } from 'react-router-dom';
-import Error from './Error.js'
+import Error from '../Error.js'
 
 const TournamentForm = () => {
   const [title, setTitle] = useState('');

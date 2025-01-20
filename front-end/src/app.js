@@ -1,16 +1,17 @@
 import React from 'react';
-import TeamList from './components/TeamList.js';
-import TeamForm from './components/TeamForm.js';
+import TeamList from './components/Team/TeamList.js';
+import TeamForm from './components/Team/TeamForm.js';
 import Login from './components/Login.js';
 import {  useDispatch, useSelector } from 'react-redux';
 import { logout } from './redux/actions/authActions.js';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Signup from './components/Signup.js';
-import TournamentList from './components/TournamentList.js';
-import TeamInfo from './components/TeamInfo.js';
-import TournamentForm from './components/TournamentForm.js';
-import TournamentInfo from './components/TournamentInfo.js';
-import TournamentQueries from './components/TournamentQueries.js';
+import TournamentList from './components/Tournament/TournamentList.js';
+import TeamInfo from './components/Team/TeamInfo.js';
+import TournamentForm from './components/Tournament/TournamentForm.js';
+import TournamentInfo from './components/Tournament/TournamentInfo.js';
+import TournamentQueries from './components/Tournament/TournamentQueries.js';
+import TeamApplyQuery from './components/Team/TeamApplyQuery.js';
 
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
         <Route index element={<TeamList/>} />
         <Route path="create" element={<TeamForm/>} />
         <Route path=":id" element={<TeamInfo/>} />
+        <Route path=":id/apply" element={<TeamApplyQuery/>} />
       </Route>
       <Route path="/" >
         <Route index element={<TournamentList/>} />

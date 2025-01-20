@@ -18,11 +18,6 @@ const TeamQuery = sequelize.define('team_queries', {
             type: Sequelize.DATE
         },
 
-        description:{
-            type: Sequelize.STRING,
-            allowNull: false
-        },
-
         status:{
             type: Sequelize.BOOLEAN
         }

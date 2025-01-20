@@ -42,7 +42,6 @@ CREATE TABLE IF NOT EXISTS "team_queries" (
 	"team_id" bigint,
 	"tournament_id" bigint NOT NULL,
 	"sending_date" date NOT NULL,
-	"description" varchar(255) NOT NULL,
 	"status" boolean,
 	PRIMARY KEY ("id")
 );

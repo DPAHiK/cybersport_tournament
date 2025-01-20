@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTeams, removeTeam } from '../redux/actions/teamActions.js';
-import Error from './Error.js'
+import { fetchTeams, removeTeam } from '../../redux/actions/teamActions.js';
+import Error from '../Error.js'
 import { Link } from 'react-router-dom';
 
 const TeamList = () => {

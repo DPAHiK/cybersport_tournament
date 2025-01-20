@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchEngagedTeams, fetchMatches, fetchTournamentById } from '../redux/actions/tournamentActions.js';
-import Error from './Error.js'
+import { fetchEngagedTeams, fetchMatches, fetchTournamentById } from '../../redux/actions/tournamentActions.js';
+import Error from '../Error.js'
 import { Link, useParams } from 'react-router-dom';
 
 const TournamentInfo = () => {
