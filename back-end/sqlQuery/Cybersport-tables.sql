@@ -72,7 +72,7 @@ ALTER TABLE "team_members" ADD CONSTRAINT "team_members_fk5" FOREIGN KEY ("user_
 ALTER TABLE "engaged_teams" ADD CONSTRAINT "engaged_team_fk5" FOREIGN KEY ("tournament_id") REFERENCES "tournaments"("id") ON DELETE CASCADE;
 ALTER TABLE "engaged_teams" ADD CONSTRAINT "engaged_team_fk6" FOREIGN KEY ("team_id") REFERENCES "teams"("id") ON DELETE CASCADE;
 
-ALTER TABLE "team_queries" ADD CONSTRAINT "team_query_fk1" FOREIGN KEY ("team_id") REFERENCES "teams"("id") ON DELETE set null;
+ALTER TABLE "team_queries" ADD CONSTRAINT "team_query_fk1" FOREIGN KEY ("team_id") REFERENCES "teams"("id") ON DELETE CASCADE;
 ALTER TABLE "team_queries" ADD CONSTRAINT "team_query_fk2" FOREIGN KEY ("tournament_id") REFERENCES "tournaments"("id") ON DELETE CASCADE;
 
 ALTER TABLE "tournament_results" ADD CONSTRAINT "tournament_result_fk1" FOREIGN KEY ("tournament_id") REFERENCES "tournaments"("id") ON DELETE CASCADE;

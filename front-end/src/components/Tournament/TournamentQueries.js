@@ -31,7 +31,7 @@ const TournamentQueries = () => {
       <ul>
         {queries[0] && queryTeams[0] && queries.map(query => (
           <li key={query.id}>
-            {queryTeams.find(team => team.id == query.team_id).name}
+            {queryTeams.find(team => team.id == query.team_id) ? queryTeams.find(team => team.id == query.team_id).name : 'Deleted team'}
             {" " + query.status}
             <button onClick={() => handleUpdateQuery(query.id, {...query, status: true})}>Accept</button>
             <button onClick={() => handleUpdateQuery(query.id, {...query, status: false})}>Deny</button>
