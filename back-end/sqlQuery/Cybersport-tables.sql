@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS "matches" (
 	"id" serial NOT NULL UNIQUE,
 	"tournament_id" bigint NOT NULL,
 	"is_team1_winner" boolean,
+	"grid_level" int NOT NULL,
 	"start_date" date NOT NULL,
 	"end_date" date,
 	"team1_id" bigint,

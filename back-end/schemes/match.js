@@ -7,6 +7,12 @@ const MacthScheme = {
         .min(1)
         .required(),
 
+        grid_level:Joi.number()
+        .integer()
+        .min(0)
+        .max(2)
+        .required(),
+
         start_date: Joi.date()
         .required(),
 
@@ -30,6 +36,11 @@ const MacthScheme = {
         .min(1),
 
         is_team1_winner: Joi.boolean(),
+
+        grid_level:Joi.number()
+        .integer()
+        .min(0)
+        .max(2),
 
         start_date: Joi.date(),
 

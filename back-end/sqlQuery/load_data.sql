@@ -66,13 +66,13 @@ INSERT INTO public."engaged_teams"(
 	(3, 2, 1);
 	
 INSERT INTO public."matches"(
-	tournament_id, is_team1_winner, start_date, end_date, team1_id, team2_id)
+	tournament_id, is_team1_winner, grid_level, start_date, end_date, team1_id, team2_id)
 	VALUES
-	(1, true, '12.10.2024', '13.10.2024', 1, 2),
-	(1, true, '13.10.2024', '14.10.2024', 1, 2),
-	(2, false, '24.10.2024', '25.10.2024', 1, 2),
-	(2, false, '25.10.2024', '26.10.2024', 1, 2),
-	(3, true, '15.10.2024', '16.10.2024', 1, 2);
+	(1, true, 2, '12.10.2024', '13.10.2024', 1, 2),
+	(1, true, 0, '13.10.2024', '14.10.2024', 1, 2),
+	(2, false, 2, '24.10.2024', '25.10.2024', 1, 2),
+	(2, false, 0, '25.10.2024', '26.10.2024', 1, 2),
+	(3, true, 2, '15.10.2024', '16.10.2024', 1, 2);
 	
 INSERT INTO public."tournament_results"(
 	tournament_id, team_id, place)

@@ -12,6 +12,11 @@ const Match= sequelize.define('matches', {
 		type: Sequelize.BOOLEAN
 	},
 
+	grid_level:{
+		type: Sequelize.INTEGER,
+		allowNull: false
+	},
+
 	start_date:{
 		type: Sequelize.DATE,
 		allowNull: false

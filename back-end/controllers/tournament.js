@@ -23,7 +23,8 @@ class TournamentController{
             
             for (let i = 0; i < acceptedQuereis.length; i += 2){
                 let match = {
-                    tournament_id: tournamentId, 
+                    tournament_id: tournamentId,
+                    grid_level: 2, 
                     start_date: check.start_date, 
                     team1_id: acceptedQuereis[i].team_id, 
                     team2_id: null

@@ -101,7 +101,8 @@ class MatchController{
             if (highGridTeams.length + lowGridTeams.length > 2){
                 for (let i = 0; i < highGridTeams.length; i += 2){
                     let newMatch = {
-                        tournament_id: match.tournament_id, 
+                        tournament_id: match.tournament_id,
+                        grid_level: 2, 
                         start_date: newStartDate,    
                         end_date: newEndDate, 
                         team1_id: highGridTeams[i] ? highGridTeams[i].team_id : null, 
@@ -112,7 +113,8 @@ class MatchController{
 
                 for (let i = 0; i < lowGridTeams.length; i += 2){
                     let newMatch = {
-                        tournament_id: match.tournament_id, 
+                        tournament_id: match.tournament_id,
+                        grid_level: 1,  
                         start_date: newStartDate,   
                         end_date: newEndDate, 
                         team1_id: lowGridTeams[i] ? lowGridTeams[i].team_id : null, 
@@ -124,6 +126,7 @@ class MatchController{
             else {
                 MatchService.create({
                     tournament_id: match.tournament_id, 
+                    grid_level: 0, 
                     start_date: newStartDate,  
                     end_date: newEndDate, 
                     team1_id: highGridTeams[0] ? highGridTeams[0].team_id : null, 
