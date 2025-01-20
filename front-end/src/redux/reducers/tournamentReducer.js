@@ -2,7 +2,7 @@ const initialState = {
     tournaments: [],
     tournamentUnique: null,
     engagedTeams: [],
-    matches: []
+    matches: [],
   };
   
   const tournamentsReducer = (state = initialState, action) => {

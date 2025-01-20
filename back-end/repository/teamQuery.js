@@ -10,6 +10,7 @@ class TeamQueryRepository{
         return TeamQuery.findAll({where: {tournament_id: tournamentId}});
     }
 
+
     findAcceptedByTournamentId(tournamentId){
         return TeamQuery.findAll({where: {tournament_id: tournamentId, status: true}});
     }

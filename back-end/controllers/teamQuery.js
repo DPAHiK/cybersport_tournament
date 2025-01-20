@@ -53,6 +53,21 @@ class TeamQueryController{
         }
     }
 
+    async getQueryTeams(req, res, next){
+        try{
+            const tournamentId = req.params.tournamentId;
+
+            const result = await TeamQueryService.findQueryTeamsByTournamentId(tournamentId)
+            if(result.length) return res.json(result)
+
+            return next(new NotFoundError('Teams applied queries on tournament with ID ' + tournamentId + ' not found'))
+        }
+        catch(err){
+            return next(err)
+        }
+    }
+
+
     async create(req, res, next){
         try{
             const userData = req.body;

@@ -18,6 +18,14 @@ class TeamRepository{
         return results
     }
 
+    async findQueryTeamsByTournamentId(tournamentId){
+        const [results, metadata] = await sequelize.query(
+            "SELECT teams.id, teams.name FROM teams, team_queries WHERE team_queries.tournament_id = " + tournamentId + " and team_queries.team_id = teams.id"
+          )
+
+        return results
+    }
+
     list(){
         return Team.findAll();
     }

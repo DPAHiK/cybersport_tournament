@@ -2,6 +2,10 @@ const Joi = require("joi");
 
 const TeamQueryScheme = {
     create: Joi.object().keys({
+        id: Joi.number()
+        .integer()
+        .min(1),
+
         team_id: Joi.number()
         .integer()
         .min(1)
@@ -23,6 +27,10 @@ const TeamQueryScheme = {
     }),
 
     update: Joi.object().keys({
+        id: Joi.number()
+        .integer()
+        .min(1),
+
         team_id: Joi.number()
         .integer()
         .min(1),

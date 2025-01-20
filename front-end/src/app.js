@@ -10,6 +10,7 @@ import TournamentList from './components/TournamentList.js';
 import TeamInfo from './components/TeamInfo.js';
 import TournamentForm from './components/TournamentForm.js';
 import TournamentInfo from './components/TournamentInfo.js';
+import TournamentQueries from './components/TournamentQueries.js';
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
       <Route path="/tournament" >
       <Route path="create" element={<TournamentForm/>} />
       <Route path=":id" element={<TournamentInfo/>} />
+      <Route path=":id/query" element={<TournamentQueries/>} />
       </Route>
     
     </Routes>

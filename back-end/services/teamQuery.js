@@ -1,4 +1,5 @@
 const TeamQueryRepository = require('../repository/teamQuery')
+const TeamRepository = require('../repository/team')
 
 class TeamQueryService{
     async findById(id){
@@ -11,6 +12,10 @@ class TeamQueryService{
 
     async findByTournamentId(tournamentId){
         return TeamQueryRepository.findByTournamentId(tournamentId);
+    }
+
+    async findQueryTeamsByTournamentId(tournamentId){
+        return TeamRepository.findQueryTeamsByTournamentId(tournamentId);
     }
 
     async findAcceptedByTournamentId(tournamentId){

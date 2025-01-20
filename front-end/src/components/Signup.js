@@ -36,38 +36,66 @@ const Signup = () => {
   };
 
   return (
-    <div className='container'>
-      <Error body={errorBody}/>
+    <div className="container py-5 h-100">
+    <Error body={errorBody}/>
+    <div className="row d-flex justify-content-center align-items-center h-100">
+      <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div className="card bg-dark text-white" style={{borderRadius: 1}}>
+          <div className="card-body p-5 text-center">
 
-      <form onSubmit={handleSubmit} >
-    <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Name"
-        className='form-control'
-        required
-      />
-    <input
-        type="text"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        className='form-control'
-        required
-      />
+            <div className="mb-md-5 mt-md-4 pb-5">
 
-    <input
-        type="text"
-        value={passwordConfirm}
-        onChange={(e) => setPasswordConfirm(e.target.value)}
-        placeholder="Confirm password"
-        className='form-control'
-        required
-      />
-      <button type="submit" className='btn btn-success'>Signup</button>
-    </form>
+              <h2 className="fw-bold mb-2 text-uppercase">Registration</h2>
+              <form onSubmit={handleSubmit}>
+                <div data-mdb-input-init className="form-outline form-white mb-4">
+                  <label className="form-label" for="typeEmailX">Name</label>
+                  <input
+                  id="typeEmailX"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Name"
+                  className='form-control form-control-lg'
+                  required
+                  />
+                </div>
+
+                <div data-mdb-input-init className="form-outline form-white mb-4">
+                 <label className="form-label" for="typePasswordX">Password</label>
+                  <input
+                  id="typePasswordX"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+                  className='form-control form-control-lg'
+                  required
+                  />
+                </div>
+
+                <div data-mdb-input-init className="form-outline form-white mb-4">
+                 <label className="form-label" for="typeConfirmPasswordX">Confirm password</label>
+                  <input
+                  id="typeConfirmPasswordX"
+                  type="password"
+                  value={passwordConfirm}
+                  onChange={(e) => setPasswordConfirm(e.target.value)}
+                  placeholder="Confirm password"
+                  className='form-control form-control-lg'
+                  required
+                  />
+                </div>
+
+                <button data-mdb-button-init data-mdb-ripple-init className="btn btn-outline-light btn-lg px-5" type="submit">Signup</button>
+
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
   )
 
 };

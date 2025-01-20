@@ -51,14 +51,7 @@ const TournamentInfo = () => {
       <Error body={error}/>
 
       <div>
-        <h2>{tournament.title}</h2>
-        <h2>Teams</h2>
-        {engagedTeams && engagedTeams.map(team => (
-          <li key={team.id}>
-            {team.name}
-          </li>
-        ))}    
-        <h2>Matches</h2>
+        <h2>{tournament.title}</h2>  
         <div className='container mt-5'>
           <div className='row'>
             {highGridMatches[0] && <div className='align-self-center col-md-auto '>High grid:</div>}

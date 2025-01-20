@@ -4,12 +4,14 @@ import teamReducer from './reducers/teamReducer.js';
 import authReducer from './reducers/authReducers.js';
 import errorReducer from './reducers/errorReducer.js';
 import tournamentReducer from './reducers/tournamentReducer.js'
+import queryReducer from './reducers/queryReducer.js'
 
 const rootReducer = combineReducers({
     team: teamReducer,
     auth: authReducer,
     error: errorReducer,
-    tournament: tournamentReducer
+    tournament: tournamentReducer,
+    query: queryReducer,
 });
 
 const getTokenFromSessionStorage = () => {
@@ -34,9 +36,14 @@ const initialState = {
         tournaments: [],
         tournamentUnique: null,
         engagedTeams: [],
-        matches: []
-    }
+        matches: [],
+        queries: [],
+    },
 
+    query:{
+        queries: [],
+        queryTeams: [],
+    }
 };
 
 const store = createStore(rootReducer, initialState,  applyMiddleware(thunk));

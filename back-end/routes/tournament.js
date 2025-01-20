@@ -232,6 +232,8 @@ router.delete('/:tournamentId/result/:resultId', isAuth("ROLE_ORGINIZER"), Tourn
 
 router.get('/:tournamentId/query', isAuth(), TeamQueryController.findByTournamentId)
 
+router.get('/:tournamentId/query/team', isAuth(), TeamQueryController.getQueryTeams)
+
 /**
  * @swagger
  * /tournament/:
