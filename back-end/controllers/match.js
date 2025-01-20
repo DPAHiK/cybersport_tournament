@@ -1,6 +1,7 @@
 const MatchService = require('../services/match')
 const EngagedTeamService = require('../services/engagedTeam')
 const NotFoundError = require('../errors/NotFoundError')
+const TournamentResultService = require('../services/tournamentResult')
 
 class MatchController{
     async list(req, res, next){
@@ -55,13 +56,15 @@ class MatchController{
         try{
             const matchData = req.body;
             const matchId = req.params.matchId;
+            const match = await MatchService.findById(matchId)
+            const isResult = match.is_team1_winner
+            
 
             const result = await MatchService.update(matchId, matchData)
             if(!result[0]) return next(new NotFoundError('Match with ID ' + matchId + ' not found')) 
 
-            const match = await MatchService.findById(matchId)
-
-            if(matchData.is_team1_winner || matchData.is_team1_winner === false){
+            
+            if((matchData.is_team1_winner || matchData.is_team1_winner === false) && !isResult){
                 if(matchData.is_team1_winner === true){
                     const team2 = await EngagedTeamService.findByTournamentAndTeamId(match.tournament_id, match.team2_id)
 
@@ -96,7 +99,7 @@ class MatchController{
             const newEndDate = new Date(match.start_date)
             newStartDate.setDate(newStartDate.getDate() + 1)
             newEndDate.setDate(newEndDate.getDate() + 2)
-            console.log(newStartDate)
+            //console.log(newStartDate)
 
             if (highGridTeams.length + lowGridTeams.length > 2){
                 for (let i = 0; i < highGridTeams.length; i += 2){
@@ -123,7 +126,7 @@ class MatchController{
                     MatchService.create(newMatch)
                 }
             }
-            else {
+            else if (highGridTeams.length + lowGridTeams.length == 2){
                 MatchService.create({
                     tournament_id: match.tournament_id, 
                     grid_level: 0, 
@@ -132,6 +135,10 @@ class MatchController{
                     team1_id: highGridTeams[0] ? highGridTeams[0].team_id : null, 
                     team2_id: lowGridTeams[0] ? lowGridTeams[0].team_id : null
                 })
+            }
+
+            else if (highGridTeams.length + lowGridTeams.length == 1){
+                TournamentResultService.create({tournament_id: match.tournament_id, team_id: highGridTeams ? highGridTeams[0].team_id : lowGridTeams[0].team_id, place: 1})
             }
 
 

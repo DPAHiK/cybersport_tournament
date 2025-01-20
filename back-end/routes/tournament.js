@@ -198,6 +198,8 @@ router.put('/result/:resultId', isAuth("ROLE_ORGINIZER"), validate(TournamentRes
  */
 router.delete('/:tournamentId/result', isAuth("ROLE_ORGINIZER"), TournamentResultController.deleteByTournamentId);
 
+router.delete('/:tournamentId/result/:resultId', isAuth("ROLE_ORGINIZER"), TournamentResultController.delete);
+
 /**
  * @swagger
  * /tournament/{tournamentId}/result/{resultId}:

@@ -63,7 +63,7 @@ INSERT INTO public."engaged_teams"(
 	(2, 1, 0),
 	(2, 2, 2),
 	(3, 1, 2),
-	(3, 2, 1);
+	(3, 2, 2);
 	
 INSERT INTO public."matches"(
 	tournament_id, is_team1_winner, grid_level, start_date, end_date, team1_id, team2_id)
@@ -72,7 +72,7 @@ INSERT INTO public."matches"(
 	(1, true, 0, '13.10.2024', '14.10.2024', 1, 2),
 	(2, false, 2, '24.10.2024', '25.10.2024', 1, 2),
 	(2, false, 0, '25.10.2024', '26.10.2024', 1, 2),
-	(3, true, 2, '15.10.2024', '16.10.2024', 1, 2);
+	(3, null, 2, '15.10.2024', '16.10.2024', 1, 2);
 	
 INSERT INTO public."tournament_results"(
 	tournament_id, team_id, place)

@@ -20,6 +20,7 @@ class TournamentResultRepository{
             tournamentResult = await TournamentResult.create(tournamentResultData)
         }
         catch(err){
+            console.log(err)
             throw new Error("Failed to create TournamentResult");
         }
 
