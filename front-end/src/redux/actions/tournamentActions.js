@@ -100,6 +100,30 @@ export const fetchMatches = (id) => {
   };
 };
 
+export const generateGrid = (id) => {
+  return async (dispatch, getState) => {
+    try{
+      const state = getState()
+      const token = state.auth.token 
+      const response = await axios.post(`${API_URL}${id}/generate`, {}, {
+        headers: {
+            'Authorization': token
+        }
+      });
+      dispatch(setError(null))
+
+      return response.data
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+
+      return err.response.data
+    }
+
+  };
+};
+
 export const createTournament = (tournament) => {
   return async (dispatch, getState) => {
     try{

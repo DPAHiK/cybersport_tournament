@@ -19,7 +19,7 @@ class TournamentController{
             const acceptedQuereis = await TeamQueryService.findAcceptedByTournamentId(tournamentId)
 
             acceptedQuereis.forEach((item) => {EngagedTeamService.create
-                ({tournament_id: tournamentId, team_id: item.team_id, team_grid_status: "HIGH_GRID"})})
+                ({tournament_id: tournamentId, team_id: item.team_id, team_grid_status: 2})})
             
             for (let i = 0; i < acceptedQuereis.length; i += 2){
                 let match = {

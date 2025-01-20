@@ -40,8 +40,7 @@ const TeamApplyQuery = () => {
 
         <h2>Check tournaments</h2>
         {checkboxes}
-        <button onClick={() => {handleSubmit()}}>Apply</button>
-
+        <Link to={`/team/${params.id}`} onClick={() => {handleSubmit()}}>Apply</Link>
         </div>
     </div>
   )

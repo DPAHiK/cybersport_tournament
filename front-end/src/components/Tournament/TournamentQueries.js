@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editQuery, fetchQueries, fetchQueryTeams,   } from '../../redux/actions/queryActions.js';
+import { generateGrid } from '../../redux/actions/tournamentActions.js';
 import Error from '../Error.js'
 import { Link, useParams } from 'react-router-dom';
 
@@ -21,6 +22,10 @@ const TournamentQueries = () => {
      dispatch(editQuery(id, body))
   }
 
+  function handleBeginTournament(){
+    dispatch(generateGrid(params.id))
+  }
+
 //console.log(queryTeams)
   return (
     <div>
@@ -28,6 +33,7 @@ const TournamentQueries = () => {
 
       <div>
       <h2>Queries</h2>
+      <Link to={`/tournament/${params.id}`} onClick={() => {handleBeginTournament()}}>Begin tournament</Link>
       <ul>
         {queries[0] && queryTeams[0] && queries.map(query => (
           <li key={query.id}>
