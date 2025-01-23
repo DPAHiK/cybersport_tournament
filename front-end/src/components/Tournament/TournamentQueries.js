@@ -18,8 +18,8 @@ const TournamentQueries = () => {
     dispatch(fetchQueryTeams(params.id));
   }, [dispatch]);
 
-  function handleUpdateQuery(id, body){
-     dispatch(editQuery(id, body))
+  function handleUpdateQuery(id, tournamentId, body){
+     dispatch(editQuery(id, tournamentId, body))
   }
 
   function handleBeginTournament(){
@@ -39,8 +39,8 @@ const TournamentQueries = () => {
             <li key={query.id}>
               {queryTeams.find(team => team.id == query.team_id) ? queryTeams.find(team => team.id == query.team_id).name : 'Deleted team'}
               {" " + query.status}
-              <button onClick={() => handleUpdateQuery(query.id, {...query, status: true})}>Accept</button>
-              <button onClick={() => handleUpdateQuery(query.id, {...query, status: false})}>Deny</button>
+              <button onClick={() => handleUpdateQuery(query.id, query.tournament_id, {...query, status: true})}>Accept</button>
+              <button onClick={() => handleUpdateQuery(query.id, query.tournament_id, {...query, status: false})}>Deny</button>
             </li>
           ))}
 

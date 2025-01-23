@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchEngagedTeams, fetchMatches, fetchTournamentById } from '../../redux/actions/tournamentActions.js';
 import Error from '../Error.js'
 import { Link, useParams } from 'react-router-dom';
+import MatchElement from './MatchElement.js';
 
 const TournamentInfo = () => {
 
@@ -34,18 +35,7 @@ const TournamentInfo = () => {
     if(isTeam1Winner === true && teamNumber === 1) return "mb-0 text-center text-success"
     if(isTeam1Winner === false && teamNumber === 2) return "mb-0 text-center text-success"
     return "mb-0 text-center text-danger"
-
-    
   }
-
-  // matches.sort((a, b) => {
-  //   const aDate = new Date(a.start_date)
-  //   const bDate = new Date(b.start_date)
-  //   //console.log(aDate.getTime() - bDate.getTime())
-  //   return aDate.getTime() - bDate.getTime()})
-//    console.log(params.id)
-    // console.log(engagedTeams)
-    // console.log(matches)
 
   if(tournament) return (
     <div>
@@ -57,22 +47,8 @@ const TournamentInfo = () => {
           <div className='row'>
             {highGridMatches[0] && <div className='align-self-center col-md-auto '>High grid:</div>}
             {highGridMatches && highGridMatches.map(match => (
-            <div className='col col-lg-2 border border-secondary mx-5' key={match.id}>
-              <h4 className={setTeamNameColor(match.is_team1_winner, 1)}>
-              {engagedTeams.find(team => team.team_id == match.team1_id) &&
-              engagedTeams.find(team => team.team_id == match.team1_id).name}
-              </h4>
-
-              <h6 className="my-2 text-center">vs</h6>
-
-              <h4 className={setTeamNameColor(match.is_team1_winner, 2)}>
-              {engagedTeams.find(team => team.team_id == match.team2_id) &&
-              engagedTeams.find(team => team.team_id == match.team2_id).name}
-              </h4>
-
-              <p className="mt-3 text-center">{match.start_date}</p>
             
-            </div>
+            <MatchElement match={match} engagedTeams={engagedTeams}/>
             ))}
           </div>
 

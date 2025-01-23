@@ -231,6 +231,8 @@ router.delete('/:tournamentId/result/:resultId', isOrganizer, TournamentResultCo
 
 router.get('/:tournamentId/query', isAuth(), TeamQueryController.findByTournamentId)
 
+router.put('/:tournamentId/query/:queryId', isOrganizer, TeamQueryController.update)
+
 router.get('/:tournamentId/query/team', isAuth(), TeamQueryController.getQueryTeams)
 
 /**

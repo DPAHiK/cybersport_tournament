@@ -141,12 +141,12 @@ export const createQuery = (body) => {
   };
 };
 
-export const editQuery = (id, body) => {
+export const editQuery = (id, tournamentId, body) => {
   return async (dispatch, getState) => {
     try{
       const state = getState()
       const token = state.auth.token 
-      const response = await axios.put(`http://localhost:5000/team/1/query/${id}`, body, {
+      const response = await axios.put(`http://localhost:5000/tournament/${tournamentId}/query/${id}`, body, {
         headers: {
             'Authorization': token
         }
