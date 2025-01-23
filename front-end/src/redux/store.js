@@ -31,6 +31,7 @@ const initialState = {
     auth: {
         token: getTokenFromSessionStorage(),
         role: getRoleFromSessionStorage(),
+        user: null
     },
 
     error:{

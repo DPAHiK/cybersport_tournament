@@ -5,6 +5,10 @@ class TeamMemberRepository{
         return TeamMember.findAll({where: {team_id: teamId}});
     }
 
+    findByTeamAndUserId(teamId, userId){
+        return TeamMember.findOne({where: {team_id: teamId, user_id: userId}});
+    }
+
     findByUserId(userId){
         return TeamMember.findOne({where: {user_id: userId}})
     }

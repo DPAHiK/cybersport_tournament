@@ -163,6 +163,8 @@ router.get('/:teamId/member', TeamMemberController.findByTeamId);
 
 router.get('/:teamId/member/profile', TeamMemberController.findProfilesByTeamId);
 
+router.get('/:teamId/member/check', TeamMemberController.isTeamMember);
+
 router.get('/:teamId/member/query', MemberQueryController.findByTeamId);
 
 router.post('/:teamId/member/query', isAuth("ROLE_PLAYER"), validate(MemberQueryScheme.create),   MemberQueryController.create);

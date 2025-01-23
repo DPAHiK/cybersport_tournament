@@ -90,6 +90,8 @@ router.get('/', isAuth("ROLE_ADMIN"), UserController.list)
  */
 router.post('/', isAuth("ROLE_ADMIN"), validate(UserScheme.create), UserController.create)
 
+router.get('/me', UserController.me)
+
 /**
  * @swagger
  * /user/{id}:

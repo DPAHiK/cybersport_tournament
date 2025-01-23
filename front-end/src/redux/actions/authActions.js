@@ -12,6 +12,11 @@ export const setRole = (role) => ({
   payload: role,
 });
 
+export const setUser = (user) => ({
+  type: 'SET_USER',
+  payload: user,
+});
+
 export const deleteLoginToken = () => ({
   type: 'LOGOUT'
 });
@@ -69,3 +74,24 @@ export const logout = () => {
   };
 };
 
+export const me = () => {
+  return async (dispatch, getState) => {
+    try {
+      const state = getState()
+      const token = state.auth.token 
+      const result = await axios.get(`http://localhost:5000/user/me`, {
+        headers: {
+            'Authorization': token
+        }
+      });
+
+      sessionStorage.setItem('user', result.data.id)
+      //dispatch(setUser(result.data));
+      //dispatch(setError(null))
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+    }
+  };
+};

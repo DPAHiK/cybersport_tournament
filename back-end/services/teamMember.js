@@ -6,6 +6,10 @@ class TeamMemberService{
         return TeamMemberRepository.findByTeamId(id);
     }
 
+    async findByTeamAndUserId(teamId, userId){
+        return TeamMemberRepository.findByTeamAndUserId(teamId, userId);
+    }
+
     async findProfilesByTeamId(teamId){
         return UserRepository.findProfilesByTeamId(teamId);
     }

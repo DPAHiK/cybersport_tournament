@@ -18,10 +18,10 @@ INSERT INTO public."users"(
 	('adminTeam', '$2b$08$FIYemLu7Bf3Q/fBmqNZOeucd3PSv5BQEjvK.lgh9X0psd5.Twojiy', 'ROLE_ADMIN');
 	
 INSERT INTO public."teams"(
-	name)
+	name, creator_id)
 	VALUES
-	('Chels'),
-	('Pocs');
+	('Chels', 5),
+	('Pocs', 10);
 
 INSERT INTO public."team_members"(
 	team_id, user_id)

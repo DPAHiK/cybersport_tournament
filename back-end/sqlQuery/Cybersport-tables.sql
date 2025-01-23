@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS "teams" (
 	"id" serial NOT NULL UNIQUE,
 	"name" varchar(255) NOT NULL UNIQUE,
+	"creator_id" bigint NOT NULL,
 	PRIMARY KEY ("id")
 );
 
@@ -73,6 +74,8 @@ CREATE TABLE IF NOT EXISTS "matches" (
 	"team2_id" bigint,
 	PRIMARY KEY ("id")
 );
+
+ALTER TABLE "teams" ADD CONSTRAINT "teams_fk5" FOREIGN KEY ("creator_id") REFERENCES "users"("id") ON DELETE CASCADE;
 
 ALTER TABLE "team_members" ADD CONSTRAINT "team_members_fk4" FOREIGN KEY ("team_id") REFERENCES "teams"("id") ON DELETE CASCADE;
 ALTER TABLE "team_members" ADD CONSTRAINT "team_members_fk5" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE;

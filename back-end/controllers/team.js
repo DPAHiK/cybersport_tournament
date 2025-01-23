@@ -40,8 +40,6 @@ class TeamController{
 
         try{
             const teamData = req.body;
-            
-            const result = await TeamService.create(teamData)
 
             const token = req.headers['authorization']; 
             jwt.verify(token, 'secret', async (err, decoded) => {
@@ -49,12 +47,15 @@ class TeamController{
                   return next(new UnauthorizedError('Invalid token'))
                 }
                 if(!decoded) return next(new ForbiddenError('Not enough rights'));
-                
-                const newTeam = await TeamService.findByName(teamData.name)
-                await TeamMemberService.create({team_id: newTeam.id, user_id: decoded.id})
 
+                teamData.creator_id = decoded.id
               });
 
+              const result = await TeamService.create(teamData)
+
+              const newTeam = await TeamService.findByName(teamData.name)
+              TeamMemberService.create({team_id: newTeam.id, user_id: teamData.creator_id})
+              
               res.json(result)
             
         }

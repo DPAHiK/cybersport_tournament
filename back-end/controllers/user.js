@@ -1,6 +1,8 @@
 const UserService = require('../services/user')
 const ConflictError = require('../errors/ConflictError')
 const NotFoundError = require('../errors/NotFoundError')
+const jwt = require('jsonwebtoken')
+const UnauthorizedError = require('../errors/UnauthorizedError')
 
 class UserController{
     async list(req, res, next){
@@ -22,6 +24,25 @@ class UserController{
             if(result) return res.json(result)
 
             next(new NotFoundError('User with ID ' + userId + ' not found'))
+        }
+        catch(err){
+            console.log(err)
+            return next(err)
+        }
+    }
+
+    async me(req, res, next){
+        try{
+            const token = req.headers['authorization'];
+
+            jwt.verify(token, 'secret', (err, decoded) => {
+                if (err) {
+                  return res.json()
+                }
+                
+                
+                return res.json(decoded)
+              });
         }
         catch(err){
             console.log(err)
