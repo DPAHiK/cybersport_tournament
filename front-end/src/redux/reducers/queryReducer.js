@@ -2,6 +2,7 @@ const initialState = {
     queries: [],
     queryTeams: [],
     memberQueries: [],
+    members: [],
   };
   
   const tournamentsReducer = (state = initialState, action) => {
@@ -15,7 +16,8 @@ const initialState = {
             ...state,
             queries: state.queries.map(query => (query.id === action.payload.id ? action.payload : query)),
         };
-
+      case "SET_MEMBERS":
+        return { ...state, members: action.payload };
       case "SET_QUERIES_MEMBERS":
         return { ...state, memberQueries: action.payload };
       case 'DELETE_QUERY_MEMBERS':

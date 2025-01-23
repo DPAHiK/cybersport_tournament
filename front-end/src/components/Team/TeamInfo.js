@@ -40,7 +40,7 @@ const TeamInfo = () => {
       <h2>{team.name}</h2>
       {team && team.creator_id == user &&
         <Link to={`/team/${params.id}/apply`} className='mx-2'>Apply a query</Link>}
-      {teamMembers && !teamMembers.find(item => item.user_id == user) && checkRole('ROLE_USER') &&
+      {teamMembers && !teamMembers.find(item => item.user_id == user) && checkRole('ROLE_PLAYER') &&
         <button onClick={() => handleApply(team.id)} className='mx-2'>Query for join</button> }      
       <ul>
         {teamMembers && teamMembers.map(member => (

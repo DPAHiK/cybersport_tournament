@@ -17,6 +17,12 @@ export const setQueryTeams = (queryTeams) => ({
   payload: queryTeams,
 });
 
+export const setMembers = (members) => ({
+  type: 'SET_MEMBERS',
+  payload: members,
+});
+
+
 export const updateQuery = (query) => ({
     type: 'UPDATE_QUERY',
     payload: query,
@@ -81,6 +87,27 @@ export const fetchQueryTeams = (id) => {
       });
       
       dispatch(setQueryTeams(responseProfile.data));
+      dispatch(setError(null))
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+    }
+  };
+};
+
+export const fetchMembers = (id) => {
+  return async (dispatch, getState) => {
+    try{
+      const state = getState()
+      const token = state.auth.token 
+      const responseProfile = await axios.get(`http://localhost:5000/team/${id}/query/applicants`, {
+        headers: {
+            'Authorization': token
+        }
+      });
+      
+      dispatch(setMembers(responseProfile.data));
       dispatch(setError(null))
     }
     catch(err){

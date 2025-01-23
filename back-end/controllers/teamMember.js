@@ -1,32 +1,7 @@
 const TeamMemberService = require('../services/teamMember')
 const NotFoundError = require('../errors/NotFoundError')
-const UnauthorizedError = require('../errors/UnauthorizedError')
-const jwt = require('jsonwebtoken')
 
 class TeamMemberController{
-
-    async isTeamMember(req, res, next){
-        try{
-            
-            const token = req.headers['authorization'];
-            let result
-            
-            await jwt.verify(token, 'secret', async (err, decoded) => {
-                if (err) {
-                  return next(new UnauthorizedError('Invalid token'))
-                }
-
-                result = await TeamMemberService.findByTeamAndUserId(req.params.teamId, decoded.id)
-                
-              });
-            
-            return res.json(result)
-        }
-        catch(err){
-            console.log(err)
-            return next(err)
-        }
-    }
 
     async findByTeamId(req, res, next){
         try{

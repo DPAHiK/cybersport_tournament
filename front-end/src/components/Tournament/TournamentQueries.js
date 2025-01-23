@@ -32,21 +32,21 @@ const TournamentQueries = () => {
       <Error body={error}/>
 
       <div>
-      <h2>Queries</h2>
-      <Link to={`/tournament/${params.id}`} onClick={() => {handleBeginTournament()}}>Begin tournament</Link>
-      <ul>
-        {queries[0] && queryTeams[0] && queries.map(query => (
-          <li key={query.id}>
-            {queryTeams.find(team => team.id == query.team_id) ? queryTeams.find(team => team.id == query.team_id).name : 'Deleted team'}
-            {" " + query.status}
-            <button onClick={() => handleUpdateQuery(query.id, {...query, status: true})}>Accept</button>
-            <button onClick={() => handleUpdateQuery(query.id, {...query, status: false})}>Deny</button>
-          </li>
-        ))}
+        <h2>Queries</h2>
+        <Link to={`/tournament/${params.id}`} onClick={() => {handleBeginTournament()}}>Begin tournament</Link>
+        <ul>
+          {queries[0] && queryTeams[0] && queries.map(query => (
+            <li key={query.id}>
+              {queryTeams.find(team => team.id == query.team_id) ? queryTeams.find(team => team.id == query.team_id).name : 'Deleted team'}
+              {" " + query.status}
+              <button onClick={() => handleUpdateQuery(query.id, {...query, status: true})}>Accept</button>
+              <button onClick={() => handleUpdateQuery(query.id, {...query, status: false})}>Deny</button>
+            </li>
+          ))}
 
-      </ul>
+        </ul>
 
-    </div>
+      </div>
     </div>
   )
 };

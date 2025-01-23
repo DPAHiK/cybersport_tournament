@@ -163,7 +163,6 @@ router.get('/:teamId/member', TeamMemberController.findByTeamId);
 
 router.get('/:teamId/member/profile', TeamMemberController.findProfilesByTeamId);
 
-router.get('/:teamId/member/check', TeamMemberController.isTeamMember);
 
 router.get('/:teamId/member/query', MemberQueryController.findByTeamId);
 
@@ -314,6 +313,8 @@ router.get('/query/:queryId', TeamQueryController.findById);
  *         description: Server error
  */
 router.get('/:teamId/query', TeamQueryController.findByTeamId);
+
+router.get('/:teamId/query/applicants', MemberQueryController.findProfilesByTeamId);
 
 /**
  * @swagger
