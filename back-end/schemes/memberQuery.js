@@ -1,7 +1,7 @@
 const Joi = require("joi");
 
-const TeamMemberScheme = {
-    update: Joi.object().keys({
+const MemberQueryScheme = {
+    create: Joi.object().keys({
         team_id: Joi.number()
         .integer()
         .min(1)
@@ -10,7 +10,10 @@ const TeamMemberScheme = {
         user_id: Joi.number()
         .integer()
         .min(1)
-        .required()
+        .required(),
+
+        sending_date: Joi.date()
+        .required(),
     }),
 
     update: Joi.object().keys({
@@ -20,9 +23,10 @@ const TeamMemberScheme = {
 
             user_id: Joi.number()
             .integer()
-            .min(1)
+            .min(1),
+
+            sending_date: Joi.date(),
         })
-    
 }
 
-module.exports = TeamMemberScheme;
+module.exports = MemberQueryScheme;

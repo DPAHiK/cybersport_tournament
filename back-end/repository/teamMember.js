@@ -10,7 +10,7 @@ class TeamMemberRepository{
     }
 
     findById(id){
-        return Team.findOne({where: {id: id}});
+        return TeamMember.findOne({where: {id: id}});
     }
 
     list(){

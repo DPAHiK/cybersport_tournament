@@ -26,6 +26,7 @@ const TournamentList = () => {
       <div>
       <h2>Tournaments</h2>
       <Link to='/tournament/create' >Create a tournament</Link>
+      
       <ul>
         {tournaments.map(tournament => (
           <li key={tournament.id}>

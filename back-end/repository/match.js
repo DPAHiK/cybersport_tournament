@@ -2,17 +2,16 @@ const Match = require('../models/match')
 
 class MatchRepository{
     findById(id){
-        return Match.findOne({where: {id: id},
-                              order:[['start_date', 'ASC'] ]});
+        return Match.findOne({where: {id: id}});
     }
 
     findByTournamentId(tournamentId){
         return Match.findAll({where: {tournament_id: tournamentId},
-                              order:[['start_date', 'ASC'] ]});
+                              order:[['start_date', 'ASC'], ['grid_level', 'DESC'] ]});
     }
 
     list(){
-        return Match.findAll({order:[['start_date', 'ASC'] ]});
+        return Match.findAll({order:[['start_date', 'ASC'], ['grid_level', 'DESC'] ]});
     }
 
     async create(matchData){

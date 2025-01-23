@@ -32,6 +32,7 @@ const TournamentInfo = () => {
     //console.log(isTeamWinner)
     if(isTeam1Winner === null)return "mb-0 text-center"
     if(isTeam1Winner === true && teamNumber === 1) return "mb-0 text-center text-success"
+    if(isTeam1Winner === false && teamNumber === 2) return "mb-0 text-center text-success"
     return "mb-0 text-center text-danger"
 
     

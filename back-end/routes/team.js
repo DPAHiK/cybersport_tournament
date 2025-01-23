@@ -1,12 +1,14 @@
 const express = require('express');
 const TeamController = require('../controllers/team');
 const TeamMemberController = require('../controllers/teamMember');
+const MemberQueryController = require('../controllers/memberQuery');
 const EngagedTeamController = require('../controllers/engagedTeam');
 const TeamQueryController = require('../controllers/teamQuery');
 const isAuth = require('../middleware/isAuthorized');
 const validate = require('../middleware/validate');
 const TeamScheme = require('../schemes/team');
 const TeamMemberScheme = require('../schemes/teamMember');
+const MemberQueryScheme = require('../schemes/memberQuery')
 const TeamQueryScheme = require('../schemes/teamQuery');
 const isTeamMember = require('../middleware/isTeamMember');
 
@@ -160,6 +162,14 @@ router.delete('/:id', isTeamMember, TeamController.delete);
 router.get('/:teamId/member', TeamMemberController.findByTeamId);
 
 router.get('/:teamId/member/profile', TeamMemberController.findProfilesByTeamId);
+
+router.get('/:teamId/member/query', MemberQueryController.findByTeamId);
+
+router.post('/:teamId/member/query', isAuth("ROLE_PLAYER"), validate(MemberQueryScheme.create),   MemberQueryController.create);
+
+router.delete('/:teamId/member/query/:queryId/accept', isTeamMember, MemberQueryController.deleteWithAccept);
+
+router.delete('/:teamId/member/query/:queryId/deny', isTeamMember,  MemberQueryController.delete);
 
 /**
  * @swagger

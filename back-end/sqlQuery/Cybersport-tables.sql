@@ -46,6 +46,14 @@ CREATE TABLE IF NOT EXISTS "team_queries" (
 	PRIMARY KEY ("id")
 );
 
+CREATE TABLE IF NOT EXISTS "member_queries" (
+	"id" serial NOT NULL UNIQUE,
+	"team_id" bigint,
+	"user_id" bigint NOT NULL,
+	"sending_date" date NOT NULL,
+	PRIMARY KEY ("id")
+);
+
 CREATE TABLE IF NOT EXISTS "tournament_results" (
 	"id" serial NOT NULL UNIQUE,
 	"tournament_id" bigint NOT NULL,
@@ -82,3 +90,6 @@ ALTER TABLE "tournament_results" ADD CONSTRAINT "tournament_Result_fk2" FOREIGN 
 ALTER TABLE "matches" ADD CONSTRAINT "match_fk1" FOREIGN KEY ("tournament_id") REFERENCES "tournaments"("id") ON DELETE CASCADE;
 ALTER TABLE "matches" ADD CONSTRAINT "match_fk5" FOREIGN KEY ("team1_id") REFERENCES "teams"("id") ON DELETE set null;
 ALTER TABLE "matches" ADD CONSTRAINT "match_fk6" FOREIGN KEY ("team2_id") REFERENCES "teams"("id") ON DELETE set null;
+
+ALTER TABLE "member_queries" ADD CONSTRAINT "member_query_fk1" FOREIGN KEY ("team_id") REFERENCES "teams"("id") ON DELETE CASCADE;
+ALTER TABLE "member_queries" ADD CONSTRAINT "member_query_fk2" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE;
