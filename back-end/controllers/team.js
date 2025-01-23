@@ -19,7 +19,7 @@ class TeamController{
 
     async findById(req, res, next){
         try{
-            const teamId = req.params.id;
+            const teamId = req.params.teamId;
 
             if(teamId == 'query') return next()
 
@@ -67,7 +67,7 @@ class TeamController{
     async update(req, res, next){
         try{
             const teamData = req.body;
-            const teamId = req.params.id;
+            const teamId = req.params.teamId;
 
             const result = await TeamService.update(teamId, teamData)
             if(result[0]) return res.json(result)
@@ -82,7 +82,7 @@ class TeamController{
 
     async delete(req, res, next){
         try{
-            const teamId = req.params.id;
+            const teamId = req.params.teamId;
 
             const result = await TeamService.delete(teamId)
             if(result) return res.json(result)

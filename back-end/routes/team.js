@@ -10,7 +10,7 @@ const TeamScheme = require('../schemes/team');
 const TeamMemberScheme = require('../schemes/teamMember');
 const MemberQueryScheme = require('../schemes/memberQuery')
 const TeamQueryScheme = require('../schemes/teamQuery');
-const isTeamMember = require('../middleware/isTeamMember');
+const isTeamCreator = require('../middleware/isTeamCreator');
 
 const router = express.Router();
 
@@ -79,7 +79,7 @@ router.post('/', isAuth("ROLE_PLAYER"), validate(TeamScheme.create), TeamControl
  *       500:
  *         description: Server error
  */
-router.get('/:id', TeamController.findById);
+router.get('/:teamId', TeamController.findById);
 
 /**
  * @swagger
@@ -112,7 +112,7 @@ router.get('/:id', TeamController.findById);
  *       500:
  *         description: Server error or not enough rights
  */
-router.put('/:id', isTeamMember, validate(TeamScheme.update), TeamController.update);
+router.put('/:teamId', isTeamCreator, validate(TeamScheme.update), TeamController.update);
 
 /**
  * @swagger
@@ -136,7 +136,7 @@ router.put('/:id', isTeamMember, validate(TeamScheme.update), TeamController.upd
  *       500:
  *         description: Server error or not enough rights
  */
-router.delete('/:id', isTeamMember, TeamController.delete);
+router.delete('/:teamId', isTeamCreator, TeamController.delete);
 
 /**
  * @swagger
@@ -169,9 +169,9 @@ router.get('/:teamId/member/query', MemberQueryController.findByTeamId);
 
 router.post('/:teamId/member/query', isAuth("ROLE_PLAYER"), validate(MemberQueryScheme.create),   MemberQueryController.create);
 
-router.delete('/:teamId/member/query/:queryId/accept', isTeamMember, MemberQueryController.deleteWithAccept);
+router.delete('/:teamId/member/query/:queryId/accept', isTeamCreator, MemberQueryController.deleteWithAccept);
 
-router.delete('/:teamId/member/query/:queryId/deny', isTeamMember,  MemberQueryController.delete);
+router.delete('/:teamId/member/query/:queryId/deny', isTeamCreator,  MemberQueryController.delete);
 
 /**
  * @swagger
@@ -205,7 +205,7 @@ router.delete('/:teamId/member/query/:queryId/deny', isTeamMember,  MemberQueryC
  *       500:
  *         description: Server error or not enough rights
  */
-router.post('/:teamId/member', isTeamMember, validate(TeamMemberScheme.create), TeamMemberController.create);
+router.post('/:teamId/member', isTeamCreator, validate(TeamMemberScheme.create), TeamMemberController.create);
 
 /**
  * @swagger
@@ -233,7 +233,7 @@ router.post('/:teamId/member', isTeamMember, validate(TeamMemberScheme.create), 
  *       500:
  *         description: Server error or not enough rights
  */
-router.delete('/:teamId/member/:userId', isTeamMember, TeamMemberController.delete);
+router.delete('/:teamId/member/:userId', isTeamCreator, TeamMemberController.delete);
 
 /**
  * @swagger
@@ -256,7 +256,7 @@ router.delete('/:teamId/member/:userId', isTeamMember, TeamMemberController.dele
  *       500:
  *         description: Server error
  */
-router.get('/:teamId/tournament', isAuth(), EngagedTeamController.findTeamsByTeamId);
+router.get('/:teamId/tournament', EngagedTeamController.findTeamsByTeamId);
 
 /**
  * @swagger
@@ -273,7 +273,7 @@ router.get('/:teamId/tournament', isAuth(), EngagedTeamController.findTeamsByTea
  *       500:
  *         description: Server error
  */
-router.get('/query', isAuth(), TeamQueryController.list);
+router.get('/query', TeamQueryController.list);
 
 /**
  * @swagger
@@ -290,7 +290,7 @@ router.get('/query', isAuth(), TeamQueryController.list);
  *       500:
  *         description: Server error
  */
-router.get('/query/:queryId', isAuth(), TeamQueryController.findById);
+router.get('/query/:queryId', TeamQueryController.findById);
 
 /**
  * @swagger
@@ -313,7 +313,7 @@ router.get('/query/:queryId', isAuth(), TeamQueryController.findById);
  *       500:
  *         description: Server error
  */
-router.get('/:teamId/query', isAuth(), TeamQueryController.findByTeamId);
+router.get('/:teamId/query', TeamQueryController.findByTeamId);
 
 /**
  * @swagger
@@ -341,7 +341,7 @@ router.get('/:teamId/query', isAuth(), TeamQueryController.findByTeamId);
  *       500:
  *         description: Server error
  */
-router.get('/:teamId/query/:queryId', isAuth(), TeamQueryController.findById);
+router.get('/:teamId/query/:queryId', TeamQueryController.findById);
 
 /**
  * @swagger
@@ -379,51 +379,7 @@ router.get('/:teamId/query/:queryId', isAuth(), TeamQueryController.findById);
  *       500:
  *         description: Server error or not enough rights
  */
-router.post('/:teamId/query', isAuth("ROLE_PLAYER"), validate(TeamQueryScheme.create), TeamQueryController.create);
-
-/**
- * @swagger
- * /team/{teamId}/query:
- *   post:
- *     tags:
- *       - Team Queries
- *     summary: create team query
- *     parameters:
- *       - name: teamId
- *         in: path
- *         required: true
- *         type: integer
- *         description: team ID
- *       - name: queryId
- *         in: path
- *         required: true
- *         type: integer
- *         description: query ID
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               teamId:
- *                  type: integer
- *               sendingDate:
- *                  type: date
- *               description:
- *                  type: string
- *               status:
- *                  type: boolean
- *     responses:
- *       200:
- *         description: query updated
- *       401:
- *         description: Invalid token     
- *       500:
- *         description: Server error or not enough rights
- */
-router.put('/:teamId/query/:queryId', isAuth("ROLE_ORGINIZER"), validate(TeamQueryScheme.update), TeamQueryController.update);
-
+router.post('/:teamId/query', isTeamCreator, validate(TeamQueryScheme.create), TeamQueryController.create);
 
 /**
  * @swagger
