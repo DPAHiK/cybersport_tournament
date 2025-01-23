@@ -32,7 +32,7 @@ class LoginController {
   
       return res
         .status(200)
-        .json({ message: "User logged in", accessToken: accessToken });
+        .json({ message: "User logged in", accessToken: accessToken, role: userExists.role });
     } catch (error) {
       //console.log(error);
       next(error);

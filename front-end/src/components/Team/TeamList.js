@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchTeams, removeTeam } from '../../redux/actions/teamActions.js';
 import Error from '../Error.js'
 import { Link } from 'react-router-dom';
+import { createQueryMember } from '../../redux/actions/queryActions.js';
 
 const TeamList = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,10 @@ const TeamList = () => {
   const handleDelete = (id) => {
     dispatch(removeTeam(id));
   };
+
+  const handleApply = (id) => {
+    dispatch(createQueryMember({team_id: id, sending_date: Date()}));
+  };
   return (
     <div>
       <Error body={error}/>
@@ -27,8 +32,10 @@ const TeamList = () => {
         {teams.map(team => (
           <li key={team.id}>
             {team.name}
-            <Link to={"/team/" + team.id}>Info</Link> 
-            <button onClick={() => handleDelete(team.id)}>Delete</button>
+            <button onClick={() => handleApply(team.id)} className='mx-2'>Query for join</button>
+            <Link to={"/team/" + team.id + '/query'} className='mx-2'>Queries</Link> 
+            <Link to={"/team/" + team.id} className='mx-2'>Info</Link> 
+            <button onClick={() => handleDelete(team.id)} className='mx-2'>Delete</button>
           </li>
         ))}
       </ul>

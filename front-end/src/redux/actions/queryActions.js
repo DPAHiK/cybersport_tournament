@@ -7,6 +7,11 @@ export const setQueries = (queries) => ({
   payload: queries,
 });
 
+export const setQueriesMembers = (queries) => ({
+  type: 'SET_QUERIES_MEMBERS',
+  payload: queries,
+});
+
 export const setQueryTeams = (queryTeams) => ({
   type: 'SET_QUERY_TEAMS',
   payload: queryTeams,
@@ -17,6 +22,11 @@ export const updateQuery = (query) => ({
     payload: query,
   });
 
+export const dispDeleteQueryMember = (id) => ({
+    type: 'DELETE_QUERY_MEMBERS',
+    payload: id,
+  });
+  
 
 export const setError = (error) => ({
   type: "SET_ERROR",
@@ -35,6 +45,21 @@ export const fetchQueries = (id) => {
       });
       
       dispatch(setQueries(response.data));
+      dispatch(setError(null))
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+    }
+  };
+};
+
+export const fetchQueriesMembers = (id) => {
+  return async (dispatch) => {
+    try{
+      const response = await axios.get(`http://localhost:5000/team/${id}/member/query`);
+      
+      dispatch(setQueriesMembers(response.data));
       dispatch(setError(null))
     }
     catch(err){
@@ -119,7 +144,7 @@ export const createQueryMember = (body) => {
     try{
       const state = getState()
       const token = state.auth.token 
-      const response = await axios.post(`http://localhost:5000/team/1/query`, body, {
+      const response = await axios.post(`http://localhost:5000/team/1/member/query`, body, {
         headers: {
             'Authorization': token
         }
@@ -138,25 +163,25 @@ export const createQueryMember = (body) => {
   };
 };
 
-export const deleteQueryMember = (id) => {
+export const deleteQueryMember = (id, teamId, isAccepted) => {
   return async (dispatch, getState) => {
     try{
       const state = getState()
-      const token = state.auth.token 
-      const response = await axios.put(`http://localhost:5000/team/1/query/${id}`, body, {
+      const token = state.auth.token
+      const reqStr = isAccepted ? 'accept' : 'deny' 
+      const response = await axios.delete(`http://localhost:5000/team/${teamId}/member/query/${id}/${reqStr}`, {
         headers: {
             'Authorization': token
         }
       });
-      dispatch(updateQuery(body))
+      dispatch(dispDeleteQueryMember(id))
       dispatch(setError(null))
 
       return response.data
     }
     catch(err){
-      console.log(err.response);
+      console.log(err);
       dispatch(setError(err.response))
-
       return err.response.data
     }
 
