@@ -1,4 +1,5 @@
 const MemberQueryRepository = require('../repository/memberQuery')
+const jwt = require('jsonwebtoken')
 
 class MemberQueryService{
     async findById(id){
@@ -18,6 +19,7 @@ class MemberQueryService{
     }
 
     async create(userData){
+        
         return MemberQueryRepository.create(userData);
     }
 

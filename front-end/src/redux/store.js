@@ -43,6 +43,7 @@ const initialState = {
     query:{
         queries: [],
         queryTeams: [],
+        memberQueries: [],
     }
 };
 

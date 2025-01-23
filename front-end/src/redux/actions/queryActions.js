@@ -113,3 +113,52 @@ export const editQuery = (id, body) => {
 
   };
 };
+
+export const createQueryMember = (body) => {
+  return async (dispatch, getState) => {
+    try{
+      const state = getState()
+      const token = state.auth.token 
+      const response = await axios.post(`http://localhost:5000/team/1/query`, body, {
+        headers: {
+            'Authorization': token
+        }
+      });
+      dispatch(setError(null))
+
+      return response.data
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+
+      return err.response.data
+    }
+
+  };
+};
+
+export const deleteQueryMember = (id) => {
+  return async (dispatch, getState) => {
+    try{
+      const state = getState()
+      const token = state.auth.token 
+      const response = await axios.put(`http://localhost:5000/team/1/query/${id}`, body, {
+        headers: {
+            'Authorization': token
+        }
+      });
+      dispatch(updateQuery(body))
+      dispatch(setError(null))
+
+      return response.data
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+
+      return err.response.data
+    }
+
+  };
+};

@@ -1,6 +1,8 @@
 const MemberQueryService = require('../services/memberQuery')
 const TeamMemberService = require('../services/teamMember')
 const NotFoundError = require('../errors/NotFoundError')
+const UnauthorizedError = require('../errors/UnauthorizedError')
+const jwt = require('jsonwebtoken')
 
 class MemberQueryController{
 
@@ -22,8 +24,18 @@ class MemberQueryController{
 
     async create(req, res, next){
         try{
+            const token = req.headers['authorization'];
             const userData = req.body;
 
+            jwt.verify(token, 'secret', (err, decoded) => {
+                if (err) {
+                  return next(new UnauthorizedError('Invalid token'))
+                }
+                
+                userData.user_id = decoded.id
+              
+              });
+              
             res.json(await MemberQueryService.create(userData))
         }
         catch(err){
