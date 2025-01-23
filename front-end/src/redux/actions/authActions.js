@@ -7,6 +7,11 @@ export const setLoginToken = (token) => ({
   payload: token,
 });
 
+export const setRole = (role) => ({
+  type: 'SET_ROLE',
+  payload: role,
+});
+
 export const deleteLoginToken = () => ({
   type: 'LOGOUT'
 });
@@ -21,7 +26,10 @@ export const login = (loginData) => {
     try {
       const response = await axios.post(API_URL + 'login', loginData);
       sessionStorage.setItem('token', response.data.accessToken);
+      sessionStorage.setItem('role', response.data.role);
+
       dispatch(setLoginToken(response.data.accessToken));
+      dispatch(setRole(response.data.role));
       dispatch(setError(null))
       
     } catch (err) {
@@ -49,6 +57,8 @@ export const logout = () => {
   return async (dispatch) => {
     try{
       sessionStorage.removeItem('token');
+      sessionStorage.removeItem('role');
+      
       dispatch(deleteLoginToken());
       dispatch(setError(null))
     }

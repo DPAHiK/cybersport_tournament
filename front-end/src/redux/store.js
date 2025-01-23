@@ -18,6 +18,10 @@ const getTokenFromSessionStorage = () => {
     return sessionStorage.getItem('token');
 };
 
+const getRoleFromSessionStorage = () => {
+    return sessionStorage.getItem('role');
+};
+
 const initialState = {
     team:{
         teams: [],
@@ -26,6 +30,7 @@ const initialState = {
 
     auth: {
         token: getTokenFromSessionStorage(),
+        role: getRoleFromSessionStorage(),
     },
 
     error:{
