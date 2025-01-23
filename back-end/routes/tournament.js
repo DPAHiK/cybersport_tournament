@@ -4,6 +4,7 @@ const TournamentController = require('../controllers/tournament');
 const TournamentResultController = require('../controllers/tournamentResult');
 const MatchController = require('../controllers/match');
 const isAuth = require('../middleware/isAuthorized');
+const isOrganizer = require('../middleware/isOrganizer');
 const validate = require('../middleware/validate');
 const EngagedTeamScheme = require('../schemes/engagedTeam');
 const TournamentScheme = require('../schemes/tournament');
@@ -171,7 +172,7 @@ router.post('/:tournamentId/result', isAuth("ROLE_ORGINIZER"), validate(Tourname
  *       500:
  *         description: Server error
  */
-router.put('/result/:resultId', isAuth("ROLE_ORGINIZER"), validate(TournamentResultScheme.update), TournamentResultController.update);
+router.put('/:tournamentId/result/:resultId', isOrganizer, validate(TournamentResultScheme.update), TournamentResultController.update);
 
 /**
  * @swagger
@@ -196,9 +197,7 @@ router.put('/result/:resultId', isAuth("ROLE_ORGINIZER"), validate(TournamentRes
  *       500:
  *         description: Server error
  */
-router.delete('/:tournamentId/result', isAuth("ROLE_ORGINIZER"), TournamentResultController.deleteByTournamentId);
-
-router.delete('/:tournamentId/result/:resultId', isAuth("ROLE_ORGINIZER"), TournamentResultController.delete);
+router.delete('/:tournamentId/result', isOrganizer, TournamentResultController.deleteByTournamentId);
 
 /**
  * @swagger
@@ -228,7 +227,7 @@ router.delete('/:tournamentId/result/:resultId', isAuth("ROLE_ORGINIZER"), Tourn
  *       500:
  *         description: Server error
  */
-router.delete('/:tournamentId/result/:resultId', isAuth("ROLE_ORGINIZER"), TournamentResultController.delete);
+router.delete('/:tournamentId/result/:resultId', isOrganizer, TournamentResultController.delete);
 
 router.get('/:tournamentId/query', isAuth(), TeamQueryController.findByTournamentId)
 
@@ -307,7 +306,7 @@ router.post('/', isAuth("ROLE_ORGINIZER"), validate(TournamentScheme.create), To
  *       500:
  *         description: Server error
  */
-router.get('/:id', TournamentController.findById);
+router.get('/:tournamentId', TournamentController.findById);
 
 /**
  * @swagger
@@ -349,7 +348,7 @@ router.get('/:id', TournamentController.findById);
  *       500:
  *         description: Server error
  */
-router.put('/:id', isAuth("ROLE_ORGINIZER"), validate(TournamentScheme.update), TournamentController.update);
+router.put('/:tournamentId', isOrganizer, validate(TournamentScheme.update), TournamentController.update);
 
 /**
  * @swagger
@@ -374,7 +373,7 @@ router.put('/:id', isAuth("ROLE_ORGINIZER"), validate(TournamentScheme.update), 
  *       500:
  *         description: Server error
  */
-router.delete('/:id', isAuth("ROLE_ORGINIZER"), TournamentController.delete);
+router.delete('/:tournamentId', isOrganizer, TournamentController.delete);
 
 /**
  * @swagger
@@ -437,7 +436,7 @@ router.get('/:tournamentId/team/profile',  EngagedTeamController.getProfilesByTo
  *       500:
  *         description: Server error
  */
-router.post('/:tournamentId/team', isAuth("ROLE_ORGINIZER"), validate(EngagedTeamScheme.create), EngagedTeamController.create);
+router.post('/:tournamentId/team', isOrganizer, validate(EngagedTeamScheme.create), EngagedTeamController.create);
 
 /**
  * @swagger
@@ -475,7 +474,7 @@ router.post('/:tournamentId/team', isAuth("ROLE_ORGINIZER"), validate(EngagedTea
  *       500:
  *         description: Server error
  */
-router.put('/:tournamentId/team/:teamId', isAuth("ROLE_ORGINIZER"), validate(EngagedTeamScheme.update), EngagedTeamController.update);
+router.put('/:tournamentId/team/:teamId', isOrganizer, validate(EngagedTeamScheme.update), EngagedTeamController.update);
 
 /**
  * @swagger
@@ -505,7 +504,7 @@ router.put('/:tournamentId/team/:teamId', isAuth("ROLE_ORGINIZER"), validate(Eng
  *       500:
  *         description: Server error
  */
-router.delete('/:tournamentId/team/:teamId', isAuth("ROLE_ORGINIZER"), EngagedTeamController.delete);
+router.delete('/:tournamentId/team/:teamId', isOrganizer, EngagedTeamController.delete);
 
 /**
  * @swagger

@@ -54,7 +54,7 @@ class TournamentController{
 
     async findById(req, res, next){
         try{
-            const tournamentId = req.params.id;
+            const tournamentId = req.params.tournamentId;
 
             if(tournamentId == 'query' || tournamentId == 'result') return next();
 
@@ -94,7 +94,7 @@ class TournamentController{
     async update(req, res, next){
         try{
             const tournamentData = req.body;
-            const tournamentId = req.params.id;
+            const tournamentId = req.params.tournamentId;
 
             const result = await TournamentService.update(tournamentId, tournamentData)
             if(result[0]) return res.json(result)
@@ -109,7 +109,7 @@ class TournamentController{
 
     async delete(req, res, next){
         try{
-            const tournamentId = req.params.id;
+            const tournamentId = req.params.tournamentId;
 
             const result = await TournamentService.delete(tournamentId)
             if(result) return res.json(result)
