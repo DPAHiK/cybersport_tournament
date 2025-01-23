@@ -4,11 +4,13 @@ import { fetchTournaments, removeTournament } from '../../redux/actions/tourname
 import { createQuery } from '../../redux/actions/queryActions.js';
 import Error from '../Error.js'
 import { Link } from 'react-router-dom';
+import { checkRole } from '../check.js';
 
 const TournamentList = () => {
   const dispatch = useDispatch();
   const tournaments = useSelector(state => state.tournament.tournaments);
   const error = useSelector(state => state.error.body);
+  const user = sessionStorage.getItem('user')
 
   useEffect(() => {
     dispatch(fetchTournaments());
@@ -25,15 +27,18 @@ const TournamentList = () => {
 
       <div>
       <h2>Tournaments</h2>
-      <Link to='/tournament/create' >Create a tournament</Link>
+      {checkRole('ROLE_ORGINIZER') &&
+        <Link to='/tournament/create' >Create a tournament</Link>}
       
       <ul>
         {tournaments.map(tournament => (
           <li key={tournament.id}>
             {tournament.title}
-            <Link to={"/tournament/" + tournament.id + "/query"}  className='mx-2'>Queries</Link>
+            {(user == tournament.organizer_id || checkRole()) && 
+            <Link to={"/tournament/" + tournament.id + "/query"}  className='mx-2'>Queries</Link>}
             <Link to={"/tournament/" + tournament.id} className='mx-2'>Info</Link>
-            <button onClick={() => handleDelete(tournament.id)} className='mx-2'>Delete</button>
+            {(user == tournament.organizer_id || checkRole()) &&
+              <button onClick={() => handleDelete(tournament.id)} className='mx-2'>Delete</button>}
           </li>
         ))}
       </ul>

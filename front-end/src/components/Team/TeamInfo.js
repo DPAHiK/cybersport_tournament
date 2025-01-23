@@ -4,6 +4,7 @@ import { fetchTeamById, fetchTeamMembers } from '../../redux/actions/teamActions
 import { createQueryMember } from '../../redux/actions/queryActions.js';
 import Error from '../Error.js'
 import { Link, useParams } from 'react-router-dom';
+import { checkRole } from '../check.js';
 
 const TeamInfo = () => {
 
@@ -37,8 +38,9 @@ const TeamInfo = () => {
 
       <div>
       <h2>{team.name}</h2>
-      <Link to={`/team/${params.id}/apply`} className='mx-2'>Apply a query</Link>
-      {teamMembers && !teamMembers.find(item => item.user_id == user) &&
+      {team && team.creator_id == user &&
+        <Link to={`/team/${params.id}/apply`} className='mx-2'>Apply a query</Link>}
+      {teamMembers && !teamMembers.find(item => item.user_id == user) && checkRole('ROLE_USER') &&
         <button onClick={() => handleApply(team.id)} className='mx-2'>Query for join</button> }      
       <ul>
         {teamMembers && teamMembers.map(member => (

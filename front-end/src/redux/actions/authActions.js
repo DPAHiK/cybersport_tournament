@@ -63,6 +63,7 @@ export const logout = () => {
     try{
       sessionStorage.removeItem('token');
       sessionStorage.removeItem('role');
+      sessionStorage.removeItem('user');
       
       dispatch(deleteLoginToken());
       dispatch(setError(null))
