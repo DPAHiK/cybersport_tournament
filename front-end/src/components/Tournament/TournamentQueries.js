@@ -31,20 +31,39 @@ const TournamentQueries = () => {
     <div>
       <Error body={error}/>
 
-      <div>
-        <h2>Queries</h2>
-        <Link to={`/tournament/${params.id}`} onClick={() => {handleBeginTournament()}}>Begin tournament</Link>
-        <ul>
+      <div className='container mt-2' >
+        <h2 className='text-dark m-2'>Queries</h2>
+
+        <Link to={`/tournament/${params.id}`} onClick={() => {handleBeginTournament()}}>
+          <button className="btn btn-outline-dark btn-lg px-3 m-2">
+            Begin tournament
+          </button>
+        </Link>
+
           {queries[0] && queryTeams[0] && queries.map(query => (
-            <li key={query.id}>
-              {queryTeams.find(team => team.id == query.team_id) ? queryTeams.find(team => team.id == query.team_id).name : 'Deleted team'}
-              {" " + query.status}
-              <button onClick={() => handleUpdateQuery(query.id, query.tournament_id, {...query, status: true})}>Accept</button>
-              <button onClick={() => handleUpdateQuery(query.id, query.tournament_id, {...query, status: false})}>Deny</button>
-            </li>
+            <div key={query.id} className='row align-items-center '>
+              <div className='col ' style={{fontSize: '1.25em'}}>
+                {queryTeams.find(team => team.id == query.team_id) ? queryTeams.find(team => team.id == query.team_id).name : 'Deleted team'}
+              </div>
+
+              {query.status ? 
+              <div className='col text-success' style={{fontSize: '1.25em'}}>
+              Accepted
+              </div>
+              :
+              <div className='col text-danger' style={{fontSize: '1.25em'}}>
+              Denied
+              </div>
+              }   
+
+              <div className='col text-end'>
+                <button onClick={() => handleUpdateQuery(query.id, query.tournament_id, {...query, status: true})} className="btn btn-outline-dark btn-lg px-4 m-2">Accept</button>
+                <button onClick={() => handleUpdateQuery(query.id, query.tournament_id, {...query, status: false})} className="btn btn-outline-dark btn-lg px-4 m-2">Deny</button>
+              </div>
+            </div>
           ))}
 
-        </ul>
+
 
       </div>
     </div>
