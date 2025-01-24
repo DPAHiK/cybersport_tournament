@@ -53,7 +53,7 @@ const TournamentList = () => {
                 </Link>
 
               {(user == tournament.organizer_id || checkRole()) &&
-                  <button onClick={() => handleDelete(tournament.id)} className="btn btn-outline-dark btn-lg px-3 m-2">Delete</button>
+                  <button onClick={() => handleDelete(tournament.id)} className="btn btn-outline-danger btn-lg px-3 m-2">Delete</button>
               }
               </div>
             </div>

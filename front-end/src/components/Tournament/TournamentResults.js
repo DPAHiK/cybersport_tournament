@@ -26,18 +26,20 @@ const TournamentResults = () => {
     <div>
       <Error body={error}/>
 
-      <div>
-        <h2>Results of {tournament && tournament.title}</h2>
+      <div className='container mt-2'>
+        <h2 className='m-2'>Results of {tournament && tournament.title}</h2>
         
-        <ul>
           {results &&  results.map(result => (
-            <li key={result.id}>
-              {engagedTeams.length && engagedTeams.find(item => item.team_id == result.team_id).name}
-              {" " + result.place}
-            </li>
+            <div key={result.id} className='row align-items-center border border-secondary mt-3'>
+              <div className='col ' style={{fontSize: '1.5em'}}>
+                { "Place " + result.place }
+              </div>
+              <div className='col ' style={{fontSize: '1.5em'}}>
+                {engagedTeams.length && engagedTeams.find(item => item.team_id == result.team_id).name}
+              </div>
+            </div>
           ))}
 
-        </ul>
 
       </div>
     </div>

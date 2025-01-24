@@ -54,7 +54,7 @@ const TeamList = () => {
                 </button>
               </Link> 
               {(user == team.creator_id || checkRole()) &&
-              <button onClick={() => handleDelete(team.id)} className="btn btn-outline-dark btn-lg px-3 m-2">Delete</button>}
+              <button onClick={() => handleDelete(team.id)} className="btn btn-outline-danger btn-lg px-3 m-2">Delete</button>}
 
               </div>
             </div>

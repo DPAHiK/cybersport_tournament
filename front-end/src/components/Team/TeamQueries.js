@@ -43,8 +43,8 @@ const TeamQueries = () => {
             </div>
 
             <div className='col text-end'>
-              <button onClick={() => handleUpdateQuery(query.id, query.team_id, true)} className="btn btn-outline-dark btn-lg px-3 m-2">Accept</button>
-              <button onClick={() => handleUpdateQuery(query.id, query.team_id, false)} className="btn btn-outline-dark btn-lg px-3 m-2">Deny</button>
+              <button onClick={() => handleUpdateQuery(query.id, query.team_id, true)} className="btn btn-outline-success btn-lg px-3 m-2">Accept</button>
+              <button onClick={() => handleUpdateQuery(query.id, query.team_id, false)} className="btn btn-outline-danger btn-lg px-3 m-2">Deny</button>
             </div>
           </div>
         ))}

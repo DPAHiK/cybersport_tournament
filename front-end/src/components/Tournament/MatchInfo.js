@@ -71,11 +71,11 @@ const MatchInfo = () => {
   )
 
   if(match && engagedTeams) return (
-    <div className='container align-self-center'>
+    <div className='container align-self-center mt-5 '>
       <Error body={error}/>
 
       <div className='row justify-content-center'>
-        <div className='col col-lg-2' >
+        <div className='col col-lg-2 text-center' >
             <h4 className={setTeamNameColor(match.is_team1_winner, 1)}>
             {engagedTeams.find(team => team.team_id == match.team1_id) &&
             engagedTeams.find(team => team.team_id == match.team1_id).name}
@@ -83,13 +83,13 @@ const MatchInfo = () => {
 
         </div>
 
-        <div className='col col-lg-2' >
-            <h6 className="my-2 text-center">vs</h6>
+        <div className='col col-lg-2 text-center align-items-center' >
+            <h6 className="my-2">vs</h6>
 
-            <p className="mt-3 text-center">{match.start_date}</p>
+            <p className="mt-3">{match.start_date}</p>
         </div>
 
-        <div className='col col-lg-2' >
+        <div className='col col-lg-2 text-center' >
             <h4 className={setTeamNameColor(match.is_team1_winner, 2)}>
             {engagedTeams.find(team => team.team_id == match.team2_id) &&
             engagedTeams.find(team => team.team_id == match.team2_id).name}
@@ -97,6 +97,7 @@ const MatchInfo = () => {
 
         </div>
       </div>
+      
 
     </div>
   )
