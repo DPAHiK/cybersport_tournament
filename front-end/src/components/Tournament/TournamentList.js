@@ -25,12 +25,17 @@ const TournamentList = () => {
       <Error body={error}/>
 
       <div className='container mt-2'>
-      <h2 className='text-dark'>Tournaments</h2>
+      <h2 className='text-dark m-2'>Tournaments</h2>
       {checkRole('ROLE_ORGINIZER') &&
-        <Link to='/tournament/create' >Create a tournament</Link>}
+          <Link to='/tournament/create' >
+            <button className="btn btn-outline-dark btn-lg px-3 m-2">
+              Create a tournament
+            </button>
+          </Link>}
+
           {tournaments.map(tournament => (
             <div key={tournament.id} className='row align-items-center '>
-              <div className='col'>{tournament.title}</div>
+              <div className='col ' style={{fontSize: '1.25em'}}>{tournament.title}</div>
               
               <div className='col text-end'>
               {(user == tournament.organizer_id || checkRole()) && 
