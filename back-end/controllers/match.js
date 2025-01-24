@@ -90,11 +90,11 @@ class MatchController{
             const highGridTeams = tournamentTeams.filter(team => team.team_grid_status == 2)
             const lowGridTeams = tournamentTeams.filter(team => team.team_grid_status == 1)
 
-            console.log(tournamentTeams)
+            //console.log(tournamentTeams)
 
-             console.log(highGridTeams)
+             //console.log(highGridTeams)
             
-             console.log(lowGridTeams)
+             //console.log(lowGridTeams)
             const newStartDate = new Date(match.start_date)
             const newEndDate = new Date(match.start_date)
             newStartDate.setDate(newStartDate.getDate() + 1)

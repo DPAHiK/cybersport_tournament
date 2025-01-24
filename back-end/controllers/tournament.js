@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken')
 const UnauthorizedError = require('../errors/UnauthorizedError')
 const ForbiddenError = require('../errors/ForbiddenError')
 const ConflictError = require('../errors/ConflictError')
+const BadRequestError = require('../errors/BadRequestError')
 
 class TournamentController{
 
@@ -19,6 +20,8 @@ class TournamentController{
             if(check.is_began) return next(new ConflictError('Tournament with ID ' + tournamentId + ' already started'))
 
             const acceptedQuereis = await TeamQueryService.findAcceptedByTournamentId(tournamentId)
+
+            if(acceptedQuereis.length < 2 || acceptedQuereis.length > 8) return next(new BadRequestError('Too many or too few accepted queries to begin tournament'))
 
             acceptedQuereis.forEach((item) => {EngagedTeamService.create
                 ({tournament_id: tournamentId, team_id: item.team_id, team_grid_status: 2})})

@@ -14,6 +14,10 @@ class TeamQueryService{
         return TeamQueryRepository.findByTournamentId(tournamentId);
     }
 
+    async findByTournamentAndTeamId(tournamentId, teamId){
+        return TeamQueryRepository.findByTournamentAndTeamId(tournamentId, teamId);
+    }
+
     async findQueryTeamsByTournamentId(tournamentId){
         return TeamRepository.findQueryTeamsByTournamentId(tournamentId);
     }

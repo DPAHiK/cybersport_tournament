@@ -1,5 +1,6 @@
 const TeamQueryService = require('../services/teamQuery')
-const NotFoundError = require('../errors/NotFoundError')
+const NotFoundError = require('../errors/NotFoundError');
+const ConflictError = require('../errors/ConflictError');
 
 class TeamQueryController{
     async list(req, res, next){
@@ -71,6 +72,10 @@ class TeamQueryController{
     async create(req, res, next){
         try{
             const userData = req.body;
+            
+            const check = await TeamQueryService.findByTournamentAndTeamId(userData.tournament_id, userData.team_id)
+
+            if(check) return next(new ConflictError("Query from team with id " + userData.team_id + " for tournament with id " + userData.tournament_id + " already sent"))
 
             res.json(await TeamQueryService.create(userData))
         }
