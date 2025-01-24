@@ -19,9 +19,9 @@ const TeamQueries = () => {
     dispatch(fetchMembers(params.id));
   }, [dispatch]);
 
-  useEffect(() => {           //назад возвращать??
-    if(error ) navigate('/team')
-  }, [error]);
+  // useEffect(() => {           //назад возвращать??
+  //   if(error ) navigate('/team')
+  // }, [error]);
 
   function handleUpdateQuery(id, teamId, isAccepted){
      dispatch(deleteQueryMember(id, teamId, isAccepted))
@@ -33,18 +33,22 @@ const TeamQueries = () => {
     <div>
       <Error body={error}/>
 
-      <div>
-      <h2>Queries</h2>
-      <ul>
+      <div className='container mt-2'>
+      <h2 className='text-dark m-2'>Queries</h2>
+
         {queries[0] && queries.map(query => (
-          <li key={query.id}>
+          <div key={query.id} className='row align-items-center '>
+            <div className='col ' style={{fontSize: '1.25em'}}>
             {queryMembers && queryMembers.find(member => member.id == query.user_id).name}
-            <button onClick={() => handleUpdateQuery(query.id, query.team_id, true)}>Accept</button>
-            <button onClick={() => handleUpdateQuery(query.id, query.team_id, false)}>Deny</button>
-          </li>
+            </div>
+
+            <div className='col text-end'>
+              <button onClick={() => handleUpdateQuery(query.id, query.team_id, true)} className="btn btn-outline-dark btn-lg px-3 m-2">Accept</button>
+              <button onClick={() => handleUpdateQuery(query.id, query.team_id, false)} className="btn btn-outline-dark btn-lg px-3 m-2">Deny</button>
+            </div>
+          </div>
         ))}
 
-      </ul>
 
     </div>
     </div>
