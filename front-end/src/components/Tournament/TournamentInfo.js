@@ -31,12 +31,17 @@ const TournamentInfo = () => {
     <div>
       <Error body={error}/>
 
-      <div>
-        <h2>{tournament.title}</h2>  
-        <div className='container mt-5'>
-          <Link to='result'>Results</Link>
+      <div className='container mt-2'>
+        <h2 className='m-2'>{tournament.title}</h2>  
+        <div className='container'>
+          <Link to='result'>
+            <button className="btn btn-outline-dark btn-lg m-2">
+              Results
+            </button>
+          </Link>
+
           <div className='row'>
-            {highGridMatches[0] && <div className='align-self-center col-md-auto '>High grid:</div>}
+            {highGridMatches[0] && <div className='align-self-center col-md-auto ' style={{fontSize: '1.25em'}}>High grid:</div>}
             {highGridMatches && highGridMatches.map(match => (
             
             <MatchElement match={match} engagedTeams={engagedTeams} key={match.id}/>
@@ -44,7 +49,7 @@ const TournamentInfo = () => {
           </div>
 
           <div className='row'>
-            {lastMatches[0] && <div className='align-self-center col-md-auto '>Final:</div>}
+            {lastMatches[0] && <div className='align-self-center col-md-auto ' style={{fontSize: '1.25em'}}>Final:</div>}
             {highGridMatches && highGridMatches.map(match => (
             <div className='col col-lg-2 border-white border-secondary mx-5' key={match.id + 'blank'}/>
             ))}
@@ -56,7 +61,7 @@ const TournamentInfo = () => {
           </div>
 
           <div className='row'>
-            {lowGridMatches[0] && <div className='align-self-center col-md-auto '>Low grid:</div>}
+            {lowGridMatches[0] && <div className='align-self-center col-md-auto ' style={{fontSize: '1.25em'}}>Low grid:</div>}
             {lowGridMatches && lowGridMatches.map(match => (
 
             <MatchElement match={match} engagedTeams={engagedTeams} key={match.id}/>

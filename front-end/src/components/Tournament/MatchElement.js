@@ -31,7 +31,13 @@ const MatchElement = (props) => {
 
     <p className="mt-3 text-center">{match.start_date}</p>
 
-    <p className="mt-3 text-center"><Link to={`match/${match.id}`}>Info</Link></p>
+    <p className="mt-3 text-center">
+      <Link to={`match/${match.id}`}>
+        <button className="btn btn-outline-dark btn-lg px-3">
+          Info
+        </button>
+      </Link>
+      </p>
   
   </div>
 
