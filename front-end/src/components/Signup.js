@@ -48,7 +48,7 @@ const Signup = () => {
               <h2 className="fw-bold mb-2 text-uppercase">Registration</h2>
               <form onSubmit={handleSubmit}>
                 <div data-mdb-input-init className="form-outline form-white mb-4">
-                  <label className="form-label" for="typeEmailX">Name</label>
+                  <label className="form-label" htmlFor="typeEmailX">Name</label>
                   <input
                   id="typeEmailX"
                   type="text"
@@ -61,7 +61,7 @@ const Signup = () => {
                 </div>
 
                 <div data-mdb-input-init className="form-outline form-white mb-4">
-                 <label className="form-label" for="typePasswordX">Password</label>
+                 <label className="form-label" htmlFor="typePasswordX">Password</label>
                   <input
                   id="typePasswordX"
                   type="password"
@@ -74,7 +74,7 @@ const Signup = () => {
                 </div>
 
                 <div data-mdb-input-init className="form-outline form-white mb-4">
-                 <label className="form-label" for="typeConfirmPasswordX">Confirm password</label>
+                 <label className="form-label" htmlFor="typeConfirmPasswordX">Confirm password</label>
                   <input
                   id="typeConfirmPasswordX"
                   type="password"
@@ -86,7 +86,7 @@ const Signup = () => {
                   />
                 </div>
 
-                <button data-mdb-button-init data-mdb-ripple-init className="btn btn-outline-light btn-lg px-5" type="submit">Signup</button>
+                <button className="btn btn-outline-light btn-lg px-5" type="submit">Signup</button>
 
               </form>
             </div>

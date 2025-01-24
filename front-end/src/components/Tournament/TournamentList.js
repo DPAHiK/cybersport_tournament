@@ -16,7 +16,6 @@ const TournamentList = () => {
     dispatch(fetchTournaments());
   }, [dispatch]);
 
-
   const handleDelete = (id) => {
     dispatch(removeTournament(id));
   };
@@ -25,23 +24,35 @@ const TournamentList = () => {
     <div>
       <Error body={error}/>
 
-      <div>
-      <h2>Tournaments</h2>
+      <div className='container mt-2'>
+      <h2 className='text-dark'>Tournaments</h2>
       {checkRole('ROLE_ORGINIZER') &&
         <Link to='/tournament/create' >Create a tournament</Link>}
-      
-      <ul>
-        {tournaments.map(tournament => (
-          <li key={tournament.id}>
-            {tournament.title}
-            {(user == tournament.organizer_id || checkRole()) && 
-            <Link to={"/tournament/" + tournament.id + "/query"}  className='mx-2'>Queries</Link>}
-            <Link to={"/tournament/" + tournament.id} className='mx-2'>Info</Link>
-            {(user == tournament.organizer_id || checkRole()) &&
-              <button onClick={() => handleDelete(tournament.id)} className='mx-2'>Delete</button>}
-          </li>
-        ))}
-      </ul>
+          {tournaments.map(tournament => (
+            <div key={tournament.id} className='row align-items-center '>
+              <div className='col'>{tournament.title}</div>
+              
+              <div className='col text-end'>
+              {(user == tournament.organizer_id || checkRole()) && 
+                <Link to={"/tournament/" + tournament.id + "/query"}  className='mx-2'>
+                  <button className="btn btn-outline-dark btn-lg px-3 m-2">
+                    Queries
+                  </button>
+                </Link>
+              }
+
+                <Link to={"/tournament/" + tournament.id}>              
+                  <button className="btn btn-outline-dark btn-lg px-4 m-2">
+                    Info
+                  </button>
+                </Link>
+
+              {(user == tournament.organizer_id || checkRole()) &&
+                  <button onClick={() => handleDelete(tournament.id)} className="btn btn-outline-dark btn-lg px-3 m-2">Delete</button>
+              }
+              </div>
+            </div>
+          ))}
     </div>
     </div>
   )
