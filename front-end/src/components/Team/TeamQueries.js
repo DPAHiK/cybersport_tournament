@@ -28,7 +28,7 @@ const TeamQueries = () => {
   }
 
 
-//console.log(queryTeams)
+console.log(queries)
   return (
     <div>
       <Error body={error}/>
@@ -39,7 +39,7 @@ const TeamQueries = () => {
         {queries[0] && queries.map(query => (
           <div key={query.id} className='row align-items-center '>
             <div className='col ' style={{fontSize: '1.25em'}}>
-            {queryMembers && queryMembers.find(member => member.id == query.user_id).name}
+            {queryMembers[0] && queryMembers.find(member => member.id == query.user_id).name}
             </div>
 
             <div className='col text-end'>

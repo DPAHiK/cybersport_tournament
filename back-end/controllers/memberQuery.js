@@ -2,6 +2,7 @@ const MemberQueryService = require('../services/memberQuery')
 const TeamMemberService = require('../services/teamMember')
 const NotFoundError = require('../errors/NotFoundError')
 const UnauthorizedError = require('../errors/UnauthorizedError')
+const ConflictError = require('../errors/ConflictError')
 const jwt = require('jsonwebtoken')
 
 class MemberQueryController{
@@ -49,7 +50,10 @@ class MemberQueryController{
                 userData.user_id = decoded.id
               
               });
-              
+
+            const check = await MemberQueryService.findByUserId(userData.user_id)
+            if(check) return next(new ConflictError("Query on team membership from user with id " + userData.user_id + " already sent"))
+            
             res.json(await MemberQueryService.create(userData))
         }
         catch(err){

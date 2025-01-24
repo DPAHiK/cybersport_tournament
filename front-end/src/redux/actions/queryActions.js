@@ -72,6 +72,7 @@ export const fetchQueriesMembers = (id) => {
     catch(err){
       console.log(err.response);
       dispatch(setError(err.response))
+      dispatch(setQueriesMembers([]));
     }
   };
 };
