@@ -17,10 +17,19 @@ const TeamApplyQuery = () => {
   }, [dispatch]);
 
   const checkboxes = tournaments.map(tournament => (
-    <div key={tournament.id}>
-        <input type="checkbox" id={tournament.id}/>
-        {tournament.title}
-        <Link to={"/tournament/" + tournament.id} className='mx-2'>Info</Link>
+    <div key={tournament.id} className='row align-items-center '>
+        <div className='col ' style={{fontSize: '1.25em'}}>
+          <input type="checkbox" id={tournament.id} className="checkbox me-3"/>
+          <label htmlFor={tournament.id} className="">{tournament.title}</label>
+        </div>
+
+        <div className='col text-end'>
+          <Link to={"/tournament/" + tournament.id} className='mx-2'>
+            <button className="btn btn-outline-dark btn-lg px-4 m-2">
+              Info
+            </button>
+          </Link>
+        </div>
     </div>
   ))
 
@@ -36,11 +45,15 @@ const TeamApplyQuery = () => {
     <div>
       <Error body={error}/>
 
-        <div>
+        <div className='container mt-2'>
 
-        <h2>Check tournaments</h2>
+        <h2 className='m-2'>Check tournaments</h2>
         {checkboxes}
-        <Link to={`/team/${params.id}`} onClick={() => {handleSubmit()}}>Apply</Link>
+        <Link to={`/team/${params.id}`} onClick={() => {handleSubmit()}}>
+          <button className="btn btn-outline-dark btn-lg px-4 m-2">
+            Apply
+          </button>
+        </Link>
         </div>
     </div>
   )

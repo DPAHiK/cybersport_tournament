@@ -25,7 +25,7 @@ const TournamentList = () => {
       <Error body={error}/>
 
       <div className='container mt-2'>
-      <h2 className='text-dark m-2'>Tournaments</h2>
+      <h2 className='m-2'>Tournaments</h2>
       {checkRole('ROLE_ORGINIZER') &&
           <Link to='/tournament/create' >
             <button className="btn btn-outline-dark btn-lg px-3 m-2">
