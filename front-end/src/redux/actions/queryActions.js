@@ -56,6 +56,7 @@ export const fetchQueries = (id) => {
     catch(err){
       console.log(err.response);
       dispatch(setError(err.response))
+      dispatch(setQueries([]));
     }
   };
 };
@@ -92,6 +93,7 @@ export const fetchQueryTeams = (id) => {
     catch(err){
       console.log(err.response);
       dispatch(setError(err.response))
+      dispatch(setQueryTeams([]));
     }
   };
 };
@@ -113,6 +115,7 @@ export const fetchMembers = (id) => {
     catch(err){
       console.log(err.response);
       dispatch(setError(err.response))
+      dispatch(setMembers([]));
     }
   };
 };

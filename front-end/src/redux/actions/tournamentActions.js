@@ -57,6 +57,7 @@ export const fetchTournaments = () => {
     catch(err){
       console.log(err.response);
       dispatch(setError(err.response))
+      dispatch(setTournaments([]));
     }
   };
 };
@@ -73,6 +74,7 @@ export const fetchTournamentById = (id) => {
     catch(err){
       console.log(err.response);
       dispatch(setError(err.response))
+      dispatch(setTournamentUnique(null));
     }
   };
 };
@@ -91,6 +93,7 @@ export const fetchEngagedTeams = (id) => {
     catch(err){
       console.log(err.response);
       dispatch(setError(err.response))
+      dispatch(setEngagedTeams([]));
     }
   };
 };
@@ -106,6 +109,7 @@ export const fetchMatches = (id) => {
     catch(err){
       console.log(err.response);
       dispatch(setError(err.response))
+      dispatch(setMatches([]));
     }
   };
 };
@@ -121,6 +125,7 @@ export const fetchResults = (id) => {
     catch(err){
       console.log(err.response);
       dispatch(setError(err.response))
+      dispatch(setResults([]));
     }
   };
 };
