@@ -26,23 +26,42 @@ const TeamList = () => {
     <div>
       <Error body={error}/>
 
-      <div>
-      <h2>Teams</h2>
-      {checkRole('ROLE_PLAYER') && <Link to='/team/create' >Create a team</Link>}
-      <ul>
-        {teams.map(team => (
-          <li key={team.id}>
-            {team.name}
+      <div className='container mt-2'>
+        <h2 className='text-dark m-2'>Teams</h2>
+        {checkRole('ROLE_PLAYER') && 
+        <Link to='/team/create' >
+          <button className="btn btn-outline-dark btn-lg px-3 m-2">
+            Create a team
+          </button>
+        </Link>}
 
-            {(user == team.creator_id || checkRole()) &&
-              <Link to={"/team/" + team.id + '/query'} className='mx-2'>Queries</Link> }            
-            <Link to={"/team/" + team.id} className='mx-2'>Info</Link> 
-            {(user == team.creator_id || checkRole()) &&
-             <button onClick={() => handleDelete(team.id)} className='mx-2'>Delete</button>}
-          </li>
-        ))}
-      </ul>
-    </div>
+
+          {teams.map(team => (
+            <div key={team.id} className='row align-items-center '>
+              <div className='col ' style={{fontSize: '1.25em'}}>{team.name}</div>
+
+              <div className='col text-end'>
+
+              {(user == team.creator_id || checkRole()) &&
+                <Link to={"/team/" + team.id + '/query'} className='mx-2'>
+                  <button className="btn btn-outline-dark btn-lg px-3 m-2">
+                    Queries
+                  </button>
+                </Link> }            
+              <Link to={"/team/" + team.id} className='mx-2'>
+                <button className="btn btn-outline-dark btn-lg px-4 m-2">
+                  Info
+                </button>
+              </Link> 
+              {(user == team.creator_id || checkRole()) &&
+              <button onClick={() => handleDelete(team.id)} className="btn btn-outline-dark btn-lg px-3 m-2">Delete</button>}
+
+              </div>
+            </div>
+          ))}
+
+      </div>
+    
     </div>
   )
 };
