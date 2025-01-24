@@ -9,7 +9,7 @@ const TeamApplyQuery = () => {
 
   const params = useParams()  
   const dispatch = useDispatch();
-  const tournaments = useSelector(state => state.tournament.tournaments);
+  const tournaments = useSelector(state => state.tournament.tournaments).filter(item => !item.is_began);
   const error = useSelector(state => state.error.body);
   
   useEffect(() => {

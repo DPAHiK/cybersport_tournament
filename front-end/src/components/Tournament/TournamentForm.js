@@ -16,7 +16,7 @@ const TournamentForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    response = await dispatch(createTournament({ title: title, start_date: startDate, end_date: endDate }));
+    response = await dispatch(createTournament({ title: title, start_date: startDate, end_date: endDate, is_began: false }));
     //console.log(response)
     setTitle('');
     setStartDate('');
@@ -58,7 +58,7 @@ const TournamentForm = () => {
                     <input
                     id="title"
                     type="text"
-                    value={title}
+                    value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
                     placeholder="Set start date"
                     className='form-control form-control-lg'
@@ -71,7 +71,7 @@ const TournamentForm = () => {
                     <input
                     id="title"
                     type="text"
-                    value={title}
+                    value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
                     placeholder="Set end date"
                     className='form-control form-control-lg'

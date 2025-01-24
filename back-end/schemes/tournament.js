@@ -14,7 +14,9 @@ const TournamentScheme = {
 
         organizer_id: Joi.number()
         .integer()
-        .min(1)
+        .min(1),
+
+        is_began: Joi.boolean(),
 
     }),
     
@@ -29,7 +31,9 @@ const TournamentScheme = {
 
         organizer_id: Joi.number()
         .integer()
-        .min(1)
+        .min(1),
+
+        is_began: Joi.boolean(),
 
     })
 }

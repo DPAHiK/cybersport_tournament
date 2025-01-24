@@ -19,10 +19,6 @@ const TeamQueries = () => {
     dispatch(fetchMembers(params.id));
   }, [dispatch]);
 
-  // useEffect(() => {           //назад возвращать??
-  //   if(error ) navigate('/team')
-  // }, [error]);
-
   function handleUpdateQuery(id, teamId, isAccepted){
      dispatch(deleteQueryMember(id, teamId, isAccepted))
   }

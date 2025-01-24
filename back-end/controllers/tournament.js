@@ -6,6 +6,7 @@ const NotFoundError = require('../errors/NotFoundError')
 const jwt = require('jsonwebtoken')
 const UnauthorizedError = require('../errors/UnauthorizedError')
 const ForbiddenError = require('../errors/ForbiddenError')
+const ConflictError = require('../errors/ConflictError')
 
 class TournamentController{
 
@@ -15,17 +16,24 @@ class TournamentController{
 
             const check = await TournamentService.findById(tournamentId)
             if(!check) return next(new NotFoundError('Tournament with ID ' + tournamentId + ' not found'))
+            if(check.is_began) return next(new ConflictError('Tournament with ID ' + tournamentId + ' already started'))
 
             const acceptedQuereis = await TeamQueryService.findAcceptedByTournamentId(tournamentId)
 
             acceptedQuereis.forEach((item) => {EngagedTeamService.create
                 ({tournament_id: tournamentId, team_id: item.team_id, team_grid_status: 2})})
-            
+
+            let startDate = new Date(check.start_date)
+            let endDate = new Date(check.start_date)
+            startDate.setDate(startDate.getDate() + 1)
+            endDate.setDate(endDate.getDate() + 2)
+
             for (let i = 0; i < acceptedQuereis.length; i += 2){
                 let match = {
                     tournament_id: tournamentId,
                     grid_level: 2, 
-                    start_date: check.start_date, 
+                    start_date: startDate,
+                    end_date: endDate,  
                     team1_id: acceptedQuereis[i].team_id, 
                     team2_id: null
                 }

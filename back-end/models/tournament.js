@@ -21,7 +21,11 @@ end_date:{
 organizer_id:{
     type: Sequelize.BIGINT,
     allowNull: false
-}
+},
+
+is_began: {
+    type: Sequelize.BOOLEAN
+},
     
 });
 

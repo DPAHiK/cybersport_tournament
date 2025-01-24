@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS "tournaments" (
 	"start_date" date NOT NULL,
 	"end_date" date,
 	"organizer_id" bigint,
+	"is_began" boolean,
 	PRIMARY KEY ("id")
 );
 

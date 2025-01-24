@@ -38,11 +38,11 @@ INSERT INTO public."team_members"(
 	(2, 10);
 	
 INSERT INTO public."tournaments"(
-	title, start_date, end_date, organizer_id)
+	title, start_date, end_date, organizer_id, is_began)
 	VALUES
-	('Doka2 t.1', '12.10.2024', '14.10.2024', 11 ),
-	('CounterBonk2 t.1', '24.10.2024', '26.10.2024', 11 ),
-	('BABG t.1', '15.11.2024', '17.11.2024', 11 );
+	('Doka2 t.1', '12.10.2024', '14.10.2024', 11, true ),
+	('CounterBonk2 t.1', '24.10.2024', '26.10.2024', 11, true ),
+	('BABG t.1', '15.11.2024', '17.11.2024', 11, true );
 
 INSERT INTO public."team_queries"(
 	team_id, tournament_id, sending_date, status)
