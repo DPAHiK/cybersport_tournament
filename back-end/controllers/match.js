@@ -127,18 +127,20 @@ class MatchController{
                 }
             }
             else if (highGridTeams.length + lowGridTeams.length == 2){
+                highGridTeams.push(lowGridTeams[0])
                 MatchService.create({
                     tournament_id: match.tournament_id, 
                     grid_level: 0, 
                     start_date: newStartDate,  
                     end_date: newEndDate, 
                     team1_id: highGridTeams[0] ? highGridTeams[0].team_id : null, 
-                    team2_id: lowGridTeams[0] ? lowGridTeams[0].team_id : null
+                    team2_id: highGridTeams[1] ? highGridTeams[1].team_id : null
                 })
             }
 
             else if (highGridTeams.length + lowGridTeams.length == 1){
-                TournamentResultService.create({tournament_id: match.tournament_id, team_id: highGridTeams ? highGridTeams[0].team_id : lowGridTeams[0].team_id, place: 1})
+                console.log(highGridTeams[0] ? highGridTeams[0].team_id : lowGridTeams[0].team_id)
+                TournamentResultService.create({tournament_id: match.tournament_id, team_id: highGridTeams[0] ? highGridTeams[0].team_id : lowGridTeams[0].team_id, place: 1})
             }
 
 

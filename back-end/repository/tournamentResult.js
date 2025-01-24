@@ -2,7 +2,8 @@ const TournamentResult = require('../models/tournamentResult')
 
 class TournamentResultRepository{
     findByTournamentId(tournamentId){
-        return TournamentResult.findAll({where: {tournament_id: tournamentId}});
+        return TournamentResult.findAll({where: {tournament_id: tournamentId},
+                                order:[['place', 'ASC']]});
     }
 
     findById(id){

@@ -22,6 +22,16 @@ export const setMatches = (matches) => ({
   payload: matches,
 });
 
+export const setResults = (results) => ({
+  type: 'SET_TOURNMAENT_RESULTS',
+  payload: results,
+});
+
+export const updateMatches = (match) => ({
+  type: 'UPDATE_MATCH',
+  payload: match,
+});
+
 export const addTournament = (tournament) => ({
   type: 'ADD_TOURNAMENT',
   payload: tournament,
@@ -100,6 +110,21 @@ export const fetchMatches = (id) => {
   };
 };
 
+export const fetchResults = (id) => {
+  return async (dispatch) => {
+    try{
+      const response = await axios.get(`${API_URL}${id}/result`);
+      
+      dispatch(setResults(response.data));
+      dispatch(setError(null))
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+    }
+  };
+};
+
 export const generateGrid = (id) => {
   return async (dispatch, getState) => {
     try{
@@ -166,5 +191,30 @@ export const removeTournament = (id) => {
       console.log(err.response);
       dispatch(setError(err.response))
     }
+  };
+};
+
+export const updateMatch = (id, match) => {
+  return async (dispatch, getState) => {
+    try{
+      const state = getState()
+      const token = state.auth.token 
+      const response = await axios.put(`http://localhost:5000/match/${id}`, match, {
+        headers: {
+            'Authorization': token
+        }
+      });
+      dispatch(updateMatches(match));
+      dispatch(setError(null))
+
+      return response.data
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+
+      return err.response.data
+    }
+
   };
 };

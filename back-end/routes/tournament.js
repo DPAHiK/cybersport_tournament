@@ -73,7 +73,7 @@ router.get('/result', TournamentResultController.list);
  *       500:
  *         description: Server error
  */
-router.get('/result/:resultId', isAuth(), TournamentResultController.findById);
+router.get('/result/:resultId', TournamentResultController.findById);
 
 /**
  * @swagger
@@ -96,7 +96,7 @@ router.get('/result/:resultId', isAuth(), TournamentResultController.findById);
  *       500:
  *         description: Server error
  */
-router.get('/:tournamentId/result', isAuth(), TournamentResultController.findByTournamentId);
+router.get('/:tournamentId/result', TournamentResultController.findByTournamentId);
 
 /**
  * @swagger

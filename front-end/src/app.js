@@ -13,6 +13,8 @@ import TournamentInfo from './components/Tournament/TournamentInfo.js';
 import TournamentQueries from './components/Tournament/TournamentQueries.js';
 import TeamApplyQuery from './components/Team/TeamApplyQuery.js';
 import TeamQueries from './components/Team/TeamQueries.js';
+import MatchInfo from './components/Tournament/MatchInfo.js';
+import TournamentResults from './components/Tournament/TournamentResults.js';
 
 
 const App = () => {
@@ -36,7 +38,9 @@ const App = () => {
       <Route path="/tournament" >
       <Route path="create" element={<TournamentForm/>} />
       <Route path=":id" element={<TournamentInfo/>} />
+      <Route path=":id/match/:matchId" element={<MatchInfo/>} />
       <Route path=":id/query" element={<TournamentQueries/>} />
+      <Route path=":id/result" element={<TournamentResults/>} />
       </Route>
     
     </Routes>

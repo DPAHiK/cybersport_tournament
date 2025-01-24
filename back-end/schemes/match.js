@@ -31,6 +31,10 @@ const MacthScheme = {
     }),
 
     update: Joi.object().keys({
+        id: Joi.number()
+        .integer()
+        .min(1),
+
         tournament_id: Joi.number()
         .integer()
         .min(1),

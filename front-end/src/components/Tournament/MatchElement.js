@@ -16,7 +16,7 @@ const MatchElement = (props) => {
 
   return (
     
-    <div className='col col-lg-2 border border-secondary mx-5' key={match.id}>
+    <div className='col col-lg-2 border border-secondary mx-5' >
     <h4 className={setTeamNameColor(match.is_team1_winner, 1)}>
     {engagedTeams.find(team => team.team_id == match.team1_id) &&
     engagedTeams.find(team => team.team_id == match.team1_id).name}
@@ -31,7 +31,7 @@ const MatchElement = (props) => {
 
     <p className="mt-3 text-center">{match.start_date}</p>
 
-    <p className="mt-3 text-center"><Link>Info</Link></p>
+    <p className="mt-3 text-center"><Link to={`match/${match.id}`}>Info</Link></p>
   
   </div>
 
