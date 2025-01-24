@@ -36,21 +36,34 @@ const TeamInfo = () => {
     <div>
       <Error body={error}/>
 
-      <div>
-      <h2>{team.name}</h2>
-      {team && team.creator_id == user &&
-        <Link to={`/team/${params.id}/apply`} className='mx-2'>Apply a query</Link>}
-      {teamMembers && !teamMembers.find(item => item.user_id == user) && checkRole('ROLE_PLAYER') &&
-        <button onClick={() => handleApply(team.id)} className='mx-2'>Query for join</button> }      
-      <ul>
-        {teamMembers && teamMembers.map(member => (
-          <li key={member.id}>
-            {member.name}
-          </li>
-        ))}
-      </ul>      
+      <div className='container mt-2'>
+        <h2 className='text-dark m-2'>{team.name}</h2>
 
-    </div>
+        {team && team.creator_id == user &&
+          <Link to={`/team/${params.id}/apply`} className='mx-2'>
+            <button className="btn btn-outline-dark btn-lg px-3 m-2">
+              Apply a query
+            </button>
+          </Link>}
+
+        
+        {teamMembers && !teamMembers.find(item => item.user_id == user) && checkRole('ROLE_PLAYER') &&
+          <button onClick={() => handleApply(team.id)} className="btn btn-outline-dark btn-lg px-3 m-2">
+            Query for join
+          </button> }
+
+
+          {teamMembers && teamMembers.map(member => (
+            <div key={member.id} className='row align-items-center '>
+              <div className='col mt-2' style={{fontSize: '1.25em'}}>
+                {member.name}
+              </div>
+
+            </div>
+          ))}
+    
+
+      </div>
     </div>
   )
 };
