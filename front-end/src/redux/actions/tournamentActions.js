@@ -42,6 +42,12 @@ export const deleteTournament = (id) => ({
   payload: id,
 });
 
+export const deleteMatch = (id) => ({
+  type: 'DELETE_MATCH',
+  payload: id,
+});
+
+
 export const setError = (error) => ({
   type: "SET_ERROR",
   payload: error
@@ -210,6 +216,31 @@ export const updateMatch = (id, match) => {
         }
       });
       dispatch(updateMatches(match));
+      dispatch(setError(null))
+
+      return response.data
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+
+      return err.response.data
+    }
+
+  };
+};
+
+export const removeMatch = (id) => {
+  return async (dispatch, getState) => {
+    try{
+      const state = getState()
+      const token = state.auth.token 
+      const response = await axios.delete(`http://localhost:5000/match/${id}`, {
+        headers: {
+            'Authorization': token
+        }
+      });
+      dispatch(deleteMatch(id));
       dispatch(setError(null))
 
       return response.data

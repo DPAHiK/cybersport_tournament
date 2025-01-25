@@ -41,7 +41,7 @@ const handleDelete = (id) => {
       <div className='container mt-2'>
         <h2 className='text-dark m-2'>{team.name}</h2>
 
-        {team && team.creator_id == user &&
+        {(team && team.creator_id == user || checkRole()) &&
           <Link to={`/team/${params.id}/apply`} className='mx-2'>
             <button className="btn btn-outline-dark btn-lg px-3 m-2">
               Apply a query

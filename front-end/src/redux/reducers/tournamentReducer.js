@@ -18,6 +18,8 @@ const initialState = {
         return { ...state, tournaments: [...state.tournaments, action.payload] };
       case 'DELETE_TOURNAMENT':  
         return { ...state, tournaments: state.tournaments.filter(tournament => tournament.id !== action.payload) };
+      case 'DELETE_MATCH':  
+        return { ...state, matches: state.matches.filter(match => match.id !== action.payload) };
       case "SET_ENGAGED_TEAMS":
         return { ...state, engagedTeams: action.payload };
       case "SET_MATCHES":

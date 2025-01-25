@@ -16,7 +16,7 @@ class EngagedTeamService{
     }
 
     async findByTournamentAndTeamId(tournamentId, teamId){
-        return EngagedTeamRepository.findByTeamAndTournamentId(tournamentId, teamId);
+        return EngagedTeamRepository.findByTeamAndTournamentId( teamId, tournamentId);
     }
 
     async list(){

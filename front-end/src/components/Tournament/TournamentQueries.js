@@ -36,7 +36,7 @@ const TournamentQueries = () => {
       <div className='container mt-2' >
         <h2 className='text-dark m-2'>Queries</h2>
 
-        {tournament && !tournament.is_began && queries.length > 1 &&
+        {tournament && !tournament.is_began && queries.filter(item => item.status == true).length > 1 &&
         <Link to={`/tournament/${params.id}`} onClick={() => {handleBeginTournament()}}>
           <button className="btn btn-outline-dark btn-lg px-3 m-2">
             Begin tournament
@@ -65,10 +65,12 @@ const TournamentQueries = () => {
               </div>
               }   
 
-              <div className='col text-end'>
+              { tournament && !tournament.is_began &&
+                <div className='col text-end'>
                 <button onClick={() => handleUpdateQuery(query.id, query.tournament_id, {...query, status: true})} className="btn btn-outline-success btn-lg px-4 m-2">Accept</button>
                 <button onClick={() => handleUpdateQuery(query.id, query.tournament_id, {...query, status: false})} className="btn btn-outline-danger btn-lg px-4 m-2">Deny</button>
               </div>
+              }
             </div>
           ))}
 

@@ -9,7 +9,7 @@ class EngagedTeamRepository{
         return EngagedTeam.findAll({where: {team_id: teamId}});
     }
 
-    findByTeamAndTournamentId(tournamentId, teamId){
+    findByTeamAndTournamentId(teamId, tournamentId){
         return EngagedTeam.findOne({where: {team_id: teamId, tournament_id: tournamentId}});
     }
 

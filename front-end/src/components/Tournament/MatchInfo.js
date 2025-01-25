@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import {  useDispatch, useSelector } from 'react-redux';
-import {  fetchMatches, fetchEngagedTeams, fetchTournamentById, updateMatch } from '../../redux/actions/tournamentActions.js';
+import {  fetchMatches, fetchEngagedTeams, fetchTournamentById, updateMatch, removeMatch } from '../../redux/actions/tournamentActions.js';
 import Error from '../Error.js'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { checkRole } from '../check.js';
 
 const MatchInfo = () => {
@@ -35,6 +35,11 @@ const MatchInfo = () => {
     
   }
 
+  function handleDelete(){
+    dispatch(removeMatch(match.id))
+    
+  }
+
  if(tournament && tournament.organizer_id == user || checkRole())return (
     <div className='container align-self-center mt-5 '>
       <Error body={error}/>
@@ -54,6 +59,10 @@ const MatchInfo = () => {
             <h6 className="my-2">vs</h6>
 
             <p className="mt-3">{match.start_date}</p>
+            <Link to={`/tournament/${params.id}`}>
+              <button className="btn btn-outline-danger btn-lg m-3" onClick={() => handleDelete()}>Delete</button>
+            </Link>
+            
         </div>
 
         <div className='col col-lg-2 text-center' >

@@ -18,6 +18,7 @@ class TournamentController{
             const check = await TournamentService.findById(tournamentId)
             if(!check) return next(new NotFoundError('Tournament with ID ' + tournamentId + ' not found'))
             if(check.is_began) return next(new ConflictError('Tournament with ID ' + tournamentId + ' already started'))
+            TournamentService.update(check.id, {title: check.title, start_date: check.start_date, end_date: check.end_date, organizer_id: check.organizer_id, is_began: true})
 
             const acceptedQuereis = await TeamQueryService.findAcceptedByTournamentId(tournamentId)
 
