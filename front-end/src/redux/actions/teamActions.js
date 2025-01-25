@@ -28,6 +28,11 @@ export const deleteTeam = (id) => ({
   payload: id,
 });
 
+export const deleteMember = (id) => ({
+  type: 'DELETE_MEMBER',
+  payload: id,
+});
+
 export const updateTeam = (team) => ({
   type: 'UPDATE_TEAM',
   payload: team,
@@ -120,6 +125,26 @@ export const removeTeam = (id) => {
         }
       });
       dispatch(deleteTeam(id));
+      dispatch(setError(null))
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+    }
+  };
+};
+
+export const removeMember = (id, teamId) => {
+  return async (dispatch, getState) => {
+    try {
+      const state = getState()
+      const token = state.auth.token 
+      await axios.delete(`${API_URL}${teamId}/member/${id}`, {
+        headers: {
+            'Authorization': token
+        }
+      });
+      dispatch(deleteMember(id));
       dispatch(setError(null))
     }
     catch(err){

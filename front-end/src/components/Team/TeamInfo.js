@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTeamById, fetchTeamMembers } from '../../redux/actions/teamActions.js';
+import { removeMember, fetchTeamById, fetchTeamMembers } from '../../redux/actions/teamActions.js';
 import { createQueryMember } from '../../redux/actions/queryActions.js';
 import Error from '../Error.js'
 import { Link, useParams } from 'react-router-dom';
@@ -25,11 +25,13 @@ const TeamInfo = () => {
   const error = useSelector(state => state.error.body);
   const user = sessionStorage.getItem('user')
 
-//    console.log(params.id)
- //   console.log(teamMembers)
 
  const handleApply = (id) => {
   dispatch(createQueryMember({team_id: id, sending_date: Date()}));
+};
+
+const handleDelete = (id) => {
+  dispatch(removeMember(id, team.id));
 };
 
   if(team) return (
@@ -58,6 +60,12 @@ const TeamInfo = () => {
               <div className='col mt-2' style={{fontSize: '1.25em'}}>
                 {member.name}
               </div>
+
+            {(user == team.creator_id || checkRole()) &&
+            <div className='col text-end'>
+              <button onClick={() => handleDelete(member.id)} className="btn btn-outline-danger btn-lg px-3 m-2">Delete</button>
+            </div>}
+              
 
             </div>
           ))}

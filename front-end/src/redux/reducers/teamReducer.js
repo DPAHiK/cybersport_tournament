@@ -15,8 +15,9 @@ const initialState = {
       case 'ADD_TEAM':
         return { ...state, teams: [...state.teams, action.payload] };
       case 'DELETE_TEAM':
-        
         return { ...state, teams: state.teams.filter(team => team.id !== action.payload) };
+      case 'DELETE_MEMBER':
+        return { ...state, teamMembers: state.teamMembers.filter(member => member.id !== action.payload) };
       case 'UPDATE_TEAM':
         return {
           ...state,

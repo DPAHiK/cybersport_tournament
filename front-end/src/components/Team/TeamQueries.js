@@ -35,7 +35,7 @@ console.log(queries)
         {queries[0] && queries.map(query => (
           <div key={query.id} className='row align-items-center '>
             <div className='col ' style={{fontSize: '1.25em'}}>
-            {queryMembers[0] && queryMembers.find(member => member.id == query.user_id).name}
+            {queryMembers && queryMembers[0] && queryMembers.find(member => member.id == query.user_id).name}
             </div>
 
             <div className='col text-end'>

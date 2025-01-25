@@ -49,12 +49,12 @@ class TeamMemberController{
 
     async delete(req, res, next){
         try{
-            const userId = req.params.userId;
+            const memberId = req.params.memberId;
 
-            const result = await TeamMemberService.deleteByUserId(userId)
+            const result = await TeamMemberService.delete(memberId)
             if(result) return res.json(result)
 
-            return next(new NotFoundError('Team member with user ID ' + userId + ' not found'))
+            return next(new NotFoundError('Team member with ID ' + memberId + ' not found'))
         }
         catch(err){
             console.log(err)

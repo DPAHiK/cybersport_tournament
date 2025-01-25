@@ -232,7 +232,7 @@ router.post('/:teamId/member', isTeamCreator, validate(TeamMemberScheme.create),
  *       500:
  *         description: Server error or not enough rights
  */
-router.delete('/:teamId/member/:userId', isTeamCreator, TeamMemberController.delete);
+router.delete('/:teamId/member/:memberId', isTeamCreator, TeamMemberController.delete);
 
 /**
  * @swagger
