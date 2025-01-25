@@ -15,6 +15,7 @@ import TeamApplyQuery from './components/Team/TeamApplyQuery.js';
 import TeamQueries from './components/Team/TeamQueries.js';
 import MatchInfo from './components/Tournament/MatchInfo.js';
 import TournamentResults from './components/Tournament/TournamentResults.js';
+import MyProfile from './components/MyProfile.js';
 
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
     <Routes>
       <Route path="/login" element={<Login/>} />
       <Route path="/signup" element={<Signup/>} />
+      <Route path="/me" element={<MyProfile/>} />
       <Route path="/team" >
         <Route index element={<TeamList/>} />
         <Route path="create" element={<TeamForm/>} />
@@ -70,6 +72,9 @@ const NavPanel = () => {
 
 
         <div className="text-end">
+          <button type="button" className="btn me-2">
+            <Link to="/me" className="nav-link px-2 text-white">My profile</Link>
+          </button>
           <button type="button" className="btn btn-primary me-2">
             <Link to="/login" onClick={logoutHandle} className="nav-link px-2 text-white">Logout</Link>
           </button>

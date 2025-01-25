@@ -12,10 +12,7 @@ INSERT INTO public."users"(
 	('UltraPoc', '19980', 'ROLE_PLAYER'),
 	('GigaPoc', '77777', 'ROLE_PLAYER'),
 	('Venigni', '$2b$08$dwTRzEETvirSSfRtb956quNMGIkXRC41MczzuxhH960yzCcBrLvPW', 'ROLE_ORGINIZER'),
-	('admin', '$2b$08$FIYemLu7Bf3Q/fBmqNZOeucd3PSv5BQEjvK.lgh9X0psd5.Twojiy', 'ROLE_ADMIN'),
-	('adminUser', '$2b$08$FIYemLu7Bf3Q/fBmqNZOeucd3PSv5BQEjvK.lgh9X0psd5.Twojiy', 'ROLE_ADMIN'),
-	('adminTournament', '$2b$08$FIYemLu7Bf3Q/fBmqNZOeucd3PSv5BQEjvK.lgh9X0psd5.Twojiy', 'ROLE_ADMIN'),
-	('adminTeam', '$2b$08$FIYemLu7Bf3Q/fBmqNZOeucd3PSv5BQEjvK.lgh9X0psd5.Twojiy', 'ROLE_ADMIN');
+	('admin', '$2b$08$FIYemLu7Bf3Q/fBmqNZOeucd3PSv5BQEjvK.lgh9X0psd5.Twojiy', 'ROLE_ADMIN');
 	
 INSERT INTO public."teams"(
 	name, creator_id)

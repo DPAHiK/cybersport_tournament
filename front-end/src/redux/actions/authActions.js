@@ -96,3 +96,44 @@ export const me = () => {
     }
   };
 };
+
+export const myProfile = () => {
+  return async (dispatch, getState) => {
+    try {
+      const state = getState()
+      const token = state.auth.token 
+      const result = await axios.get(`http://localhost:5000/user/me`, {
+        headers: {
+            'Authorization': token
+        }
+      });
+      
+      dispatch(setUser(result.data));
+      dispatch(setError(null))
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+    }
+  };
+};
+
+export const changePassword = (body) => {
+  return async (dispatch, getState) => {
+    try {
+      const state = getState()
+      const token = state.auth.token 
+      await axios.put(`http://localhost:5000/auth/changePassword`, body, {
+        headers: {
+            'Authorization': token
+        }
+      });
+      
+      dispatch(setError(null))
+    }
+    catch(err){
+      console.log(err.response);
+      dispatch(setError(err.response))
+    }
+  };
+};
