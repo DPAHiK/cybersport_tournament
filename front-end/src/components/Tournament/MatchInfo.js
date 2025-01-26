@@ -44,27 +44,42 @@ const MatchInfo = () => {
     <div className='container align-self-center mt-5 '>
       <Error body={error}/>
 
-      {match && engagedTeams &&
+
+      <div className='row'>
+        <Link to={`/tournament/${params.id}`} className='col text-start'>
+          <button className='btn btn-outline-dark btn-lg m-3'>
+            Back
+          </button>
+        </Link>
+      </div>
+      
       <div className='row justify-content-center'>
+
+
+        {match && engagedTeams &&
         <div className='col col-lg-2 text-center' >
-            <h4 className={setTeamNameColor(match.is_team1_winner, 1)}>
-            {engagedTeams.find(team => team.team_id == match.team1_id) &&
-            engagedTeams.find(team => team.team_id == match.team1_id).name}
-            </h4>
-            <button className="btn btn-outline-dark btn-lg m-3" onClick={() => handleWinner(true)}>Winner</button>
+          <h4 className={setTeamNameColor(match.is_team1_winner, 1)}>
+          {engagedTeams.find(team => team.team_id == match.team1_id) &&
+          engagedTeams.find(team => team.team_id == match.team1_id).name}
+          </h4>
+          <button className="btn btn-outline-dark btn-lg m-3" onClick={() => handleWinner(true)}>Winner</button>
 
         </div>
+        }
 
-        <div className='col col-lg-2 text-center align-items-center' >
+        {match && engagedTeams &&
+        <div className='col col-lg-3 text-center align-items-center' >
             <h6 className="my-2">vs</h6>
 
-            <p className="mt-3">{formatDate(match.start_date)}</p>
+            <p className="mt-3">{formatDate(match.start_date) + " - " + formatDate(match.end_date)}</p>
             <Link to={`/tournament/${params.id}`}>
               <button className="btn btn-outline-danger btn-lg m-3" onClick={() => handleDelete()}>Delete</button>
             </Link>
             
         </div>
+        }
 
+        {match && engagedTeams &&
         <div className='col col-lg-2 text-center' >
             <h4 className={setTeamNameColor(match.is_team1_winner, 2)}>
             {engagedTeams.find(team => team.team_id == match.team2_id) &&
@@ -73,8 +88,10 @@ const MatchInfo = () => {
             <button className="btn btn-outline-dark btn-lg m-3" onClick={() => handleWinner(false)}>Winner</button>
 
         </div>
+        }
+
       </div>
-      }
+      
 
     </div>
   )
@@ -95,7 +112,7 @@ const MatchInfo = () => {
         <div className='col col-lg-2 text-center align-items-center' >
             <h6 className="my-2">vs</h6>
 
-            <p className="mt-3">{formatDate(match.start_date)}</p>
+            <p className="mt-3">{formatDate(match.start_date) + " - " + formatDate(match.end_date)}</p>
         </div>
 
         <div className='col col-lg-2 text-center' >

@@ -41,6 +41,11 @@ const TournamentInfo = () => {
         </div>
 
         <div className='container match-container'>
+          <Link to='/' className='col text-start'>
+            <button className='btn btn-outline-dark btn-lg m-3'>
+              Back
+            </button>
+          </Link>
           <Link to='result'>
             <button className="btn btn-outline-dark btn-lg m-2">
               Results

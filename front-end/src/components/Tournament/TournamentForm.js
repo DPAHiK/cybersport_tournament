@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createTournament } from '../../redux/actions/tournamentActions.js';
 import { useNavigate } from 'react-router-dom';
 import Error from '../Error.js'
+import { Link } from 'react-router-dom';
 
 const TournamentForm = () => {
   const [title, setTitle] = useState('');
@@ -54,6 +55,11 @@ const TournamentForm = () => {
     <div className="container py-5 h-100">
       <Error body={errorBody}/>
 
+      <Link to='/' className='col text-start'>
+        <button className='btn btn-outline-dark btn-lg m-3'>
+          Back
+        </button>
+      </Link>
       <div className="row d-flex justify-content-center align-items-center h-100">
         <div className="col-12 col-md-8 col-lg-6 col-xl-5">
           <div className="card bg-dark text-white" style={{borderRadius: 1}}>

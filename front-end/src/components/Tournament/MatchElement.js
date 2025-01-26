@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { formatDate } from '../check.js';
 
 const MatchElement = (props) => {
 
@@ -9,7 +8,7 @@ const MatchElement = (props) => {
 
     function setTeamNameColor(isTeam1Winner, teamNumber){
         //console.log(isTeamWinner)
-        if(isTeam1Winner === null)return "mb-0 text-center"
+        if(isTeam1Winner === null) return "mb-0 text-center"
         if(isTeam1Winner === true && teamNumber === 1) return "mb-0 text-center text-success"
         if(isTeam1Winner === false && teamNumber === 2) return "mb-0 text-center text-success"
         return "mb-0 text-center text-danger"
@@ -30,7 +29,6 @@ const MatchElement = (props) => {
     engagedTeams.find(team => team.team_id == match.team2_id).name}
     </h4>
 
-    <p className="mt-3 text-center">{formatDate(match.start_date)}</p>
 
     <p className="mt-3 text-center">
       <Link to={`match/${match.id}`}>
