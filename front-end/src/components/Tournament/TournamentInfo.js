@@ -50,9 +50,13 @@ const TournamentInfo = () => {
             ))}
           </div>
 
+
+
           <div className='row match-row'>
-            {lastMatches[0] && <div className='align-self-center col-2 ' style={{fontSize: '1.25em'}}>Final:</div>}
+            {highGridMatches[0] && <div className='align-self-center col-2 ' style={{fontSize: '1.25em'}}>Final:</div>}
+
             {highGridMatches && highGridMatches.map(match => (
+            match.team1_id && match.team2_id &&
             <div className='col col-lg-2 border-white border-secondary mx-5' key={match.id + 'blank'}/>
             ))}
 

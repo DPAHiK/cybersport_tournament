@@ -35,7 +35,7 @@ const TournamentResults = () => {
                 { "Place " + result.place }
               </div>
               <div className='col ' style={{fontSize: '1.5em'}}>
-                {engagedTeams && engagedTeams.length && engagedTeams.find(item => item.team_id == result.team_id).name}
+                {engagedTeams && engagedTeams[0] && engagedTeams.find(item => item.team_id == result.team_id).name}
               </div>
             </div>
           ))}

@@ -6,8 +6,14 @@ import Error from '../Error.js'
 
 const TournamentForm = () => {
   const [title, setTitle] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+
+  const [startDateDay, setStartDateDay] = useState('');
+  const [startDateMonth, setStartDateMonth] = useState('');
+  const [startDateYear, setStartDateYear] = useState('');
+
+  const [endDateDay, setEndDateDay] = useState('');
+  const [endDateMonth, setEndDateMonth] = useState('');
+  const [endDateYear, setEndDateYear] = useState('');
 
   const dispatch = useDispatch();
   const errorBody = useSelector(state => state.error.body);
@@ -16,11 +22,28 @@ const TournamentForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    let startDate = new Date()
+    startDate.setDate(startDateDay)
+    startDate.setMonth(startDateMonth - 1)
+    startDate.setFullYear(startDateYear)
+
+    let endDate = new Date()
+    endDate.setDate(endDateDay)
+    endDate.setMonth(endDateMonth - 1)
+    endDate.setFullYear(endDateYear)
+
     response = await dispatch(createTournament({ title: title, start_date: startDate, end_date: endDate, is_began: false }));
     //console.log(response)
     setTitle('');
-    setStartDate('');
-    setEndDate('');
+    
+    setStartDateDay('');
+    setStartDateMonth('');
+    setStartDateYear('');
+    
+    setEndDateDay('');
+    setEndDateMonth('');
+    setEndDateYear('');
 
     if (!response.error) { 
       navigate('/'); 
@@ -53,30 +76,88 @@ const TournamentForm = () => {
                     />
                   </div>
 
-                  <div data-mdb-input-init className="form-outline form-white mb-4">
-                    <label className="form-label" htmlFor="title">Start date</label>
-                    <input
-                    id="title"
-                    type="text"
-                    value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
-                    placeholder="Set start date"
-                    className='form-control form-control-lg'
-                    required
-                    />
+                  <label className="form-label" htmlFor="startDay">Start Date</label>
+                  <div data-mdb-input-init className="form-outline form-white mb-4 row">
+                    <div className="col">
+                      <label className="form-label" htmlFor="startDay">Day</label>
+                      <input
+                      id="startDay"
+                      type="text"
+                      value={startDateDay}
+                      onChange={(e) => setStartDateDay(e.target.value)}
+                      placeholder="Day"
+                      className='form-control form-control-lg'
+                      required
+                      />
+                    </div>
+
+                    <div className="col" >
+                      <label className="form-label" htmlFor="startMonth">Month</label>
+                      <input
+                      id="startMonth"
+                      type="text"
+                      value={startDateMonth}
+                      onChange={(e) => setStartDateMonth(e.target.value)}
+                      placeholder="Month"
+                      className='form-control form-control-lg'
+                      required
+                      />
+                    </div>
+
+                    <div className="col" >
+                      <label className="form-label" htmlFor="startYear">Year</label>
+                      <input
+                      id="startYear"
+                      type="text"
+                      value={startDateYear}
+                      onChange={(e) => setStartDateYear(e.target.value)}
+                      placeholder="Year"
+                      className='form-control form-control-lg'
+                      required
+                      />
+                    </div>
                   </div>
 
-                  <div data-mdb-input-init className="form-outline form-white mb-4">
-                    <label className="form-label" htmlFor="title">End date</label>
-                    <input
-                    id="title"
-                    type="text"
-                    value={endDate}
-                    onChange={(e) => setEndDate(e.target.value)}
-                    placeholder="Set end date"
-                    className='form-control form-control-lg'
-                    required
-                    />
+                  <label className="form-label" htmlFor="endDay">End date</label>
+                  <div data-mdb-input-init className="form-outline form-white mb-4 row">
+                    <div className='col'>
+                      <label className="form-label" htmlFor="endDay">Day</label>
+                      <input
+                      id="endDay"
+                      type="text"
+                      value={endDateDay}
+                      onChange={(e) => setEndDateDay(e.target.value)}
+                      placeholder="Day"
+                      className='form-control form-control-lg'
+                      required
+                      />
+                    </div>
+
+                    <div className='col'>
+                      <label className="form-label" htmlFor="endMonth">Month</label>
+                      <input
+                      id="endMonth"
+                      type="text"
+                      value={endDateMonth}
+                      onChange={(e) => setEndDateMonth(e.target.value)}
+                      placeholder="Month"
+                      className='form-control form-control-lg'
+                      required
+                      />
+                    </div>
+
+                    <div className='col'>
+                      <label className="form-label" htmlFor="endYear">Year</label>
+                      <input
+                      id="endYear"
+                      type="text"
+                      value={endDateYear}
+                      onChange={(e) => setEndDateYear(e.target.value)}
+                      placeholder="Year"
+                      className='form-control form-control-lg'
+                      required
+                      />
+                    </div>
                   </div>
 
                   <button className="btn btn-outline-light btn-lg px-5" type="submit">Create a tournament</button>
