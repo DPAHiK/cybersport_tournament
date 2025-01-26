@@ -33,23 +33,23 @@ const TournamentInfo = () => {
 
       <div className='container mt-2'>
         <h2 className='m-2'>{tournament.title}</h2>  
-        <div className='container'>
+        <div className='container match-container'>
           <Link to='result'>
             <button className="btn btn-outline-dark btn-lg m-2">
               Results
             </button>
           </Link>
 
-          <div className='row'>
-            {highGridMatches[0] && <div className='align-self-center col-md-auto ' style={{fontSize: '1.25em'}}>High grid:</div>}
+          <div className='row match-row'>
+            {highGridMatches[0] && <div className='align-self-center col-2 ' style={{fontSize: '1.25em'}}>High grid:</div>}
             {highGridMatches && highGridMatches.map(match => (
-            
+            match.team1_id && match.team2_id &&
             <MatchElement match={match} engagedTeams={engagedTeams} key={match.id}/>
             ))}
           </div>
 
-          <div className='row'>
-            {lastMatches[0] && <div className='align-self-center col-md-auto ' style={{fontSize: '1.25em'}}>Final:</div>}
+          <div className='row match-row'>
+            {lastMatches[0] && <div className='align-self-center col-2 ' style={{fontSize: '1.25em'}}>Final:</div>}
             {highGridMatches && highGridMatches.map(match => (
             <div className='col col-lg-2 border-white border-secondary mx-5' key={match.id + 'blank'}/>
             ))}
@@ -60,8 +60,8 @@ const TournamentInfo = () => {
             ))}
           </div>
 
-          <div className='row'>
-            {lowGridMatches[0] && <div className='align-self-center col-md-auto ' style={{fontSize: '1.25em'}}>Low grid:</div>}
+          <div className='row match-row'>
+            {lowGridMatches[0] && <div className='align-self-center col-2 ' style={{fontSize: '1.25em'}}>Low grid:</div>}
             {lowGridMatches && lowGridMatches.map(match => (
 
             <MatchElement match={match} engagedTeams={engagedTeams} key={match.id}/>

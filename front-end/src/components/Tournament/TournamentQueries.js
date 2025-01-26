@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { editQuery, fetchQueries, fetchQueryTeams,   } from '../../redux/actions/queryActions.js';
 import { generateGrid, fetchTournamentById } from '../../redux/actions/tournamentActions.js';
 import Error from '../Error.js'
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 
 const TournamentQueries = () => {
   const params = useParams()
+  const navigate = useNavigate()
 
   const dispatch = useDispatch();
   const queries = useSelector(state => state.query.queries);
@@ -24,8 +25,11 @@ const TournamentQueries = () => {
      dispatch(editQuery(id, tournamentId, body))
   }
 
-  function handleBeginTournament(){
-    dispatch(generateGrid(params.id))
+  async function handleBeginTournament(){
+    const result = await dispatch(generateGrid(params.id))
+
+    //console.log(result)
+    if(result.message) navigate(`/tournament/${params.id}`)
   }
 
 //console.log(queryTeams)
@@ -37,11 +41,9 @@ const TournamentQueries = () => {
         <h2 className='text-dark m-2'>Queries</h2>
 
         {tournament && !tournament.is_began && queries.filter(item => item.status == true).length > 1 &&
-        <Link to={`/tournament/${params.id}`} onClick={() => {handleBeginTournament()}}>
-          <button className="btn btn-outline-dark btn-lg px-3 m-2">
+          <button onClick={() => {handleBeginTournament()}} className="btn btn-outline-dark btn-lg px-3 m-2">
             Begin tournament
           </button>
-        </Link>
         }
 
           {queries[0] && queryTeams[0] && queries.map(query => (

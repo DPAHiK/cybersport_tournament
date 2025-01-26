@@ -18,8 +18,11 @@ class MatchService{
         return MatchRepository.update(id, userData);
     }
 
-    async create(userData){
-        return MatchRepository.create(userData);
+    async create(matchData){
+        if(matchData.team1_id === null) matchData.is_team1_winer = false
+        if(matchData.team2_id === null) matchData.is_team1_winer = true
+        
+        return MatchRepository.create(matchData);
     }
 
     async delete(id){
