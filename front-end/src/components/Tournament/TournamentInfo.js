@@ -26,6 +26,8 @@ const TournamentInfo = () => {
   const lowGridMatches = matches.filter(match => match.grid_level == 1)
   const lastMatches = matches.filter(match => match.grid_level == 0)
 
+  //console.log(matches)
+  //console.log(engagedTeams)
 
   if(tournament) return (
     <div>

@@ -12,7 +12,7 @@ class TeamRepository{
     
     async findProfilesByTournamentId(tournamentId){
         const [results, metadata] = await sequelize.query(
-            "SELECT teams.name FROM teams, engaged_teams WHERE engaged_teams.tournament_id = " + tournamentId + " and engaged_teams.team_id = teams.id"
+            "SELECT teams.id, teams.name FROM teams, engaged_teams WHERE engaged_teams.tournament_id = " + tournamentId + " and engaged_teams.team_id = teams.id"
           )
 
         return results

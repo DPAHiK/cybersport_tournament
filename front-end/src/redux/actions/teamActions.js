@@ -77,7 +77,8 @@ export const fetchTeamMembers = (id) => {
       let responseIds = await axios.get(`${API_URL}${id}/member`);
       const responseProfile = await axios.get(`${API_URL}${id}/member/profile`);
       
-      for (let i = 0; i < responseIds.data.length; i++) responseIds.data[i].name = responseProfile.data[i].name
+      responseIds.data.map(item => {item.name = responseProfile.data.find(profile => profile.id == item.user_id).name;
+        return item})
       
       dispatch(setTeamMembers(responseIds.data));
       dispatch(setError(null))
