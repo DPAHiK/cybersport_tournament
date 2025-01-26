@@ -19,8 +19,10 @@ class MatchService{
     }
 
     async create(matchData){
-        if(matchData.team1_id === null) matchData.is_team1_winer = false
-        if(matchData.team2_id === null) matchData.is_team1_winer = true
+        if(!matchData.team1_id) matchData.is_team1_winner = false
+        if(!matchData.team2_id) matchData.is_team1_winner = true
+
+        console.log(matchData)
         
         return MatchRepository.create(matchData);
     }

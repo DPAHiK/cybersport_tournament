@@ -20,13 +20,11 @@ const MacthScheme = {
 
         team1_id: Joi.number()
         .integer()
-        .min(0)
-        .required(),
+        .min(1),
 
         team2_id: Joi.number()
         .integer()
-        .min(0)
-        .required()
+        .min(1)
 
     }),
 
