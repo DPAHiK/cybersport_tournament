@@ -4,7 +4,8 @@ import { fetchEngagedTeams, fetchMatches, fetchTournamentById } from '../../redu
 import Error from '../Error.js'
 import { Link, useParams } from 'react-router-dom';
 import MatchElement from './MatchElement.js';
-import TournamentResults from './TournamentResults.js';
+import { formatDate } from '../check.js';
+
 
 const TournamentInfo = () => {
 
@@ -26,15 +27,19 @@ const TournamentInfo = () => {
   const lowGridMatches = matches.filter(match => match.grid_level == 1)
   const lastMatches = matches.filter(match => match.grid_level == 0)
 
-  //console.log(matches)
-  //console.log(engagedTeams)
 
   if(tournament) return (
     <div>
       <Error body={error}/>
 
       <div className='container mt-2'>
-        <h2 className='m-2'>{tournament.title}</h2>  
+        <div className='row'>
+          <h2 className='m-2 col'>{tournament.title}</h2>
+          <div className='col text-end' style={{fontSize: '1.25em'}}>
+            {formatDate(tournament.start_date) + ' - ' + formatDate(tournament.end_date)}
+          </div>  
+        </div>
+
         <div className='container match-container'>
           <Link to='result'>
             <button className="btn btn-outline-dark btn-lg m-2">

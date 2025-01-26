@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { formatDate } from '../check.js';
 
 const MatchElement = (props) => {
 
@@ -29,7 +30,7 @@ const MatchElement = (props) => {
     engagedTeams.find(team => team.team_id == match.team2_id).name}
     </h4>
 
-    <p className="mt-3 text-center">{match.start_date}</p>
+    <p className="mt-3 text-center">{formatDate(match.start_date)}</p>
 
     <p className="mt-3 text-center">
       <Link to={`match/${match.id}`}>

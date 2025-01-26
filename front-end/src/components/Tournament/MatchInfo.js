@@ -3,7 +3,7 @@ import {  useDispatch, useSelector } from 'react-redux';
 import {  fetchMatches, fetchEngagedTeams, fetchTournamentById, updateMatch, removeMatch } from '../../redux/actions/tournamentActions.js';
 import Error from '../Error.js'
 import { Link, useParams } from 'react-router-dom';
-import { checkRole } from '../check.js';
+import { checkRole, formatDate } from '../check.js';
 
 const MatchInfo = () => {
 
@@ -58,7 +58,7 @@ const MatchInfo = () => {
         <div className='col col-lg-2 text-center align-items-center' >
             <h6 className="my-2">vs</h6>
 
-            <p className="mt-3">{match.start_date}</p>
+            <p className="mt-3">{formatDate(match.start_date)}</p>
             <Link to={`/tournament/${params.id}`}>
               <button className="btn btn-outline-danger btn-lg m-3" onClick={() => handleDelete()}>Delete</button>
             </Link>
@@ -95,7 +95,7 @@ const MatchInfo = () => {
         <div className='col col-lg-2 text-center align-items-center' >
             <h6 className="my-2">vs</h6>
 
-            <p className="mt-3">{match.start_date}</p>
+            <p className="mt-3">{formatDate(match.start_date)}</p>
         </div>
 
         <div className='col col-lg-2 text-center' >
