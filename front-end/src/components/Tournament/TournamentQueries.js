@@ -40,6 +40,11 @@ const TournamentQueries = () => {
       <div className='container mt-2' >
         <h2 className='text-dark m-2'>Queries</h2>
 
+        <Link to='/' className='col text-start'>
+          <button className='btn btn-outline-dark btn-lg m-3'>
+            Back
+          </button>
+        </Link>
         {tournament && !tournament.is_began && queries.filter(item => item.status == true).length > 1 &&
           <button onClick={() => {handleBeginTournament()}} className="btn btn-outline-dark btn-lg px-3 m-2">
             Begin tournament

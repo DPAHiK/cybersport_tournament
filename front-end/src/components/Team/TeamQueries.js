@@ -32,6 +32,12 @@ console.log(queries)
       <div className='container mt-2'>
       <h2 className='text-dark m-2'>Queries</h2>
 
+        <Link to='/team' className='col text-start'>
+          <button className='btn btn-outline-dark btn-lg m-3'>
+            Back
+          </button>
+        </Link>
+
         {queries[0] && queries.map(query => (
           <div key={query.id} className='row align-items-center '>
             <div className='col ' style={{fontSize: '1.25em'}}>
